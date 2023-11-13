@@ -1,0 +1,27 @@
+{
+  "id": "optifabric",
+  "name": "OptiFabric",
+  "description": "OptiFabric is a mod that loads OptiFine into Fabric",
+  "website": "https://github.com/Chocohead/OptiFabric",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [
+    {
+      "name": "obfuscated-naming-patches",
+      "description": "Patches to classes in obfuscated naming are not applied because OptiFabric expects net/minecraft prefixed files",
+      "affectedVersions": "1.16.5<*",
+      "impact": "HIGH",
+      "playable": false,
+      "fixed": false
+    },
+    {
+      "name": "keyboard-fix-transformer",
+      "description": "The keyboard fix transformer only works with intermediary mappings",
+      "affectedVersions": "1.16.5<*",
+      "impact": "HIGH",
+      "playable": false,
+      "fixed": false
+    }
+  ]
+}

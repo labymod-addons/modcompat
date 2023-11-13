@@ -1,7 +1,7 @@
 {
   "example": {
     "settings": {
-      "name": "ExampleAddon",
+      "name": "Mod Compat",
       "enabled": {
         "name": "Enabled"
       }

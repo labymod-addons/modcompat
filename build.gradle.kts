@@ -1,23 +1,26 @@
+import net.labymod.gradle.core.addon.info.AddonMeta
+
 plugins {
     id("java-library")
     id("net.labymod.gradle")
     id("net.labymod.gradle.addon")
 }
 
-group = "org.example"
-version = "1.0.0"
+group = "net.labymod.addons"
+version = "0.0.1"
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 
 labyMod {
-    defaultPackageName = "org.example" //change this to your main package name (used by all modules)
+    defaultPackageName = "net.labymod.addons.modcompat"
     addonInfo {
-        namespace = "example"
-        displayName = "ExampleAddon"
-        author = "Example Author"
-        description = "Example Description"
+        namespace = "modcompat"
+        displayName = "Mod Compat"
+        author = "LabyMod"
+        description = "LabyMod mod compatibility for external mods"
         minecraftVersion = "*"
-        version = System.getenv().getOrDefault("VERSION", "0.0.1")
+        version = System.getenv().getOrDefault("VERSION", project.version.toString())
+        meta(AddonMeta.HIDDEN)
     }
 
     minecraft {
@@ -37,14 +40,20 @@ labyMod {
         }
 
         subprojects.forEach {
-            if (it.name != "game-runner") {
+            if (it.name != "game-runner" && it.parent?.name != "mod-issues") {
                 filter(it.name)
             }
         }
     }
 
     addonDev {
-        productionRelease()
+        internalRelease()
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
     }
 }
 
@@ -65,18 +74,13 @@ fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionPro
         jvmArgs("-Dnet.labymod.running-version=${gameVersion}")
         jvmArgs("-Dmixin.debug=true")
         jvmArgs("-Dnet.labymod.debugging.all=true")
-        jvmArgs("-Dmixin.env.disableRefMap=true")
 
         args("--tweakClass", "net.labymod.core.loader.vanilla.launchwrapper.LabyModLaunchWrapperTweaker")
         args("--labymod-dev-environment", "true")
         args("--addon-dev-environment", "true")
     }
 
-    provider.javaVersion = when (gameVersion) {
-        else -> {
-            JavaVersion.VERSION_17
-        }
-    }
+    provider.javaVersion = JavaVersion.VERSION_17;
 
     provider.mixin {
         val mixinMinVersion = when (gameVersion) {
