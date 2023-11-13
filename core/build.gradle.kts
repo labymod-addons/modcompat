@@ -4,6 +4,7 @@ import com.google.gson.JsonParser
 import java.io.FileReader
 import java.io.FileWriter
 import java.nio.charset.StandardCharsets
+import java.nio.file.Files
 
 version = "0.1.0"
 
@@ -39,8 +40,9 @@ tasks.register("buildIndex") {
             }
         }
 
-        FileWriter(project.buildDir.resolve("resources/main/index.json"))
-                .use { gson.toJson(index, it) }
+        val resourcesDir = project.buildDir.resolve("resources/main/")
+        Files.createDirectories(resourcesDir.toPath())
+        FileWriter(resourcesDir.resolve("index.json")).use { gson.toJson(index, it) }
     }
 }
 
