@@ -3,11 +3,15 @@ package net.labymod.addons.modcompat.launch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import net.labymod.addons.modcompat.ModCompat;
 import net.labymod.addons.modcompat.mod.DefaultIncompatibleMod;
 import net.labymod.addons.modcompat.mod.DefaultIncompatibleModRegistry;
+import net.labymod.addons.modcompat.mod.IncompatibleMod;
 import net.labymod.addons.modcompat.mod.IncompatibleModRegistry;
 import net.labymod.api.Laby;
 import net.labymod.api.addon.entrypoint.Entrypoint;
@@ -38,7 +42,7 @@ public class ModCompatEntrypoint implements Entrypoint {
   public void initialize(Version version) {
     ModCompat.init(new DefaultIncompatibleModRegistry());
 
-    /*try (InputStream inputStream = this.getClass().getClassLoader()
+    try (InputStream inputStream = this.getClass().getClassLoader()
         .getResourceAsStream(INDEX_PATH)) {
       if (inputStream == null) {
         throw new RuntimeException("Mod compat index was not found on the classpath");
@@ -49,14 +53,14 @@ public class ModCompatEntrypoint implements Entrypoint {
 
         for (IncompatibleMod incompatibleMod : modCompatIndex) {
           ModCompat.instance().incompatibleModRegistry().register(
-              incompatibleMod.id(),
+              incompatibleMod.getId(),
               incompatibleMod
           );
         }
       }
     } catch (IOException exception) {
       throw new RuntimeException("Failed to read mod compat index", exception);
-    }*/
+    }
 
     Laby.references().eventBus().registerListener(this);
   }

@@ -39,7 +39,7 @@ public class ModCompatMixinConfigPlugin implements IMixinConfigPlugin {
 
   @Override
   public List<String> getMixins() {
-    return Laby.fireEvent(new MixinAdditionalMixinsEvent(new ArrayList<>())).additionalMixins();
+    return Laby.fireEvent(new MixinAdditionalMixinsEvent(new ArrayList<>())).getAdditionalMixins();
   }
 
   @Override
