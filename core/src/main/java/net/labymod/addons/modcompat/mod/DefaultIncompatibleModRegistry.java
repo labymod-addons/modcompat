@@ -1,6 +1,7 @@
 package net.labymod.addons.modcompat.mod;
 
 import net.labymod.addons.modcompat.mod.issue.ModIssue;
+import net.labymod.api.Laby;
 import net.labymod.api.service.DefaultRegistry;
 
 public class DefaultIncompatibleModRegistry
@@ -16,6 +17,11 @@ public class DefaultIncompatibleModRegistry
     }
 
     for (ModIssue issue : incompatibleMod.getIssues()) {
+      if (!issue.affectedVersions().isCompatible(Laby.labyAPI().labyModLoader().version())) {
+        // The issue is not relevant in this Minecraft version
+        continue;
+      }
+
       if (!issue.isPlayable() && !issue.isFixed()) {
         // There is at least one unfixed issue which affects playability
         return false;

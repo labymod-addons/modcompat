@@ -1,0 +1,20 @@
+{
+  "id": "replaymod",
+  "name": "Replay Mod",
+  "description": "A Mod which allows you to record, replay and share your Minecraft experience.",
+  "website": "https://replaymod.com",
+  "modLoaders": [
+    "fabricloader",
+    "forge"
+  ],
+  "issues": [
+    {
+      "name": "pause-menu-buttons",
+      "description": "Because of ReplayMods own gui framework, their buttons overlap in the pause menu",
+      "affectedVersions": "1.8.9>*",
+      "impact": "HIGH",
+      "playable": true,
+      "fixed": true
+    }
+  ]
+}

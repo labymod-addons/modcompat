@@ -20,7 +20,7 @@ labyMod {
         description = "LabyMod mod compatibility for external mods"
         minecraftVersion = "*"
         version = System.getenv().getOrDefault("VERSION", project.version.toString())
-        meta(AddonMeta.HIDDEN)
+        //meta(AddonMeta.HIDDEN)
     }
 
     minecraft {
@@ -72,7 +72,7 @@ fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionPro
     provider.runConfiguration {
         mainClass = "net.minecraft.launchwrapper.Launch"
         jvmArgs("-Dnet.labymod.running-version=${gameVersion}")
-        jvmArgs("-Dmixin.debug=true")
+        //jvmArgs("-Dmixin.debug=true")
         jvmArgs("-Dnet.labymod.debugging.all=true")
 
         args("--tweakClass", "net.labymod.core.loader.vanilla.launchwrapper.LabyModLaunchWrapperTweaker")
