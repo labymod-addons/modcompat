@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface IncompatibleMod {
 
-  String getId();
+  Collection<String> getIds();
 
   String getName();
 

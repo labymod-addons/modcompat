@@ -5,7 +5,7 @@ import net.labymod.addons.modcompat.mod.issue.DefaultModIssue;
 
 public class DefaultIncompatibleMod implements IncompatibleMod {
 
-  private final String id;
+  private final Collection<String> ids;
   private final String name;
   private final String description;
   private final String website;
@@ -13,14 +13,14 @@ public class DefaultIncompatibleMod implements IncompatibleMod {
   private final Collection<DefaultModIssue> issues;
 
   public DefaultIncompatibleMod(
-      String id,
+      Collection<String> ids,
       String name,
       String description,
       String website,
       Collection<String> modLoaders,
       Collection<DefaultModIssue> issues
   ) {
-    this.id = id;
+    this.ids = ids;
     this.name = name;
     this.description = description;
     this.website = website;
@@ -29,8 +29,8 @@ public class DefaultIncompatibleMod implements IncompatibleMod {
   }
 
   @Override
-  public String getId() {
-    return this.id;
+  public Collection<String> getIds() {
+    return this.ids;
   }
 
   @Override

@@ -52,10 +52,12 @@ public class ModCompatEntrypoint implements Entrypoint {
         Collection<IncompatibleMod> modCompatIndex = GSON.fromJson(reader, INDEX_TYPE);
 
         for (IncompatibleMod incompatibleMod : modCompatIndex) {
-          ModCompat.instance().incompatibleModRegistry().register(
-              incompatibleMod.getId(),
-              incompatibleMod
-          );
+          for (String id : incompatibleMod.getIds()) {
+            ModCompat.instance().incompatibleModRegistry().register(
+                id,
+                incompatibleMod
+            );
+          }
         }
       }
     } catch (IOException exception) {

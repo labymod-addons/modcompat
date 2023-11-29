@@ -1,0 +1,19 @@
+{
+  "ids": ["vulkanmod"],
+  "name": "VulkanMod",
+  "description": "Bring Vulkan to Minecraft!",
+  "website": "https://github.com/xCollateral/VulkanMod",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [
+    {
+      "name": "vulkan",
+      "description": "LabyMod explicitly uses OpenGL and is not compatible with Vulkan",
+      "affectedVersions": "*",
+      "impact": "HIGH",
+      "playable": false,
+      "fixed": false
+    }
+  ]
+}

@@ -20,7 +20,7 @@ labyMod {
         description = "LabyMod mod compatibility for external mods"
         minecraftVersion = "*"
         version = System.getenv().getOrDefault("VERSION", project.version.toString())
-        //meta(AddonMeta.HIDDEN)
+        meta(AddonMeta.HIDDEN)
     }
 
     minecraft {
@@ -47,7 +47,7 @@ labyMod {
     }
 
     addonDev {
-        internalRelease()
+        snapshotRelease()
     }
 }
 

@@ -1,0 +1,17 @@
+{
+  "ids": ["continuity"],
+  "name": "Continuity",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [
+    {
+      "name": "lvt-mixin",
+      "description": "Uses a Mixin with LVT, Minecrafts LVT differs from the Fabric one",
+      "affectedVersions": "*",
+      "impact": "HIGH",
+      "playable": false,
+      "fixed": false
+    }
+  ]
+}

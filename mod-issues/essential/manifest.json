@@ -1,0 +1,18 @@
+{
+  "ids": ["essential", "essential-loader", "essential-container"],
+  "name": "Essential",
+  "modLoaders": [
+    "fabricloader",
+    "forge"
+  ],
+  "issues": [
+    {
+      "name": "essential-remap",
+      "description": "Essential tries to remap itself to intermediary, which fails in context with LabyMod",
+      "affectedVersions": "1.16.5<*",
+      "impact": "HIGH",
+      "playable": false,
+      "fixed": false
+    }
+  ]
+}

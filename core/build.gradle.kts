@@ -15,6 +15,7 @@ plugins {
 dependencies {
     api(project(":api"))
     labyApi("core")
+    labyApi("loader-vanilla-launchwrapper")
 }
 
 labyModProcessor {
