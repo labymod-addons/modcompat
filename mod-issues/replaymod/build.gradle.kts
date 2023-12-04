@@ -4,8 +4,13 @@ plugins {
     id("java-library")
 }
 
+repositories {
+    maven("https://api.modrinth.com/maven")
+}
+
 dependencies {
     api(project(":core"))
+    compileOnly("maven.modrinth:replaymod:1.20.1-2.6.13")
 }
 
 labyModProcessor {

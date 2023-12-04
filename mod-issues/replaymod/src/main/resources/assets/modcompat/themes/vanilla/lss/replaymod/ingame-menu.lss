@@ -1,0 +1,15 @@
+.toggle-pause-button {
+  left: 23;
+  top: 130;
+  width: 98;
+  height: 20;
+  padding: 0;
+}
+
+.toggle-stop-button {
+  right: 23;
+  top: 130;
+  width: 98;
+  height: 20;
+  padding: 0;
+}

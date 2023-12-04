@@ -9,6 +9,8 @@ import net.labymod.api.models.addon.annotation.AddonMain;
 @Singleton
 public class ModCompatAddon extends LabyAddon<ModCompatConfiguration> {
 
+  public static final String NAMESPACE = "modcompat";
+
   @Override
   protected void enable() {
   }

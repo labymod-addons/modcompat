@@ -1,4 +1,4 @@
-package net.labymod.addons.modcompat.replaymod;
+package net.labymod.addons.modcompat.replaymod.transformer;
 
 import net.labymod.api.volt.asm.tree.InsnListBuilder;
 import net.labymod.api.volt.asm.util.ASMHelper;

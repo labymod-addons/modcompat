@@ -1,7 +1,6 @@
 package net.labymod.addons.modcompat.mod.fix;
 
 import net.labymod.api.addon.entrypoint.Entrypoint;
-import net.labymod.api.models.version.Version;
 import net.labymod.api.modloader.ModLoader;
 import net.labymod.api.modloader.ModLoaderRegistry;
 import net.labymod.api.modloader.mod.ModInfo;
@@ -38,14 +37,4 @@ public abstract class ModFixEntrypoint implements Entrypoint {
   public boolean isModLoaded() {
     return this.modLoaded;
   }
-
-  @Override
-  public void initialize(Version version) {
-    // Only initialize fixer if the target mod is loaded
-    if (this.modLoaded) {
-      this.initializeFixer(version);
-    }
-  }
-
-  protected abstract void initializeFixer(Version version);
 }
