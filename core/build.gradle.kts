@@ -33,7 +33,7 @@ tasks.register("buildIndex") {
         val gson = GsonBuilder().create()
         val index = JsonArray()
 
-        fileTree("${project.parent?.projectDir}/mod-issues/") {
+        fileTree("${rootProject.projectDir}/mod-issues/") {
             include("**/manifest.json")
         }.forEach { file ->
             FileReader(file, StandardCharsets.UTF_8).use {
