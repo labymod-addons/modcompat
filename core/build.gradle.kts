@@ -29,7 +29,7 @@ java {
 
 
 tasks.register("buildIndex") {
-    doFirst {
+    doLast {
         val gson = GsonBuilder().create()
         val index = JsonArray()
 
@@ -47,6 +47,6 @@ tasks.register("buildIndex") {
     }
 }
 
-tasks.compileJava {
-    dependsOn(tasks["buildIndex"])
+tasks.processResources {
+    finalizedBy(tasks["buildIndex"])
 }
