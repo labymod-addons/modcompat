@@ -1,4 +1,5 @@
 import net.labymod.gradle.core.addon.info.AddonMeta
+import net.labymod.gradle.core.dsl.getClientRepository
 
 plugins {
     id("java-library")
@@ -34,13 +35,14 @@ labyMod {
                 "1.19.3",
                 "1.19.4",
                 "1.20.1",
-                "1.20.2"
+                "1.20.2",
+                "1.20.3"
         ) { version, provider ->
             configureRun(provider, version)
         }
 
         subprojects.forEach {
-            if (it.name != "game-runner" && it.parent?.name != "mod-issues") {
+            if (it.name != "game-runner" && it.parent?.name != "mod-compatibility") {
                 filter(it.name)
             }
         }
@@ -74,6 +76,10 @@ fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionPro
         jvmArgs("-Dnet.labymod.running-version=${gameVersion}")
         //jvmArgs("-Dmixin.debug=true")
         jvmArgs("-Dnet.labymod.debugging.all=true")
+
+        val obfuscatedClientJar = getClientRepository(gameVersion).resolve("client-$gameVersion-obfuscated.jar")
+        jvmArgs("-Doptifabric.mc-jar=${obfuscatedClientJar.toAbsolutePath()}")
+        jvmArgs("-Doptifabric.extract=true")
 
         args("--tweakClass", "net.labymod.core.loader.vanilla.launchwrapper.LabyModLaunchWrapperTweaker")
         args("--labymod-dev-environment", "true")

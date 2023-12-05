@@ -23,10 +23,10 @@ plugins.apply("net.labymod.gradle")
 
 include(":api")
 include(":core")
-include(":mod-issues")
+include(":mod-compatibility")
 
-findProject(":mod-issues")?.projectDir?.listFiles()?.forEach {
+findProject(":mod-compatibility")?.projectDir?.listFiles()?.forEach {
     if (it.isDirectory && it.name != "src") {
-        include(":mod-issues:${it.name}")
+        include(":mod-compatibility:${it.name}")
     }
 }
