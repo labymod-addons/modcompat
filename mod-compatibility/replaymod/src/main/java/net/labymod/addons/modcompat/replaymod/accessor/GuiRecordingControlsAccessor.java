@@ -61,7 +61,7 @@ public class GuiRecordingControlsAccessor {
 
       return Reflection.invokeGetterField(this.guiRecordingControls, field);
     } catch (NoSuchFieldException exception) {
-      throw new IllegalStateException("Failed to access button. Did ReplayMod change", exception);
+      throw new IllegalStateException("Failed to access button. Did ReplayMod change?", exception);
     }
   }
 

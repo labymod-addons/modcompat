@@ -2,6 +2,7 @@ package net.labymod.addons.modcompat.replaymod.launch;
 
 import net.labymod.addons.modcompat.mod.fix.ModFixEntrypoint;
 import net.labymod.addons.modcompat.replaymod.listener.IngameMenuListener;
+import net.labymod.addons.modcompat.replaymod.listener.IngameOverlayListener;
 import net.labymod.addons.modcompat.replaymod.listener.MainMenuListener;
 import net.labymod.api.Laby;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint;
@@ -23,5 +24,6 @@ public class ReplayModEnableEntrypoint extends ModFixEntrypoint {
 
     Laby.labyAPI().eventBus().registerListener(new IngameMenuListener());
     Laby.labyAPI().eventBus().registerListener(new MainMenuListener());
+    Laby.labyAPI().eventBus().registerListener(new IngameOverlayListener());
   }
 }

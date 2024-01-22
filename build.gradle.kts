@@ -36,7 +36,7 @@ labyMod {
                 "1.19.4",
                 "1.20.1",
                 "1.20.2",
-                "1.20.3"
+                "1.20.4"
         ) { version, provider ->
             configureRun(provider, version)
         }
@@ -74,7 +74,7 @@ fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionPro
     provider.runConfiguration {
         mainClass = "net.minecraft.launchwrapper.Launch"
         jvmArgs("-Dnet.labymod.running-version=${gameVersion}")
-        //jvmArgs("-Dmixin.debug=true")
+        // jvmArgs("-Dmixin.debug=true")
         jvmArgs("-Dnet.labymod.debugging.all=true")
 
         val obfuscatedClientJar = getClientRepository(gameVersion).resolve("client-$gameVersion-obfuscated.jar")
@@ -86,7 +86,7 @@ fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionPro
         args("--addon-dev-environment", "true")
     }
 
-    provider.javaVersion = JavaVersion.VERSION_17;
+    provider.javaVersion = JavaVersion.VERSION_17
 
     provider.mixin {
         val mixinMinVersion = when (gameVersion) {

@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     api(project(":core"))
-    compileOnly("maven.modrinth:replaymod:1.20.1-2.6.13")
+    compileOnly("maven.modrinth:replaymod:1.20.4-2.6.14")
 }
 
 labyModProcessor {
