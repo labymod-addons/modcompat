@@ -81,6 +81,8 @@ fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionPro
         jvmArgs("-Doptifabric.mc-jar=${obfuscatedClientJar.toAbsolutePath()}")
         jvmArgs("-Doptifabric.extract=true")
 
+        jvmArgs("-Dnet.minecraftforge.gradle.GradleStart.srg.srg-mcp=${project.getClientRepository(gameVersion).resolve("client-${gameVersion}-mappings.txt")}")
+
         args("--tweakClass", "net.labymod.core.loader.vanilla.launchwrapper.LabyModLaunchWrapperTweaker")
         args("--labymod-dev-environment", "true")
         args("--addon-dev-environment", "true")
@@ -100,5 +102,7 @@ fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionPro
         }
 
         minVersion = mixinMinVersion
+
+        //extraMappings.add(file("./game-runner/mappings/shared.tsrg"))
     }
 }

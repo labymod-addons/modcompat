@@ -1,9 +1,15 @@
 {
-  "example": {
+  "modcompat": {
     "settings": {
       "name": "Mod Compat",
       "enabled": {
         "name": "Enabled"
+      }
+    },
+    "hudWidgetCategory": {
+      "skyblockaddons": {
+        "name": "SkyblockAddons",
+        "description": "Gui features from SkyblockAddons"
       }
     }
   }
