@@ -5,11 +5,25 @@
       "enabled": {
         "name": "Enabled"
       }
-    },
+    }
+  },
+  "labymod": {
     "hudWidgetCategory": {
       "skyblockaddons": {
         "name": "SkyblockAddons",
         "description": "Gui features from SkyblockAddons"
+      }
+    }
+  },
+  "skyblockaddons": {
+    "hudWidget": {
+      "color": {
+        "name": "Color",
+        "description": "The color of the feature"
+      },
+      "chroma": {
+        "name": "Chroma",
+        "description": "Whether the color should be chroma"
       }
     }
   }

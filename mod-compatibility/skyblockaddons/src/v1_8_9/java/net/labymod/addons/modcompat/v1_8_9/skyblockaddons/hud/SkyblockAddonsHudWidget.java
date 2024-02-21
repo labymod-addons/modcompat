@@ -4,18 +4,27 @@ import codes.biscuit.skyblockaddons.SkyblockAddons;
 import codes.biscuit.skyblockaddons.config.ConfigValues;
 import codes.biscuit.skyblockaddons.core.Feature;
 import codes.biscuit.skyblockaddons.gui.buttons.ButtonLocation;
+import codes.biscuit.skyblockaddons.utils.ColorCode;
 import codes.biscuit.skyblockaddons.utils.Utils;
 import com.mojang.authlib.GameProfile;
 import java.lang.reflect.Field;
 import java.util.UUID;
-import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.VersionedSkyblockAddonsEntrypoint;
+import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.FeatureDrawContext;
+import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.SkyblockAddonsFeatureSync;
+import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.hud.SkyblockAddonsHudWidget.SkyblockAddonsHudWidgetConfig;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.SimpleHudWidget;
+import net.labymod.api.client.gui.hud.position.HorizontalHudWidgetAlignment;
 import net.labymod.api.client.gui.hud.position.HudSize;
 import net.labymod.api.client.gui.mouse.MutableMouse;
+import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
+import net.labymod.api.client.gui.screen.widget.widgets.input.color.ColorPickerWidget.ColorPickerSetting;
 import net.labymod.api.client.render.matrix.Stack;
+import net.labymod.api.configuration.loader.property.ConfigProperty;
+import net.labymod.api.configuration.settings.annotation.CustomTranslation;
+import net.labymod.api.configuration.settings.annotation.SettingRequires;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.gui.hud.HudWidgetCreatedEvent;
 import net.labymod.api.event.client.gui.hud.HudWidgetDestroyedEvent;
@@ -27,7 +36,7 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 
-public class SkyblockAddonsHudWidget extends SimpleHudWidget<HudWidgetConfig> {
+public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWidgetConfig> {
 
   private static final WorldClient DUMMY_WORLD = Utils.getDummyWorld();
   private static final EntityPlayerSP DUMMY_PLAYER = new EntityPlayerSP(
@@ -46,8 +55,9 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<HudWidgetConfig> {
   private final Feature feature;
 
   public SkyblockAddonsHudWidget(Feature feature) {
-    super("skyblockaddons" + feature.getId(), HudWidgetConfig.class);
-    super.bindCategory(VersionedSkyblockAddonsEntrypoint.SKYBLOCK_ADDONS_CATEGORY);
+    super("skyblockaddons" + feature.getId(), SkyblockAddonsHudWidgetConfig.class);
+
+    super.bindCategory(SkyblockAddonsFeatureSync.SKYBLOCK_ADDONS_CATEGORY);
     this.feature = feature;
 
     // TODO: add option to change display name of hud widget in LabyMod?
@@ -82,7 +92,7 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<HudWidgetConfig> {
   }
 
   @Override
-  public void load(HudWidgetConfig config) {
+  public void load(SkyblockAddonsHudWidgetConfig config) {
     super.load(config);
 
     // Sync position if the widget has not been created before
@@ -97,10 +107,27 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<HudWidgetConfig> {
         case BOTTOM_MIDDLE -> RectangleAreaPosition.BOTTOM_CENTER;
       };
 
+      config.horizontalAlignment().set(HorizontalHudWidgetAlignment.CENTER);
       config.setAreaIdentifier(areaPosition);
 
       config.setX(configValues.getRelativeCoords(this.feature).getX());
       config.setY(configValues.getRelativeCoords(this.feature).getY());
+    }
+
+    // Sync changes from hud widget settings to the feature
+    ColorCode defaultColor = this.feature.getDefaultColor();
+
+    config.color().visibilitySupplier(() -> defaultColor != null);
+    config.chroma().visibilitySupplier(() -> defaultColor != null);
+
+    if (defaultColor != null) {
+      config.color().updateDefaultValue(defaultColor.getColor());
+      config.color().addChangeListener(
+          value -> this.main.getConfigValues().setColor(this.feature, value)
+      );
+      config.chroma().addChangeListener(
+          value -> this.main.getConfigValues().setChroma(this.feature, value)
+      );
     }
   }
 
@@ -112,27 +139,33 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<HudWidgetConfig> {
       boolean isEditorContext,
       HudSize size
   ) {
+    if (stack == null) {
+      // TODO: Call render without stack too and disable rendering to get size info?
+      return;
+    }
+
+    FeatureDrawContext featureDrawContext = FeatureDrawContext.get();
+    featureDrawContext.setDrawnFeature(this.feature);
+    featureDrawContext.setEditor(isEditorContext);
+
     Minecraft minecraft = Minecraft.getMinecraft();
     ButtonLocation buttonLocation = isEditorContext ? new ButtonLocation(this.feature) : null;
 
-    // TODO: Call render without stack too and disable rendering to get size info
-    if (stack != null) {
-      if (isEditorContext && this.feature == Feature.DEFENCE_ICON) {
-        this.main.getRenderListener().drawIcon(1.0F, minecraft, buttonLocation);
-      } else {
-        this.preFeatureRender(minecraft);
-        this.feature.draw(1.0F, minecraft, buttonLocation);
-        this.postFeatureRender(minecraft);
-      }
-
-      // TODO: Obtain size without button location, otherwise the size is only known in the editor
-      if (buttonLocation != null) {
-        size.set(
-            buttonLocation.getBoxXTwo() - buttonLocation.getBoxXOne(),
-            buttonLocation.getBoxYTwo() - buttonLocation.getBoxYOne()
-        );
-      }
+    if (isEditorContext && this.feature == Feature.DEFENCE_ICON) {
+      this.main.getRenderListener().drawIcon(1.0F, minecraft, buttonLocation);
+    } else {
+      this.preFeatureRender(minecraft);
+      // TODO: Dungeon map is not properly displayed
+      this.feature.draw(1.0F, minecraft, buttonLocation);
+      this.postFeatureRender(minecraft);
     }
+
+    size.set(
+        (float) featureDrawContext.getWidth(),
+        (float) featureDrawContext.getHeight()
+    );
+
+    featureDrawContext.reset();
   }
 
   private void preFeatureRender(Minecraft minecraft) {
@@ -174,5 +207,27 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<HudWidgetConfig> {
         && this.main.getConfigValues().isEnabled(Feature.SHOW_FARM_EVENT_TIMER_IN_OTHER_GAMES);
 
     return this.main.getUtils().isOnSkyblock() || darkAuctionTimer || farmEventTimer;
+  }
+
+  public static class SkyblockAddonsHudWidgetConfig extends HudWidgetConfig {
+
+    @ColorPickerSetting
+    @SettingRequires(value = "chroma", invert = true)
+    @CustomTranslation("skyblockaddons.hudWidget.color")
+    private final ConfigProperty<Integer> color = new ConfigProperty<>(0);
+
+    @SwitchSetting
+    @CustomTranslation("skyblockaddons.hudWidget.chroma")
+    private final ConfigProperty<Boolean> chroma = new ConfigProperty<>(false);
+
+    // TODO: Chroma settings
+
+    public ConfigProperty<Integer> color() {
+      return this.color;
+    }
+
+    public ConfigProperty<Boolean> chroma() {
+      return this.chroma;
+    }
   }
 }
