@@ -16,7 +16,6 @@ import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.SimpleHudWidget;
-import net.labymod.api.client.gui.hud.position.HorizontalHudWidgetAlignment;
 import net.labymod.api.client.gui.hud.position.HudSize;
 import net.labymod.api.client.gui.mouse.MutableMouse;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
@@ -99,19 +98,52 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWi
     if (!config.isEnabled() && config.getX() == 0 && config.getY() == 0) {
       ConfigValues configValues = SkyblockAddons.getInstance().getConfigValues();
 
-      RectangleAreaPosition areaPosition = switch (configValues.getAnchorPoint(this.feature)) {
-        case TOP_LEFT -> RectangleAreaPosition.TOP_LEFT;
-        case TOP_RIGHT -> RectangleAreaPosition.TOP_RIGHT;
-        case BOTTOM_LEFT -> RectangleAreaPosition.BOTTOM_LEFT;
-        case BOTTOM_RIGHT -> RectangleAreaPosition.BOTTOM_RIGHT;
-        case BOTTOM_MIDDLE -> RectangleAreaPosition.BOTTOM_CENTER;
-      };
+      float x = configValues.getRelativeCoords(this.feature).getX();
+      float y = configValues.getRelativeCoords(this.feature).getY();
 
-      config.horizontalAlignment().set(HorizontalHudWidgetAlignment.CENTER);
+      // Gather dummy size information
+      HudSize hudSize = new HudSize(config);
+      this.updateSize(null, true, hudSize);
+
+      float shiftX = hudSize.getActualWidth() / 2.0F;
+      float shiftY = hudSize.getActualHeight() / 2.0F;
+
+      RectangleAreaPosition areaPosition;
+      switch (configValues.getAnchorPoint(this.feature)) {
+        case TOP_LEFT:
+          areaPosition = RectangleAreaPosition.TOP_LEFT;
+          x -= shiftX;
+          y -= shiftY;
+          break;
+        case TOP_RIGHT:
+          areaPosition = RectangleAreaPosition.TOP_RIGHT;
+          x += shiftX;
+          y -= shiftY;
+          break;
+        case BOTTOM_LEFT:
+          areaPosition = RectangleAreaPosition.BOTTOM_LEFT;
+          x -= shiftX;
+          y += shiftY;
+          break;
+        case BOTTOM_RIGHT:
+          areaPosition = RectangleAreaPosition.BOTTOM_RIGHT;
+          x += shiftX;
+          y += shiftY;
+          break;
+        case BOTTOM_MIDDLE:
+          areaPosition = RectangleAreaPosition.BOTTOM_CENTER;
+          y += shiftY;
+          break;
+        default:
+          throw new IllegalArgumentException();
+      }
+
       config.setAreaIdentifier(areaPosition);
 
-      config.setX(configValues.getRelativeCoords(this.feature).getX());
-      config.setY(configValues.getRelativeCoords(this.feature).getY());
+      config.setX(x);
+      config.setY(y);
+
+      config.scale().set(configValues.getGuiScale(this.feature));
     }
 
     // Sync changes from hud widget settings to the feature
@@ -139,26 +171,17 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWi
       boolean isEditorContext,
       HudSize size
   ) {
-    if (stack == null) {
-      // TODO: Call render without stack too and disable rendering to get size info?
-      return;
-    }
-
     FeatureDrawContext featureDrawContext = FeatureDrawContext.get();
     featureDrawContext.setDrawnFeature(this.feature);
-    featureDrawContext.setEditor(isEditorContext);
+    featureDrawContext.setNoRender(stack == null);
 
     Minecraft minecraft = Minecraft.getMinecraft();
     ButtonLocation buttonLocation = isEditorContext ? new ButtonLocation(this.feature) : null;
 
-    if (isEditorContext && this.feature == Feature.DEFENCE_ICON) {
-      this.main.getRenderListener().drawIcon(1.0F, minecraft, buttonLocation);
-    } else {
-      this.preFeatureRender(minecraft);
-      // TODO: Dungeon map is not properly displayed
-      this.feature.draw(1.0F, minecraft, buttonLocation);
-      this.postFeatureRender(minecraft);
-    }
+    this.preFeatureRender(minecraft);
+    // TODO: Dungeon map is not properly displayed
+    this.feature.draw(1.0F, minecraft, buttonLocation);
+    this.postFeatureRender(minecraft);
 
     size.set(
         (float) featureDrawContext.getWidth(),

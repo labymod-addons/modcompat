@@ -102,7 +102,5 @@ fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionPro
         }
 
         minVersion = mixinMinVersion
-
-        //extraMappings.add(file("./game-runner/mappings/shared.tsrg"))
     }
 }

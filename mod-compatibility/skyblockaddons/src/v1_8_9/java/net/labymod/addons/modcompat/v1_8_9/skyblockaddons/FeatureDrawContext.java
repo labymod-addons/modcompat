@@ -7,7 +7,7 @@ public class FeatureDrawContext {
   private static final FeatureDrawContext INSTANCE = new FeatureDrawContext();
 
   private Feature drawnFeature;
-  private boolean isEditor;
+  private boolean noRender;
   private int width;
   private int height;
 
@@ -17,7 +17,7 @@ public class FeatureDrawContext {
 
   public void reset() {
     this.drawnFeature = null;
-    this.isEditor = false;
+    this.noRender = false;
     this.width = 0;
     this.height = 0;
   }
@@ -34,12 +34,12 @@ public class FeatureDrawContext {
     this.drawnFeature = drawnFeature;
   }
 
-  public boolean isEditor() {
-    return this.isEditor;
+  public boolean isNoRender() {
+    return this.noRender;
   }
 
-  public void setEditor(boolean editor) {
-    isEditor = editor;
+  public void setNoRender(boolean noRender) {
+    this.noRender = noRender;
   }
 
   public int getWidth() {

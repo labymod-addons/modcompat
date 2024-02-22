@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Pseudo
 @Mixin(value = ConfigValues.class, remap = false)
-public class MixinSkyblockAddonsConfigValues implements ConfigValuesAccessor {
+public class MixinConfigValues implements ConfigValuesAccessor {
 
   @Shadow
   @Final

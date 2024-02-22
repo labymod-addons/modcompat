@@ -20,5 +20,6 @@ public class VersionedSkyblockAddonsEntrypoint extends ModFixEntrypoint {
     }
 
     Laby.labyAPI().eventBus().registerListener(new SkyblockAddonsFeatureSync());
+    // TODO: add settings when an addon with namespace "skyblockaddons" is present
   }
 }

@@ -22,7 +22,10 @@ public class SkyblockAddonsFeatureSync {
 
   public SkyblockAddonsFeatureSync() {
     Laby.labyAPI().hudWidgetRegistry().categoryRegistry().register(SKYBLOCK_ADDONS_CATEGORY);
+    this.registerHudWidgets();
+  }
 
+  public void registerHudWidgets() {
     for (Feature guiFeature : Feature.getGuiFeatures()) {
       if (guiFeature.getGuiFeatureData() == null
           || guiFeature.getGuiFeatureData().getDrawType() == null) {
@@ -33,8 +36,13 @@ public class SkyblockAddonsFeatureSync {
     }
   }
 
+  public void unregisterHudWidgets() {
+    Laby.labyAPI().hudWidgetRegistry()
+        .unregister(value -> value.getValue() instanceof SkyblockAddonsHudWidget);
+  }
+
   @Subscribe
-  public void onTick(GameTickEvent event) {
+  public void onTick(GameTickEvent ignored) {
     for (HudWidget<?> hudWidget : Laby.labyAPI().hudWidgetRegistry().values()) {
       if (!(hudWidget instanceof SkyblockAddonsHudWidget skyblockAddonsHudWidget)) {
         continue;
