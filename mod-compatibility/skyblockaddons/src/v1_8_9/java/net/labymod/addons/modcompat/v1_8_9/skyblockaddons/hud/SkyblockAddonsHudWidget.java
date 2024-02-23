@@ -27,6 +27,7 @@ import net.labymod.api.configuration.settings.annotation.SettingRequires;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.gui.hud.HudWidgetCreatedEvent;
 import net.labymod.api.event.client.gui.hud.HudWidgetDestroyedEvent;
+import net.labymod.api.util.Color;
 import net.labymod.api.util.bounds.area.RectangleAreaPosition;
 import net.labymod.api.util.reflection.Reflection;
 import net.minecraft.client.Minecraft;
@@ -153,9 +154,9 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWi
     config.chroma().visibilitySupplier(() -> defaultColor != null);
 
     if (defaultColor != null) {
-      config.color().updateDefaultValue(defaultColor.getColor());
+      config.color().updateDefaultValue(Color.of(defaultColor.getColor()));
       config.color().addChangeListener(
-          value -> this.main.getConfigValues().setColor(this.feature, value)
+          value -> this.main.getConfigValues().setColor(this.feature, value.get())
       );
       config.chroma().addChangeListener(
           value -> this.main.getConfigValues().setChroma(this.feature, value)
@@ -237,15 +238,13 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWi
     @ColorPickerSetting
     @SettingRequires(value = "chroma", invert = true)
     @CustomTranslation("skyblockaddons.hudWidget.color")
-    private final ConfigProperty<Integer> color = new ConfigProperty<>(0);
+    private final ConfigProperty<Color> color = new ConfigProperty<>(Color.BLACK);
 
     @SwitchSetting
     @CustomTranslation("skyblockaddons.hudWidget.chroma")
     private final ConfigProperty<Boolean> chroma = new ConfigProperty<>(false);
 
-    // TODO: Chroma settings
-
-    public ConfigProperty<Integer> color() {
+    public ConfigProperty<Color> color() {
       return this.color;
     }
 

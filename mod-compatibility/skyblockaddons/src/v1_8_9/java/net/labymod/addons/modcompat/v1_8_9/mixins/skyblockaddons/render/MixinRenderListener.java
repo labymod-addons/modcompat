@@ -3,10 +3,15 @@ package net.labymod.addons.modcompat.v1_8_9.mixins.skyblockaddons.render;
 import codes.biscuit.skyblockaddons.gui.LocationEditGui;
 import codes.biscuit.skyblockaddons.gui.buttons.ButtonLocation;
 import codes.biscuit.skyblockaddons.listeners.RenderListener;
+import codes.biscuit.skyblockaddons.utils.EnumUtils.GUIType;
 import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.FeatureDrawContext;
+import net.labymod.api.Laby;
+import net.labymod.core.client.gui.screen.activity.activities.labymod.LabyModActivity;
+import net.labymod.core.client.gui.screen.activity.activities.labymod.child.WidgetsEditorActivity;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -19,14 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = RenderListener.class, remap = false)
 public class MixinRenderListener {
 
-  @SuppressWarnings("InvalidInjectorMethodSignature")
-  @ModifyConstant(method = "drawSkeletonBar", constant = @Constant(classValue = LocationEditGui.class))
-  public Class<?> modcompat$adjustEditorCheck(
-      Object instance, Class<?> constant, Minecraft mc, float scale, ButtonLocation buttonLocation
-  ) {
-    // Check button location instead of the current screen
-    return buttonLocation == null ? Void.class : Object.class;
-  }
+  @Shadow
+  private GUIType guiToOpen;
 
   @Inject(method = "renderOverlays", at = @At("HEAD"), cancellable = true)
   private void modcompat$cancelRenderOverlays(CallbackInfo ci) {
@@ -38,6 +37,30 @@ public class MixinRenderListener {
   private void modcompat$cancelRenderTimersOnly(CallbackInfo ci) {
     // Disable rendering, already rendered via the hud widgets
     ci.cancel();
+  }
+
+  @Inject(method = "onRender", at = @At("HEAD"), cancellable = true)
+  private void modcompat$adjustOpenEditor(CallbackInfo ci) {
+    if (this.guiToOpen == GUIType.EDIT_LOCATIONS) {
+      // Open LabyMod widget editor
+      LabyModActivity labyModActivity = LabyModActivity.getFromNavigationRegistry();
+      if (labyModActivity != null) {
+        labyModActivity.switchTab(WidgetsEditorActivity.class);
+        Laby.labyAPI().minecraft().minecraftWindow().displayScreen(labyModActivity);
+      }
+
+      this.guiToOpen = null;
+      ci.cancel();
+    }
+  }
+
+  @SuppressWarnings("InvalidInjectorMethodSignature")
+  @ModifyConstant(method = "drawSkeletonBar", constant = @Constant(classValue = LocationEditGui.class))
+  public Class<?> modcompat$adjustEditorCheck(
+      Object instance, Class<?> constant, Minecraft mc, float scale, ButtonLocation buttonLocation
+  ) {
+    // Check button location instead of the current screen
+    return buttonLocation == null ? Void.class : Object.class;
   }
 
   @Inject(method = "transformXY", at = @At("HEAD"), cancellable = true)
@@ -68,12 +91,19 @@ public class MixinRenderListener {
 
   @Inject(
       method = {
-          "*(FLcodes/biscuit/skyblockaddons/gui/buttons/ButtonLocation;)V",
-          "*(Lnet/minecraft/client/Minecraft;FLcodes/biscuit/skyblockaddons/gui/buttons/ButtonLocation;)V",
-          "*(FLnet/minecraft/client/Minecraft;Lcodes/biscuit/skyblockaddons/gui/buttons/ButtonLocation;)V",
-          "*(Lcodes/biscuit/skyblockaddons/core/Feature;Lnet/minecraft/client/Minecraft;FLcodes/biscuit/skyblockaddons/gui/buttons/ButtonLocation;)V",
-          "*(Lcodes/biscuit/skyblockaddons/core/Feature;FLnet/minecraft/client/Minecraft;Lcodes/biscuit/skyblockaddons/gui/buttons/ButtonLocation;)V",
-          "*(Lnet/minecraft/client/Minecraft;FLcodes/biscuit/skyblockaddons/gui/buttons/ButtonLocation;Lcodes/biscuit/skyblockaddons/features/powerorbs/PowerOrb;I)V",
+          "drawPotionEffectTimers",
+          "drawItemPickupLog",
+          "drawSkeletonBar",
+          "drawScorpionFoilTicker",
+          "drawBaitList",
+          "drawDragonTrackers",
+          "drawIcon",
+          "drawRevenantIndicator",
+          "drawSlayerTrackers",
+          "drawBar",
+          "drawText",
+          "drawCompactPowerOrbStatus",
+          "drawDetailedPowerOrbStatus"
       },
       at = {
           @At(

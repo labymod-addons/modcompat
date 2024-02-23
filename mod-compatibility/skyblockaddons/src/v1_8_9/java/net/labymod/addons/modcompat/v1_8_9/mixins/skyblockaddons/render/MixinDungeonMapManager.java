@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = DungeonMapManager.class, remap = false)
 public class MixinDungeonMapManager {
 
-  @Inject(method = "drawDungeonsMap", at = @At(value = "INVOKE", target = "Lcodes/biscuit/skyblockaddons/listeners/RenderListener;transformXY(FIF)F", shift = Shift.AFTER, opcode = 1), cancellable = true)
+  @Inject(method = "drawDungeonsMap", at = @At(value = "INVOKE", target = "Lcodes/biscuit/skyblockaddons/listeners/RenderListener;transformXY(FIF)F", shift = Shift.AFTER, ordinal = 1), cancellable = true)
   private static void modcompat$noFeatureRender(CallbackInfo ci) {
     if (FeatureDrawContext.get().isActive() && FeatureDrawContext.get().isNoRender()) {
       GlStateManager.popMatrix();

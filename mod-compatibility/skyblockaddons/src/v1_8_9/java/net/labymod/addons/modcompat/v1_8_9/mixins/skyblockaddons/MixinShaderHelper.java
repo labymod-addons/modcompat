@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(value = ShaderHelper.class, remap = false)
 public class MixinShaderHelper {
 
-
   @Shadow
   @Final
   private static boolean USING_ARB_SHADERS;

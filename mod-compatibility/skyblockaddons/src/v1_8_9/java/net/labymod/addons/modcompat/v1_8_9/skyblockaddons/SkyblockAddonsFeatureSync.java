@@ -12,6 +12,7 @@ import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidget;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.lifecycle.GameTickEvent;
+import net.labymod.api.util.Color;
 
 public class SkyblockAddonsFeatureSync {
 
@@ -58,14 +59,13 @@ public class SkyblockAddonsFeatureSync {
       // Sync SkyblockAddons feature enabled state with the hud widget
       config.setEnabled(feature.isEnabled());
 
-      // TODO: There is a problem with displaying the correct color in the editor
       // Sync color
       ColorCode defaultColor = feature.getDefaultColor();
       if (defaultColor != null) {
         ConfigValues configValues = this.main.getConfigValues();
 
         Integer color = ((ConfigValuesAccessor) configValues).getConfigColor(feature);
-        config.color().set(color == null ? defaultColor.getColor() : color);
+        config.color().set(Color.of(color == null ? defaultColor.getColor() : color));
 
         config.chroma().set(configValues.getChromaFeatures().contains(feature));
       }
