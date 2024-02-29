@@ -9,6 +9,8 @@ import net.labymod.addons.modcompat.replaymod.settings.ReplayModSettingsConverte
 import net.labymod.addons.modcompat.replaymod.settings.config.ReplayModHookConfig;
 import net.labymod.api.Laby;
 import net.labymod.api.configuration.loader.Config;
+import net.labymod.api.configuration.settings.Setting;
+import net.labymod.api.configuration.settings.SettingHandler;
 import net.labymod.api.configuration.settings.type.RootSettingRegistry;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint.Point;
@@ -17,7 +19,7 @@ import net.labymod.api.models.version.Version;
 @AddonEntryPoint(value = Point.ENABLE)
 public class ReplayModEnableEntrypoint extends ModFixEntrypoint {
 
-  private static final String MOD_ID = "replaymod";
+  public static final String MOD_ID = "replaymod";
 
   public ReplayModEnableEntrypoint() {
     super(MOD_ID);
@@ -40,8 +42,23 @@ public class ReplayModEnableEntrypoint extends ModFixEntrypoint {
 
     ReplayModSettingsConverter converter = new ReplayModSettingsConverter();
 
-    // TODO: disable replay viewer button when ingame
     Config config = AddonHooks.instance().registerSubSettings(MOD_ID, ReplayModHookConfig.class);
     addonSettings.addSettings(converter.convertCoreSettings(config));
+
+    addonSettings.findSetting((CharSequence) "openReplayViewer")
+        .ifPresent(setting -> setting.asElement().setHandler(new SettingHandler() {
+          @Override
+          public void created(Setting setting) {
+          }
+
+          @Override
+          public void initialized(Setting setting) {
+          }
+
+          @Override
+          public boolean isEnabled(Setting setting) {
+            return !Laby.labyAPI().minecraft().isIngame();
+          }
+        }));
   }
 }

@@ -1,7 +1,6 @@
 package net.labymod.addons.modcompat.replaymod.settings.config;
 
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.gui.screen.GuiReplayViewer;
+import net.labymod.addons.modcompat.replaymod.accessor.GuiReplayViewerAccessor;
 import net.labymod.api.client.gui.screen.widget.widgets.input.ButtonWidget.ButtonSetting;
 import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.configuration.loader.annotation.ConfigName;
@@ -17,6 +16,6 @@ public class ReplayModHookConfig extends Config {
   @ButtonSetting
   @MethodOrder(before = "dummy")
   public void openReplayViewer() {
-    new GuiReplayViewer(ReplayModReplay.instance).display();
+    GuiReplayViewerAccessor.create().display();
   }
 }

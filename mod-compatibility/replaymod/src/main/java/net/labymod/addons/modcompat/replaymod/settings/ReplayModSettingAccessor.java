@@ -57,6 +57,7 @@ public class ReplayModSettingAccessor implements SettingAccessor {
   @Override
   public <T> void set(T t) {
     ReplayMod.instance.getSettingsRegistry().set(this.settingKey, t);
+    ReplayMod.instance.getSettingsRegistry().save();
     this.property.set(t);
   }
 

@@ -1,4 +1,4 @@
-package net.labymod.addons.modcompat.replaymod.settings;
+package net.labymod.addons.modcompat.replaymod.settings.widget;
 
 
 import net.labymod.api.client.component.Component;
