@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import net.labymod.addons.modcompat.ModCompat;
+import net.labymod.addons.modcompat.hook.AddonHooks;
 import net.labymod.addons.modcompat.mod.DefaultIncompatibleMod;
 import net.labymod.addons.modcompat.mod.DefaultIncompatibleModRegistry;
 import net.labymod.addons.modcompat.mod.IncompatibleMod;
@@ -65,6 +66,7 @@ public class ModCompatEntrypoint implements Entrypoint {
     }
 
     Laby.references().eventBus().registerListener(this);
+    Laby.references().eventBus().registerListener(AddonHooks.instance());
   }
 
   @Subscribe
