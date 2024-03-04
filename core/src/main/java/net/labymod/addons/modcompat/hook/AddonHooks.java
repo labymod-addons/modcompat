@@ -29,7 +29,7 @@ public class AddonHooks {
   }
 
   @Subscribe
-  protected void onConfigurationSave(ConfigurationSaveEvent event) {
+  public void onConfigurationSave(ConfigurationSaveEvent event) {
     for (ModCompatConfigProvider<? extends ConfigAccessor> provider : this.configProviders.values()) {
       provider.safeSave();
     }

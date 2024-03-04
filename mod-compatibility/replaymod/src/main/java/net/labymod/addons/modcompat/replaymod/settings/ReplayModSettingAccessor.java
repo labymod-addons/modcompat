@@ -13,8 +13,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class ReplayModSettingAccessor implements SettingAccessor {
 
-  private static final Field DUMMY_FIELD = Reflection.getField(ReplayModSettingAccessor.class,
-      "settingKey");
+  private static final Field DUMMY_FIELD = Reflection.getField(
+      ReplayModSettingAccessor.class,
+      "settingKey"
+  );
 
   private final SettingKey<Object> settingKey;
   private final SettingElement setting;
@@ -25,7 +27,8 @@ public class ReplayModSettingAccessor implements SettingAccessor {
   public ReplayModSettingAccessor(
       SettingKey<Object> settingKey,
       SettingElement setting,
-      Config config) {
+      Config config
+  ) {
     this.settingKey = settingKey;
     this.setting = setting;
     this.config = config;
@@ -56,8 +59,9 @@ public class ReplayModSettingAccessor implements SettingAccessor {
 
   @Override
   public <T> void set(T t) {
-    ReplayMod.instance.getSettingsRegistry().set(this.settingKey, t);
-    ReplayMod.instance.getSettingsRegistry().save();
+    var registry = ReplayMod.instance.getSettingsRegistry();
+    registry.set(this.settingKey, t);
+    registry.save();
     this.property.set(t);
   }
 
