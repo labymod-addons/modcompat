@@ -72,7 +72,10 @@ public class ReplayViewListener {
       return;
     }
 
-    MinecraftTimerAccessor timerAccessor = (MinecraftTimerAccessor) minecraft;
+    if (!(minecraft instanceof MinecraftTimerAccessor timerAccessor)) {
+      return;
+    }
+
     if (event.phase() == Phase.PRE) {
       // When a replay is paused, the tick delta is always 0, so restore it temporarily
       // for the screen animations in the pause menu to work properly
