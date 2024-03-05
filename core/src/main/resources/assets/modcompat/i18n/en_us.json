@@ -1,9 +1,17 @@
 {
-  "example": {
+  "modcompat": {
     "settings": {
       "name": "Mod Compat",
       "enabled": {
         "name": "Enabled"
+      }
+    }
+  },
+  "replaymod": {
+    "settings": {
+      "openReplayViewer": {
+        "name": "Replay Viewer",
+        "text": "Open"
       }
     }
   }
