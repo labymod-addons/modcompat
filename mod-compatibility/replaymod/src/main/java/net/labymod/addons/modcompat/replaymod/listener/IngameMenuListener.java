@@ -18,11 +18,7 @@ public class IngameMenuListener {
   @Subscribe
   public void onActivityInitialize(ActivityInitializeEvent event) {
     GuiRecordingControlsAccessor accessor = GuiRecordingControlsAccessor.getInstance();
-    if (accessor == null) {
-      return;
-    }
-
-    if (ReplayModReplay.instance.getReplayHandler() != null) {
+    if (accessor == null || ReplayModReplay.instance.getReplayHandler() != null) {
       return;
     }
 

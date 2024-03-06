@@ -5,6 +5,7 @@ import net.labymod.addons.modcompat.mod.fix.ModFixEntrypoint;
 import net.labymod.addons.modcompat.replaymod.ReplayMultiplayerNavigationElement;
 import net.labymod.addons.modcompat.replaymod.listener.IngameMenuListener;
 import net.labymod.addons.modcompat.replaymod.listener.MainMenuListener;
+import net.labymod.addons.modcompat.replaymod.listener.ReplayModScreenListener;
 import net.labymod.addons.modcompat.replaymod.listener.ReplayViewListener;
 import net.labymod.addons.modcompat.replaymod.settings.ReplayModSettingsConverter;
 import net.labymod.addons.modcompat.replaymod.settings.config.ReplayModHookConfig;
@@ -39,6 +40,7 @@ public class ReplayModEnableEntrypoint extends ModFixEntrypoint {
     eventBus.registerListener(new IngameMenuListener());
     eventBus.registerListener(new MainMenuListener());
     eventBus.registerListener(new ReplayViewListener());
+    eventBus.registerListener(new ReplayModScreenListener());
 
     // Replace multiplayer tab with tab that hides when in a replay
     NavigationRegistry navigationRegistry = labyAPI.navigationService();
