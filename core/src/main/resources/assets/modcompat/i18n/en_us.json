@@ -7,7 +7,7 @@
       }
     }
   },
-  "replaymod": {
+  "replaymod_loader": {
     "settings": {
       "openReplayViewer": {
         "name": "Replay Viewer",

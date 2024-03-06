@@ -15,7 +15,7 @@ public class GuiReplayViewerAccessor {
 
     // Redirect to addon settings, if present
     Setting addonSettings = AddonHooks.instance()
-        .getAddonSettings(ReplayModEnableEntrypoint.MOD_ID);
+        .getAddonSettings(ReplayModEnableEntrypoint.ADDON_ID);
     if (addonSettings != null) {
       replayViewer.settingsButton.onClick(() -> Laby.labyAPI().showSetting(addonSettings));
     }

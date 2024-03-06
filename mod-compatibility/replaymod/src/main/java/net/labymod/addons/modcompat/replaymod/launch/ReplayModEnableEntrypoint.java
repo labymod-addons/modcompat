@@ -22,7 +22,8 @@ import net.labymod.api.models.version.Version;
 @AddonEntryPoint(value = Point.ENABLE)
 public class ReplayModEnableEntrypoint extends ModFixEntrypoint {
 
-  public static final String MOD_ID = "replaymod";
+  public static final String ADDON_ID = "replaymod_loader";
+  private static final String MOD_ID = "replaymod";
 
   public ReplayModEnableEntrypoint() {
     super(MOD_ID);
@@ -52,11 +53,12 @@ public class ReplayModEnableEntrypoint extends ModFixEntrypoint {
     );
 
     // Hook into addon settings, if present
-    RootSettingRegistry addonSettings = AddonHooks.instance().getAddonSettings(MOD_ID);
+    RootSettingRegistry addonSettings = AddonHooks.instance().getAddonSettings(ADDON_ID);
     if (addonSettings != null) {
       ReplayModSettingsConverter converter = new ReplayModSettingsConverter();
 
-      Config config = AddonHooks.instance().registerSubSettings(MOD_ID, ReplayModHookConfig.class);
+      Config config = AddonHooks.instance()
+          .registerSubSettings(ADDON_ID, ReplayModHookConfig.class);
       addonSettings.addSettings(converter.convertCoreSettings(config));
 
       // Replay viewer should only be opened when not ingame to prevent issues
