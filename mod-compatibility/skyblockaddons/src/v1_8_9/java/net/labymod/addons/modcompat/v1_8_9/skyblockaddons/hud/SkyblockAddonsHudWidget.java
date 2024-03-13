@@ -7,13 +7,11 @@ import codes.biscuit.skyblockaddons.gui.buttons.ButtonLocation;
 import codes.biscuit.skyblockaddons.utils.ColorCode;
 import codes.biscuit.skyblockaddons.utils.Utils;
 import com.mojang.authlib.GameProfile;
-import java.lang.reflect.Field;
 import java.util.UUID;
 import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.FeatureDrawContext;
 import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.SkyblockAddonsFeatureSync;
 import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.hud.SkyblockAddonsHudWidget.SkyblockAddonsHudWidgetConfig;
 import net.labymod.api.client.component.Component;
-import net.labymod.api.client.gui.hud.hudwidget.HudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.SimpleHudWidget;
 import net.labymod.api.client.gui.hud.position.HudSize;
@@ -29,12 +27,12 @@ import net.labymod.api.event.client.gui.hud.HudWidgetCreatedEvent;
 import net.labymod.api.event.client.gui.hud.HudWidgetDestroyedEvent;
 import net.labymod.api.util.Color;
 import net.labymod.api.util.bounds.area.RectangleAreaPosition;
-import net.labymod.api.util.reflection.Reflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import org.jetbrains.annotations.NotNull;
 
 public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWidgetConfig> {
 
@@ -59,18 +57,11 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWi
 
     super.bindCategory(SkyblockAddonsFeatureSync.SKYBLOCK_ADDONS_CATEGORY);
     this.feature = feature;
+  }
 
-    // TODO: add option to change display name of hud widget in LabyMod?
-    try {
-      Field field = HudWidget.class.getDeclaredField("displayName");
-      Reflection.invokeSetterField(
-          this,
-          field,
-          Component.text(feature.getMessage())
-      );
-    } catch (NoSuchFieldException exception) {
-      throw new RuntimeException(exception);
-    }
+  @Override
+  public @NotNull Component displayName() {
+    return Component.text(this.feature.getMessage());
   }
 
   public Feature feature() {
@@ -174,13 +165,13 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWi
   ) {
     FeatureDrawContext featureDrawContext = FeatureDrawContext.get();
     featureDrawContext.setDrawnFeature(this.feature);
+    featureDrawContext.setStack(stack);
     featureDrawContext.setNoRender(stack == null);
 
     Minecraft minecraft = Minecraft.getMinecraft();
     ButtonLocation buttonLocation = isEditorContext ? new ButtonLocation(this.feature) : null;
 
     this.preFeatureRender(minecraft);
-    // TODO: Dungeon map is not properly displayed
     this.feature.draw(1.0F, minecraft, buttonLocation);
     this.postFeatureRender(minecraft);
 

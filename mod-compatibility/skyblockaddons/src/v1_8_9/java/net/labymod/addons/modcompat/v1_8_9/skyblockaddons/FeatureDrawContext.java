@@ -1,12 +1,14 @@
 package net.labymod.addons.modcompat.v1_8_9.skyblockaddons;
 
 import codes.biscuit.skyblockaddons.core.Feature;
+import net.labymod.api.client.render.matrix.Stack;
 
 public class FeatureDrawContext {
 
   private static final FeatureDrawContext INSTANCE = new FeatureDrawContext();
 
   private Feature drawnFeature;
+  private Stack stack;
   private boolean noRender;
   private int width;
   private int height;
@@ -17,6 +19,7 @@ public class FeatureDrawContext {
 
   public void reset() {
     this.drawnFeature = null;
+    this.stack = null;
     this.noRender = false;
     this.width = 0;
     this.height = 0;
@@ -32,6 +35,14 @@ public class FeatureDrawContext {
 
   public void setDrawnFeature(Feature drawnFeature) {
     this.drawnFeature = drawnFeature;
+  }
+
+  public Stack getStack() {
+    return this.stack;
+  }
+
+  public void setStack(Stack stack) {
+    this.stack = stack;
   }
 
   public boolean isNoRender() {

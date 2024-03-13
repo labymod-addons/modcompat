@@ -35,7 +35,7 @@ public class ReplayViewListener {
     this.hudWidgetsEnabled = ingameConfig.hudWidgets().get();
     this.advancedChatEnabled = ingameConfig.advancedChat().enabled().get();
 
-    // Make sure that both is displayed when viewing replay
+    // Make sure that both is disabled when viewing replay
     ReplayHandler replayHandler = ReplayModReplay.instance.getReplayHandler();
     if (replayHandler != null && replayHandler.getOverlay().isVisible()) {
       ingameConfig.hudWidgets().set(false);
