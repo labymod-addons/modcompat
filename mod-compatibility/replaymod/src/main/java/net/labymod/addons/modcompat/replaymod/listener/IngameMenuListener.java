@@ -1,5 +1,6 @@
 package net.labymod.addons.modcompat.replaymod.listener;
 
+import com.replaymod.replay.ReplayModReplay;
 import net.labymod.addons.modcompat.ModCompatAddon;
 import net.labymod.addons.modcompat.replaymod.accessor.GuiRecordingControlsAccessor;
 import net.labymod.api.client.component.Component;
@@ -17,7 +18,7 @@ public class IngameMenuListener {
   @Subscribe
   public void onActivityInitialize(ActivityInitializeEvent event) {
     GuiRecordingControlsAccessor accessor = GuiRecordingControlsAccessor.getInstance();
-    if (accessor == null) {
+    if (accessor == null || ReplayModReplay.instance.getReplayHandler() != null) {
       return;
     }
 

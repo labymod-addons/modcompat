@@ -7,6 +7,14 @@
       }
     }
   },
+  "replaymod_loader": {
+    "settings": {
+      "openReplayViewer": {
+        "name": "Replay Viewer",
+        "text": "Open"
+      }
+    }
+  },
   "labymod": {
     "hudWidgetCategory": {
       "skyblockaddons": {

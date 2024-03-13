@@ -1,8 +1,9 @@
 package net.labymod.addons.modcompat.replaymod.listener;
 
-import com.replaymod.replay.ReplayModReplay;
-import com.replaymod.replay.gui.screen.GuiReplayViewer;
+import java.util.ArrayList;
+import java.util.List;
 import net.labymod.addons.modcompat.ModCompatAddon;
+import net.labymod.addons.modcompat.replaymod.accessor.GuiReplayViewerAccessor;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.client.gui.screen.activity.Activity;
@@ -14,9 +15,6 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.ButtonWidget;
 import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.gui.screen.ActivityInitializeEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainMenuListener {
 
@@ -47,7 +45,7 @@ public class MainMenuListener {
 
       ButtonWidget buttonWidget = ButtonWidget.icon(Icon.texture(REPLAY_VIEWER_ICON));
       buttonWidget.setHoverComponent(Component.translatable("replaymod.gui.replayviewer"));
-      buttonWidget.setPressable(() -> new GuiReplayViewer(ReplayModReplay.instance).display());
+      buttonWidget.setPressable(() -> GuiReplayViewerAccessor.create().display());
       buttonWidget.addId("icon-button", "replay-viewer-button");
 
       widget.addChildInitialized(buttonWidget);
