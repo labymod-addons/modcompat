@@ -4,6 +4,7 @@ import codes.biscuit.skyblockaddons.gui.LocationEditGui;
 import codes.biscuit.skyblockaddons.gui.buttons.ButtonLocation;
 import codes.biscuit.skyblockaddons.listeners.RenderListener;
 import codes.biscuit.skyblockaddons.utils.EnumUtils.GUIType;
+import net.labymod.addons.modcompat.v1_8_9.SkyblockAddonsCompat;
 import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.FeatureDrawContext;
 import net.labymod.api.Laby;
 import net.labymod.core.client.gui.screen.activity.activities.labymod.LabyModActivity;
@@ -29,19 +30,23 @@ public class MixinRenderListener {
 
   @Inject(method = "renderOverlays", at = @At("HEAD"), cancellable = true)
   private void modcompat$cancelRenderOverlays(CallbackInfo ci) {
-    // Disable rendering, already rendered via the hud widgets
-    ci.cancel();
+    if (SkyblockAddonsCompat.isFeatureIntegration()) {
+      // Disable rendering, already rendered via the hud widgets
+      ci.cancel();
+    }
   }
 
   @Inject(method = "renderTimersOnly", at = @At("HEAD"), cancellable = true)
   private void modcompat$cancelRenderTimersOnly(CallbackInfo ci) {
-    // Disable rendering, already rendered via the hud widgets
-    ci.cancel();
+    if (SkyblockAddonsCompat.isFeatureIntegration()) {
+      // Disable rendering, already rendered via the hud widgets
+      ci.cancel();
+    }
   }
 
   @Inject(method = "onRender", at = @At("HEAD"), cancellable = true)
   private void modcompat$adjustOpenEditor(CallbackInfo ci) {
-    if (this.guiToOpen == GUIType.EDIT_LOCATIONS) {
+    if (SkyblockAddonsCompat.isFeatureIntegration() && this.guiToOpen == GUIType.EDIT_LOCATIONS) {
       // Open LabyMod widget editor
       LabyModActivity labyModActivity = LabyModActivity.getFromNavigationRegistry();
       if (labyModActivity != null) {

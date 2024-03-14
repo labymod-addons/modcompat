@@ -34,5 +34,13 @@
         "description": "Whether the color should be chroma"
       }
     }
+  },
+  "skyblockaddons_loader": {
+    "settings": {
+      "featureIntegration": {
+        "name": "SkyblockAddons Feature Integration",
+        "description": "Integrate the SkyblockAddons GUI Features into the LabyMod HUD"
+      }
+    }
   }
 }

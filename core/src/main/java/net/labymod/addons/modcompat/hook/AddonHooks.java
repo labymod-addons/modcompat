@@ -41,13 +41,9 @@ public class AddonHooks {
       return null;
     }
 
-    if (this.configProviders.containsKey(configClass)) {
-      var provider = this.configProviders.get(configClass);
-      if (provider.getType() == configClass) {
-        //noinspection unchecked
-        return (C) provider.get();
-      }
-      throw new IllegalArgumentException("Config class mismatch");
+    C subSettings = this.getSubSettings(configClass);
+    if (subSettings != null) {
+      return subSettings;
     }
 
     var provider = new ModCompatConfigProvider<>(configClass);
@@ -57,6 +53,18 @@ public class AddonHooks {
     settings.addSettings(config);
 
     return config;
+  }
+
+  public <C extends ConfigAccessor> C getSubSettings(Class<C> configClass) {
+    if (this.configProviders.containsKey(configClass)) {
+      var provider = this.configProviders.get(configClass);
+      if (provider.getType() == configClass) {
+        //noinspection unchecked
+        return (C) provider.get();
+      }
+      throw new IllegalArgumentException("Config class mismatch");
+    }
+    return null;
   }
 
   public @Nullable RootSettingRegistry getAddonSettings(String addonId) {

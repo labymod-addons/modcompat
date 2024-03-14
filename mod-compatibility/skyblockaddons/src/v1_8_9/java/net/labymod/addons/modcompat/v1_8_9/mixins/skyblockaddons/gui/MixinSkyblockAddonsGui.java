@@ -3,6 +3,7 @@ package net.labymod.addons.modcompat.v1_8_9.mixins.skyblockaddons.gui;
 import codes.biscuit.skyblockaddons.core.Feature;
 import codes.biscuit.skyblockaddons.gui.SkyblockAddonsGui;
 import codes.biscuit.skyblockaddons.gui.buttons.ButtonFeature;
+import net.labymod.addons.modcompat.v1_8_9.SkyblockAddonsCompat;
 import net.labymod.api.Laby;
 import net.labymod.core.client.gui.screen.activity.activities.labymod.LabyModActivity;
 import net.labymod.core.client.gui.screen.activity.activities.labymod.child.WidgetsEditorActivity;
@@ -21,7 +22,8 @@ public class MixinSkyblockAddonsGui {
   @Dynamic
   @Inject(method = "actionPerformed(Lnet/minecraft/client/gui/GuiButton;)V", at = @At("HEAD"), cancellable = true)
   private void modcompat$adjustOpenEditor(GuiButton abstractButton, CallbackInfo ci) {
-    if (abstractButton instanceof ButtonFeature buttonFeature) {
+    if (SkyblockAddonsCompat.isFeatureIntegration()
+        && abstractButton instanceof ButtonFeature buttonFeature) {
       if (buttonFeature.getFeature() == Feature.EDIT_LOCATIONS) {
         // Open LabyMod widget editor
         LabyModActivity labyModActivity = LabyModActivity.getFromNavigationRegistry();
