@@ -12,6 +12,14 @@ public class ModCompatAddon extends LabyAddon<ModCompatConfiguration> {
   public static final String NAMESPACE = "modcompat";
 
   @Override
+  protected void load() {
+    if (super.labyAPI().labyModLoader().isAddonDevelopmentEnvironment()) {
+      // Register the setting category for debug purposes, so that the mod addons are not required
+      super.registerSettingCategory();
+    }
+  }
+
+  @Override
   protected void enable() {
   }
 

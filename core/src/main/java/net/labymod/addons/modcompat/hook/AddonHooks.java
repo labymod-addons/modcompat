@@ -2,6 +2,7 @@ package net.labymod.addons.modcompat.hook;
 
 import java.util.HashMap;
 import java.util.Map;
+import net.labymod.addons.modcompat.ModCompatAddon;
 import net.labymod.api.Laby;
 import net.labymod.api.configuration.loader.ConfigAccessor;
 import net.labymod.api.configuration.loader.impl.JsonConfigLoader;
@@ -68,13 +69,20 @@ public class AddonHooks {
   }
 
   public @Nullable RootSettingRegistry getAddonSettings(String addonId) {
+    if (DefaultAddonService.getInstance().getAddon(addonId).isEmpty()) {
+      // Addon is not loaded, which means no settings are available
+      if (!Laby.labyAPI().labyModLoader().isAddonDevelopmentEnvironment()) {
+        return null;
+      }
+      // In development environment, use the mod compat settings so that mod addons are not required
+      addonId = ModCompatAddon.NAMESPACE;
+    }
+
     return this.addonSettingsCache.computeIfAbsent(addonId, id -> {
       for (Setting setting : Laby.labyAPI().coreSettingRegistry().values()) {
         if (setting instanceof RootSettingRegistry settingRegistry
             && settingRegistry.isAddon()
-            && settingRegistry.getNamespace().equals(id)
-            && DefaultAddonService.getInstance().getAddon(settingRegistry.getNamespace())
-            .isPresent()) {
+            && settingRegistry.getNamespace().equals(id)) {
           return settingRegistry;
         }
       }

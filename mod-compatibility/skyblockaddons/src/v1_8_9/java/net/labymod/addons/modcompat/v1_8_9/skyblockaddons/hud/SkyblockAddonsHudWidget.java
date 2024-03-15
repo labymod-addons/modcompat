@@ -8,8 +8,8 @@ import codes.biscuit.skyblockaddons.utils.ColorCode;
 import codes.biscuit.skyblockaddons.utils.Utils;
 import com.mojang.authlib.GameProfile;
 import java.util.UUID;
+import net.labymod.addons.modcompat.v1_8_9.SkyblockAddonsCompat;
 import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.FeatureDrawContext;
-import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.SkyblockAddonsFeatureSync;
 import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.hud.SkyblockAddonsHudWidget.SkyblockAddonsHudWidgetConfig;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidgetConfig;
@@ -55,7 +55,7 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWi
   public SkyblockAddonsHudWidget(Feature feature) {
     super("skyblockaddons" + feature.getId(), SkyblockAddonsHudWidgetConfig.class);
 
-    super.bindCategory(SkyblockAddonsFeatureSync.SKYBLOCK_ADDONS_CATEGORY);
+    super.bindCategory(SkyblockAddonsCompat.SKYBLOCK_ADDONS_CATEGORY);
     this.feature = feature;
   }
 
