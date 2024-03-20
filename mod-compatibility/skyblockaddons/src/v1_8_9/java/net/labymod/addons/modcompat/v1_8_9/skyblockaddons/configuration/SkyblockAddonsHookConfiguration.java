@@ -9,12 +9,12 @@ import net.labymod.api.configuration.settings.annotation.SettingSection;
 @ConfigName("skyblockaddons")
 public class SkyblockAddonsHookConfiguration extends Config {
 
+  @SettingSection("general")
+  private final ConfigProperty<Object> dummy = new ConfigProperty<>(new Object());
+
   @SettingSection("integration")
   @SwitchSetting
   private final ConfigProperty<Boolean> featureIntegration = new ConfigProperty<>(true);
-
-  @SettingSection("general")
-  private final ConfigProperty<Object> dummy = new ConfigProperty<>(new Object());
 
   public ConfigProperty<Boolean> featureIntegration() {
     return this.featureIntegration;

@@ -15,6 +15,7 @@ import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.configuration.settings
 import net.labymod.api.Laby;
 import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.configuration.settings.Setting;
+import net.labymod.api.configuration.settings.type.AbstractSetting;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint;
 import net.labymod.api.models.version.Version;
 
@@ -49,9 +50,12 @@ public class VersionedSkyblockAddonsEntrypoint extends ModFixEntrypoint {
         }
       });
 
-      SkyblockAddonsCompat.addonSettings(
-          settings -> settings.addSettings(this.createGeneralSettings(config))
-      );
+      SkyblockAddonsCompat.addonSettings(settings -> {
+        for (Setting generalSetting : this.createGeneralSettings(config)) {
+          ((AbstractSetting) generalSetting).setParent(settings);
+          settings.registerBefore("integration", generalSetting);
+        }
+      });
     }
   }
 
