@@ -14,5 +14,41 @@
         "text": "Open"
       }
     }
+  },
+  "labymod": {
+    "hudWidgetCategory": {
+      "skyblockaddons": {
+        "name": "SkyblockAddons",
+        "description": "Gui features from SkyblockAddons"
+      }
+    }
+  },
+  "skyblockaddons": {
+    "hudWidget": {
+      "color": {
+        "name": "Color",
+        "description": "The color of the feature"
+      },
+      "chroma": {
+        "name": "Chroma",
+        "description": "Whether the color should be chroma"
+      }
+    }
+  },
+  "skyblockaddons_loader": {
+    "settings": {
+      "header": {
+        "integration": {
+          "name": "LabyMod Integration"
+        },
+        "general": {
+          "name": "General Settings"
+        }
+      },
+      "featureIntegration": {
+        "name": "SkyblockAddons Widget Integration",
+        "description": "Integrate the SkyblockAddons GUI Features into the LabyMod HUD Widgets"
+      }
+    }
   }
 }

@@ -7,8 +7,8 @@ import net.labymod.addons.modcompat.replaymod.listener.IngameMenuListener;
 import net.labymod.addons.modcompat.replaymod.listener.MainMenuListener;
 import net.labymod.addons.modcompat.replaymod.listener.ReplayModScreenListener;
 import net.labymod.addons.modcompat.replaymod.listener.ReplayViewListener;
-import net.labymod.addons.modcompat.replaymod.settings.ReplayModSettingsConverter;
-import net.labymod.addons.modcompat.replaymod.settings.config.ReplayModHookConfig;
+import net.labymod.addons.modcompat.replaymod.configuration.settings.ReplayModSettingsConverter;
+import net.labymod.addons.modcompat.replaymod.configuration.ReplayModHookConfiguration;
 import net.labymod.api.Laby;
 import net.labymod.api.LabyAPI;
 import net.labymod.api.client.gui.navigation.NavigationRegistry;
@@ -58,7 +58,7 @@ public class ReplayModEnableEntrypoint extends ModFixEntrypoint {
       ReplayModSettingsConverter converter = new ReplayModSettingsConverter();
 
       Config config = AddonHooks.instance()
-          .registerSubSettings(ADDON_ID, ReplayModHookConfig.class);
+          .registerSubSettings(ADDON_ID, ReplayModHookConfiguration.class);
       addonSettings.addSettings(converter.convertCoreSettings(config));
 
       // Replay viewer should only be opened when not ingame to prevent issues

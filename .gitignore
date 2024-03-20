@@ -76,3 +76,4 @@ build-data.txt
 
 # Don't ignore libraries
 !libs/*.jar
+!mod-compatibility/**/libs/*.jar

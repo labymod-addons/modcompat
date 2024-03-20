@@ -2,6 +2,7 @@ package net.labymod.addons.modcompat.hook;
 
 import java.util.HashMap;
 import java.util.Map;
+import net.labymod.addons.modcompat.ModCompatAddon;
 import net.labymod.api.Laby;
 import net.labymod.api.configuration.loader.ConfigAccessor;
 import net.labymod.api.configuration.loader.impl.JsonConfigLoader;
@@ -41,13 +42,9 @@ public class AddonHooks {
       return null;
     }
 
-    if (this.configProviders.containsKey(configClass)) {
-      var provider = this.configProviders.get(configClass);
-      if (provider.getType() == configClass) {
-        //noinspection unchecked
-        return (C) provider.get();
-      }
-      throw new IllegalArgumentException("Config class mismatch");
+    C subSettings = this.getSubSettings(configClass);
+    if (subSettings != null) {
+      return subSettings;
     }
 
     var provider = new ModCompatConfigProvider<>(configClass);
@@ -59,14 +56,33 @@ public class AddonHooks {
     return config;
   }
 
+  public <C extends ConfigAccessor> C getSubSettings(Class<C> configClass) {
+    if (this.configProviders.containsKey(configClass)) {
+      var provider = this.configProviders.get(configClass);
+      if (provider.getType() == configClass) {
+        //noinspection unchecked
+        return (C) provider.get();
+      }
+      throw new IllegalArgumentException("Config class mismatch");
+    }
+    return null;
+  }
+
   public @Nullable RootSettingRegistry getAddonSettings(String addonId) {
+    if (DefaultAddonService.getInstance().getAddon(addonId).isEmpty()) {
+      // Addon is not loaded, which means no settings are available
+      if (!Laby.labyAPI().labyModLoader().isAddonDevelopmentEnvironment()) {
+        return null;
+      }
+      // In development environment, use the mod compat settings so that mod addons are not required
+      addonId = ModCompatAddon.NAMESPACE;
+    }
+
     return this.addonSettingsCache.computeIfAbsent(addonId, id -> {
       for (Setting setting : Laby.labyAPI().coreSettingRegistry().values()) {
         if (setting instanceof RootSettingRegistry settingRegistry
             && settingRegistry.isAddon()
-            && settingRegistry.getNamespace().equals(id)
-            && DefaultAddonService.getInstance().getAddon(settingRegistry.getNamespace())
-            .isPresent()) {
+            && settingRegistry.getNamespace().equals(id)) {
           return settingRegistry;
         }
       }

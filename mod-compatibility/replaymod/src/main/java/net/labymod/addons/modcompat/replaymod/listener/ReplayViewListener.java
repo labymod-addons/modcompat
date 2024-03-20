@@ -25,35 +25,26 @@ public class ReplayViewListener {
 
   @Subscribe(value = Priority.FIRST)
   public void onPreIngameOverlayRender(IngameOverlayRenderEvent event) {
-    if (event.phase() != Phase.PRE) {
+    ReplayHandler replayHandler = ReplayModReplay.instance.getReplayHandler();
+    if (replayHandler == null || !replayHandler.getOverlay().isVisible()) {
       return;
     }
 
     IngameConfig ingameConfig = Laby.labyAPI().config().ingame();
 
-    // Save enabled state for hud widgets and advanced chat
-    this.hudWidgetsEnabled = ingameConfig.hudWidgets().get();
-    this.advancedChatEnabled = ingameConfig.advancedChat().enabled().get();
+    if (event.phase() == Phase.PRE) {
+      // Save enabled state for hud widgets and advanced chat
+      this.hudWidgetsEnabled = ingameConfig.hudWidgets().get();
+      this.advancedChatEnabled = ingameConfig.advancedChat().enabled().get();
 
-    // Make sure that both is displayed when viewing replay
-    ReplayHandler replayHandler = ReplayModReplay.instance.getReplayHandler();
-    if (replayHandler != null && replayHandler.getOverlay().isVisible()) {
+      // Make sure that both is disabled when viewing replay
       ingameConfig.hudWidgets().set(false);
       ingameConfig.advancedChat().enabled().set(false);
+    } else {
+      // Restore enabled state for hud widgets and advanced chat
+      ingameConfig.hudWidgets().set(this.hudWidgetsEnabled);
+      ingameConfig.advancedChat().enabled().set(this.advancedChatEnabled);
     }
-  }
-
-  @Subscribe(value = Priority.LATEST)
-  public void onPostIngameOverlayRender(IngameOverlayRenderEvent event) {
-    if (event.phase() != Phase.POST) {
-      return;
-    }
-
-    IngameConfig ingameConfig = Laby.labyAPI().config().ingame();
-
-    // Restore enabled state for hud widgets and advanced chat
-    ingameConfig.hudWidgets().set(this.hudWidgetsEnabled);
-    ingameConfig.advancedChat().enabled().set(this.advancedChatEnabled);
   }
 
   @Subscribe

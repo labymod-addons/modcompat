@@ -1,4 +1,4 @@
-package net.labymod.addons.modcompat.replaymod.settings;
+package net.labymod.addons.modcompat.replaymod.configuration.settings;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.SettingsRegistry.MultipleChoiceSettingKey;
@@ -6,12 +6,13 @@ import com.replaymod.core.SettingsRegistry.SettingKey;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
-import net.labymod.addons.modcompat.replaymod.settings.widget.ReplayModEntryRenderer;
+import net.labymod.addons.modcompat.configuration.settings.CustomNameSettingElement;
+import net.labymod.addons.modcompat.configuration.settings.SettingAnnotationCreator;
+import net.labymod.addons.modcompat.replaymod.configuration.settings.widget.ReplayModEntryRenderer;
 import net.labymod.api.Laby;
+import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.screen.widget.Widget;
-import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownWidget;
-import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownWidget.DropdownSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.renderer.EntryRenderer;
 import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.configuration.settings.Setting;
@@ -20,24 +21,6 @@ import net.labymod.api.configuration.settings.accessor.SettingAccessor;
 import net.labymod.api.configuration.settings.type.SettingElement;
 
 public class ReplayModSettingsConverter {
-
-  private static final Annotation SWITCH_ANNOTATION = new SwitchSetting() {
-    @Override
-    public boolean hotkey() {
-      return false;
-    }
-
-    @Override
-    public Class<? extends Annotation> annotationType() {
-      return SwitchSetting.class;
-    }
-  };
-  private static final Annotation DROPDOWN_ANNOTATION = new DropdownSetting() {
-    @Override
-    public Class<? extends Annotation> annotationType() {
-      return DropdownSetting.class;
-    }
-  };
 
   private final EntryRenderer<Object> REPLAY_MOD_ENTRY_RENDERER = new ReplayModEntryRenderer<>();
 
@@ -53,14 +36,17 @@ public class ReplayModSettingsConverter {
 
       Annotation annotation;
       if (key.getDefault() instanceof Boolean) {
-        annotation = SWITCH_ANNOTATION;
+        annotation = SettingAnnotationCreator.createSwitch(false);
       } else if (key instanceof MultipleChoiceSettingKey<?>) {
-        annotation = DROPDOWN_ANNOTATION;
+        annotation = SettingAnnotationCreator.createDropdown();
       } else {
         continue;
       }
 
-      SettingElement element = new ReplayModSettingElement(key);
+      SettingElement element = new CustomNameSettingElement(
+          key.getKey(),
+          () -> Component.translatable(key.getDisplayString())
+      );
 
       SettingInfo<?> settingInfo = new SettingInfo<>(config, null);
       SettingAccessor accessor = new ReplayModSettingAccessor(
