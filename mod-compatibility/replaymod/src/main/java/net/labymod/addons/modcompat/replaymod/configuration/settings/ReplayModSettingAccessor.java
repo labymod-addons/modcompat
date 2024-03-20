@@ -1,4 +1,4 @@
-package net.labymod.addons.modcompat.replaymod.settings;
+package net.labymod.addons.modcompat.replaymod.configuration.settings;
 
 import com.replaymod.core.ReplayMod;
 import com.replaymod.core.SettingsRegistry.SettingKey;

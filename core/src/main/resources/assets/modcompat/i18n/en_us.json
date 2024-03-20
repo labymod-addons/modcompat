@@ -37,6 +37,14 @@
   },
   "skyblockaddons_loader": {
     "settings": {
+      "header": {
+        "integration": {
+          "name": "LabyMod Integration"
+        },
+        "general": {
+          "name": "General Settings"
+        }
+      },
       "featureIntegration": {
         "name": "SkyblockAddons Feature Integration",
         "description": "Integrate the SkyblockAddons GUI Features into the LabyMod HUD"

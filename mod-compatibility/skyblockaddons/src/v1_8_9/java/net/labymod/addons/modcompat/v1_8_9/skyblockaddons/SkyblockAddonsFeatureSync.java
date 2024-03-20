@@ -19,6 +19,7 @@ import net.labymod.api.event.Priority;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.lifecycle.GameTickEvent;
 import net.labymod.api.event.client.render.overlay.IngameOverlayRenderEvent;
+import net.labymod.api.event.labymod.config.ConfigurationSaveEvent;
 import net.labymod.api.util.Color;
 import net.labymod.api.util.KeyValue;
 import net.labymod.core.client.gui.hud.overlay.HudWidgetOverlay;
@@ -55,8 +56,17 @@ public class SkyblockAddonsFeatureSync {
   }
 
   public void unregisterHudWidgets() {
-    this.labyAPI.hudWidgetRegistry()
-        .unregister(value -> value.getValue() instanceof SkyblockAddonsHudWidget);
+    for (HudWidget<?> widget : this.labyAPI.hudWidgetRegistry().values()) {
+      if (widget instanceof SkyblockAddonsHudWidget) {
+        this.labyAPI.hudWidgetRegistry().unregister(widget.getId());
+      }
+      if (widget.getParent() instanceof SkyblockAddonsHudWidget) {
+        widget.updateParent(null);
+      }
+      if (widget.getChild() instanceof SkyblockAddonsHudWidget) {
+        widget.updateChild(null);
+      }
+    }
     this.labyAPI.ingameOverlay().getActivity(HudWidgetOverlay.class).ifPresent(Activity::reload);
 
     // TODO: This fixes that unregistered widgets can still be selected in the editor. Should probably be fixed in LabyMod instead
@@ -119,5 +129,10 @@ public class SkyblockAddonsFeatureSync {
         config.chroma().set(configValues.getChromaFeatures().contains(feature));
       }
     }
+  }
+
+  @Subscribe
+  public void onConfigurationSave(ConfigurationSaveEvent event) {
+    this.main.getConfigValues().saveConfig();
   }
 }
