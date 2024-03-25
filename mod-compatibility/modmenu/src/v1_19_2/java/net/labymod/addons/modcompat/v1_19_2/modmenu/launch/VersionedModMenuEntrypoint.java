@@ -1,6 +1,7 @@
-package net.labymod.addons.modcompat.v1_19_2.modmenu;
+package net.labymod.addons.modcompat.v1_19_2.modmenu.launch;
 
 import net.labymod.addons.modcompat.mod.fix.ModFixEntrypoint;
+import net.labymod.addons.modcompat.v1_19_2.modmenu.TexturedButtonMapper;
 import net.labymod.api.Laby;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint.Point;
