@@ -19,7 +19,7 @@ import net.labymod.api.models.addon.annotation.AddonEntryPoint;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint.Point;
 import net.labymod.api.models.version.Version;
 
-@AddonEntryPoint(value = Point.ENABLE)
+@AddonEntryPoint(Point.ENABLE)
 public class ReplayModEnableEntrypoint extends ModFixEntrypoint {
 
   public static final String ADDON_ID = "replaymod_loader";

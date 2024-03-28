@@ -23,7 +23,7 @@ public class ReplayViewListener {
   private boolean advancedChatEnabled;
   private float prevTickDelta;
 
-  @Subscribe(value = Priority.FIRST)
+  @Subscribe(Priority.LATEST)
   public void onPreIngameOverlayRender(IngameOverlayRenderEvent event) {
     ReplayHandler replayHandler = ReplayModReplay.instance.getReplayHandler();
     if (replayHandler == null || !replayHandler.getOverlay().isVisible()) {

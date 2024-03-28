@@ -4,7 +4,7 @@ import codes.biscuit.skyblockaddons.gui.LocationEditGui;
 import codes.biscuit.skyblockaddons.gui.buttons.ButtonLocation;
 import codes.biscuit.skyblockaddons.listeners.RenderListener;
 import codes.biscuit.skyblockaddons.utils.EnumUtils.GUIType;
-import net.labymod.addons.modcompat.v1_8_9.SkyblockAddonsCompat;
+import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.SkyblockAddonsCompat;
 import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.FeatureDrawContext;
 import net.labymod.api.Laby;
 import net.labymod.core.client.gui.screen.activity.activities.labymod.LabyModActivity;

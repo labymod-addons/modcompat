@@ -3,7 +3,7 @@ package net.labymod.addons.modcompat.v1_8_9.mixins.skyblockaddons.gui;
 import codes.biscuit.skyblockaddons.gui.SettingsGui;
 import codes.biscuit.skyblockaddons.utils.EnumUtils;
 import codes.biscuit.skyblockaddons.utils.EnumUtils.FeatureSetting;
-import net.labymod.addons.modcompat.v1_8_9.SkyblockAddonsCompat;
+import net.labymod.addons.modcompat.v1_8_9.skyblockaddons.SkyblockAddonsCompat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

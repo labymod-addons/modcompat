@@ -7,7 +7,7 @@ import net.labymod.api.models.addon.annotation.AddonEntryPoint;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint.Point;
 import net.labymod.api.models.version.Version;
 
-@AddonEntryPoint(value = Point.ENABLE)
+@AddonEntryPoint(Point.ENABLE)
 public class VersionedModMenuEntrypoint extends ModFixEntrypoint {
 
   private static final String MOD_ID = "modmenu";

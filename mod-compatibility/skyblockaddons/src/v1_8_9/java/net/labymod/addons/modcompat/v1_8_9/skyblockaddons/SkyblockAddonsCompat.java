@@ -1,4 +1,4 @@
-package net.labymod.addons.modcompat.v1_8_9;
+package net.labymod.addons.modcompat.v1_8_9.skyblockaddons;
 
 import java.util.function.Consumer;
 import net.labymod.addons.modcompat.hook.AddonHooks;
