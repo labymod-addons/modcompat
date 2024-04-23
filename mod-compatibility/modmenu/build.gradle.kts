@@ -17,6 +17,7 @@ dependencies {
     v1_20_1CompileOnly(files("./libs/modmenu-1.20.2.jar"))
     v1_20_2CompileOnly(files("./libs/modmenu-1.20.2.jar"))
     v1_20_4CompileOnly(files("./libs/modmenu-1.20.4.jar"))
+    v1_20_5CompileOnly(files("./libs/modmenu-1.20.5.jar"))
 }
 
 labyModProcessor {
@@ -24,6 +25,6 @@ labyModProcessor {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
