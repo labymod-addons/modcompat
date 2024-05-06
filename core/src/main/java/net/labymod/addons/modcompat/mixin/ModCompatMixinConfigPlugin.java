@@ -29,7 +29,8 @@ public class ModCompatMixinConfigPlugin implements IMixinConfigPlugin {
 
   @Override
   public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-    return Laby.fireEvent(new MixinShouldApplyEvent(true)).shouldApply();
+    return Laby.fireEvent(new MixinShouldApplyEvent(targetClassName, mixinClassName, true))
+        .shouldApply();
   }
 
   @Override
