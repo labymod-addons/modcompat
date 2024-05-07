@@ -17,11 +17,11 @@ public class IrisEarlyEntrypoint implements Entrypoint {
     );
     PlatformEnvironment.getPlatformClassloader().registerTransformer(
         TransformerPhase.NORMAL,
-        "net.labymod.addons.modcompat.iris.transformer.IrisMixinModelViewBobbingTransformer"
+        "net.labymod.addons.modcompat.iris.transformer.modelview.IrisMixinModelViewTransformer"
     );
     PlatformEnvironment.getPlatformClassloader().registerTransformer(
         TransformerPhase.NORMAL,
-        "net.labymod.addons.modcompat.iris.transformer.LabyModMixinGameRendererTransformer"
+        "net.labymod.addons.modcompat.iris.transformer.modelview.LabyModMixinModelViewTransformer"
     );
   }
 }

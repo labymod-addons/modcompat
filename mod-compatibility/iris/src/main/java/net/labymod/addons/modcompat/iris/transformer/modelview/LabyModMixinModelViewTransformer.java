@@ -1,4 +1,4 @@
-package net.labymod.addons.modcompat.iris.transformer;
+package net.labymod.addons.modcompat.iris.transformer.modelview;
 
 import net.labymod.api.loader.MinecraftVersions;
 import net.labymod.api.util.CollectionHelper;
@@ -8,7 +8,7 @@ import net.minecraft.launchwrapper.IClassTransformer;
 /**
  * Removes the redirects that conflict with Iris. They are merged in a new Mixin.
  */
-public class LabyModMixinGameRendererTransformer implements IClassTransformer {
+public class LabyModMixinModelViewTransformer implements IClassTransformer {
 
   private static final String[] LABYMOD_MIXIN_NAMES = new String[]{
       "net.labymod.v1_20_5.mixins.client.renderer.MixinGameRenderer",

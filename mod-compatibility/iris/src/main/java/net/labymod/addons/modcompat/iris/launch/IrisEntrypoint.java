@@ -5,9 +5,10 @@ import net.labymod.addons.modcompat.iris.IrisShaderListener;
 import net.labymod.addons.modcompat.mod.fix.ModFixEntrypoint;
 import net.labymod.api.Laby;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint;
+import net.labymod.api.models.addon.annotation.AddonEntryPoint.Point;
 import net.labymod.api.models.version.Version;
 
-@AddonEntryPoint(AddonEntryPoint.Point.ENABLE)
+@AddonEntryPoint(Point.LOAD)
 public class IrisEntrypoint extends ModFixEntrypoint {
 
   public IrisEntrypoint() {
@@ -16,9 +17,8 @@ public class IrisEntrypoint extends ModFixEntrypoint {
 
   @Override
   public void initialize(Version version) {
-    if (!super.isModLoaded()) {
-      return;
+    if (super.isModLoaded()) {
+      Laby.labyAPI().eventBus().registerListener(new IrisShaderListener());
     }
-    Laby.labyAPI().eventBus().registerListener(new IrisShaderListener());
   }
 }

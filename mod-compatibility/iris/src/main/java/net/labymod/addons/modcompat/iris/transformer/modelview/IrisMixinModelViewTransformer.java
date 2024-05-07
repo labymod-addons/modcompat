@@ -1,4 +1,4 @@
-package net.labymod.addons.modcompat.iris.transformer;
+package net.labymod.addons.modcompat.iris.transformer.modelview;
 
 import net.labymod.api.loader.MinecraftVersions;
 import net.labymod.api.volt.asm.util.ASMHelper;
@@ -7,7 +7,7 @@ import net.minecraft.launchwrapper.IClassTransformer;
 /**
  * Removes the redirects that conflict with LabyMod. They are merged in a new Mixin.
  */
-public class IrisMixinModelViewBobbingTransformer implements IClassTransformer {
+public class IrisMixinModelViewTransformer implements IClassTransformer {
 
   private static final String IRIS_MIXIN_NAME = "net.irisshaders.iris.mixin.MixinModelViewBobbing";
 
