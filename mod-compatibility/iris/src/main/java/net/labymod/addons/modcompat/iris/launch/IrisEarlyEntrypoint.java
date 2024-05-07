@@ -19,5 +19,9 @@ public class IrisEarlyEntrypoint implements Entrypoint {
         TransformerPhase.NORMAL,
         "net.labymod.addons.modcompat.iris.transformer.IrisMixinModelViewBobbingTransformer"
     );
+    PlatformEnvironment.getPlatformClassloader().registerTransformer(
+        TransformerPhase.NORMAL,
+        "net.labymod.addons.modcompat.iris.transformer.LabyModMixinGameRendererTransformer"
+    );
   }
 }
