@@ -1,5 +1,6 @@
 package net.labymod.addons.modcompat.iris.transformer;
 
+import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
 import net.labymod.api.volt.asm.util.ASMHelper;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -8,6 +9,7 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 
+@EarlyAddonTransformer
 public class IrisRenderSystemTransformer implements IClassTransformer {
 
   private static final String IRIS_RENDER_SYSTEM_NAME = "net.coderbot.iris.gl.IrisRenderSystem";

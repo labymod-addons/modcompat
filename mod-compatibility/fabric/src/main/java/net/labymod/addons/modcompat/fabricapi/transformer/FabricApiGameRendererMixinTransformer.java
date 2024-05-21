@@ -8,6 +8,7 @@ import java.util.List;
 import net.labymod.api.loader.MinecraftVersions;
 import net.labymod.api.mapping.MappingService;
 import net.labymod.api.mapping.provider.MappingProvider;
+import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
 import net.labymod.api.volt.asm.tree.InsnListBuilder;
 import net.labymod.api.volt.asm.util.ASMContext;
 import net.labymod.api.volt.asm.util.ASMHelper;
@@ -23,6 +24,7 @@ import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
+@EarlyAddonTransformer
 public class FabricApiGameRendererMixinTransformer implements IClassTransformer {
 
   private static final String GAME_RENDERER_MXIN_NAME = "net.fabricmc.fabric.mixin.screen.GameRendererMixin";
@@ -51,6 +53,11 @@ public class FabricApiGameRendererMixinTransformer implements IClassTransformer 
 
   private static Type getType(String className) {
     return Type.getType("L" + MAPPINGS.mapClass(className) + ";");
+  }
+
+  @Override
+  public int getPriority() {
+    return 999;
   }
 
   @Override

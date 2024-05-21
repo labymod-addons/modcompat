@@ -1,6 +1,7 @@
 package net.labymod.addons.modcompat.fabricapi.transformer;
 
 import net.labymod.api.loader.MinecraftVersions;
+import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
 import net.labymod.api.volt.asm.util.ASMContext;
 import net.labymod.api.volt.asm.util.ASMHelper;
 import net.minecraft.launchwrapper.IClassTransformer;
@@ -9,6 +10,7 @@ import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
+@EarlyAddonTransformer
 public class FabricApiConnectionMixinTransformer implements IClassTransformer {
 
   private static final String CONNECTION_MIXIN_NAME = "net.fabricmc.fabric.mixin.networking.ClientConnectionMixin";
@@ -18,6 +20,11 @@ public class FabricApiConnectionMixinTransformer implements IClassTransformer {
   static {
     ASMContext.setPlatformClassLoader(Launch.classLoader);
     ASMContext.setResourceFinder(Launch.classLoader::loadResource);
+  }
+
+  @Override
+  public int getPriority() {
+    return 999;
   }
 
   @Override

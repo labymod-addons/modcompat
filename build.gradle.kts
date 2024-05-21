@@ -75,6 +75,7 @@ fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionPro
         mainClass = "net.minecraft.launchwrapper.Launch"
         jvmArgs("-Dnet.labymod.running-version=${gameVersion}")
         // jvmArgs("-Dmixin.debug=true")
+        jvmArgs("-Dmixin.debug.export=true")
         jvmArgs("-Dnet.labymod.debugging.all=true")
 
         val obfuscatedClientJar = getClientRepository(gameVersion).resolve("client-$gameVersion-obfuscated.jar")

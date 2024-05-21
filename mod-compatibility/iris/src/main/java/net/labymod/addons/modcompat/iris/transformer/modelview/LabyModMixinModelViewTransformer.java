@@ -1,6 +1,7 @@
 package net.labymod.addons.modcompat.iris.transformer.modelview;
 
 import net.labymod.api.loader.MinecraftVersions;
+import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
 import net.labymod.api.util.CollectionHelper;
 import net.labymod.api.volt.asm.util.ASMHelper;
 import net.minecraft.launchwrapper.IClassTransformer;
@@ -8,6 +9,7 @@ import net.minecraft.launchwrapper.IClassTransformer;
 /**
  * Removes the redirects that conflict with Iris. They are merged in a new Mixin.
  */
+@EarlyAddonTransformer
 public class LabyModMixinModelViewTransformer implements IClassTransformer {
 
   private static final String[] LABYMOD_MIXIN_NAMES = new String[]{

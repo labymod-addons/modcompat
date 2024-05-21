@@ -1,5 +1,6 @@
 package net.labymod.addons.modcompat.replaymod.transformer;
 
+import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
 import net.labymod.api.volt.asm.tree.InsnListBuilder;
 import net.labymod.api.volt.asm.util.ASMHelper;
 import net.minecraft.launchwrapper.IClassTransformer;
@@ -9,6 +10,7 @@ import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.MethodNode;
 
+@EarlyAddonTransformer
 public class ReplayModPauseButtonsTransformer implements IClassTransformer {
 
   private static final String GUI_RECORDING_CONTROLS_NAME = "com.replaymod.recording.gui.GuiRecordingControls";

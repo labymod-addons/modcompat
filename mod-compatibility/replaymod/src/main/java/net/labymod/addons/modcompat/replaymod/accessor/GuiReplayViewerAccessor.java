@@ -3,7 +3,7 @@ package net.labymod.addons.modcompat.replaymod.accessor;
 import com.replaymod.replay.ReplayModReplay;
 import com.replaymod.replay.gui.screen.GuiReplayViewer;
 import net.labymod.addons.modcompat.hook.AddonHooks;
-import net.labymod.addons.modcompat.replaymod.launch.ReplayModEnableEntrypoint;
+import net.labymod.addons.modcompat.replaymod.launch.ReplayModEntrypoint;
 import net.labymod.api.Laby;
 import net.labymod.api.client.gui.screen.ScreenWrapper;
 import net.labymod.api.configuration.settings.Setting;
@@ -15,7 +15,7 @@ public class GuiReplayViewerAccessor {
 
     // Redirect to addon settings, if present
     Setting addonSettings = AddonHooks.instance()
-        .getAddonSettings(ReplayModEnableEntrypoint.ADDON_ID);
+        .getAddonSettings(ReplayModEntrypoint.ADDON_ID);
     if (addonSettings != null) {
       replayViewer.settingsButton.onClick(() -> Laby.labyAPI().showSetting(addonSettings));
     }
