@@ -1,41 +1,28 @@
 package net.labymod.addons.modcompat.fabricapi.transformer;
 
+import net.labymod.addons.modcompat.transformer.MixinClassTransformer;
 import net.labymod.api.loader.MinecraftVersions;
 import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
-import net.labymod.api.volt.asm.util.ASMContext;
-import net.labymod.api.volt.asm.util.ASMHelper;
-import net.minecraft.launchwrapper.IClassTransformer;
-import net.minecraft.launchwrapper.Launch;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
 @EarlyAddonTransformer
-public class FabricApiConnectionMixinTransformer implements IClassTransformer {
+public class FabricApiConnectionMixinTransformer extends MixinClassTransformer {
 
   private static final String CONNECTION_MIXIN_NAME = "net.fabricmc.fabric.mixin.networking.ClientConnectionMixin";
 
-  private static final String MODIFY_VARIABLE_DESC = "Lorg/spongepowered/asm/mixin/injection/ModifyVariable;";
-
-  static {
-    ASMContext.setPlatformClassLoader(Launch.classLoader);
-    ASMContext.setResourceFinder(Launch.classLoader::loadResource);
+  public FabricApiConnectionMixinTransformer() {
+    super(CONNECTION_MIXIN_NAME);
   }
 
   @Override
-  public int getPriority() {
-    return 999;
+  protected boolean shouldTransform(String name, String transformedName, byte... bytes) {
+    return MinecraftVersions.V1_20_2.orNewer();
   }
 
   @Override
-  public byte[] transform(String name, String transformedName, byte... classData) {
-    if (!CONNECTION_MIXIN_NAME.equals(name) || MinecraftVersions.V1_20_1.orOlder()) {
-      return classData;
-    }
-    return ASMHelper.transformClassData(classData, this::patch);
-  }
-
-  private void patch(ClassNode classNode) {
+  protected void transform(ClassNode classNode) {
     for (MethodNode methodNode : classNode.methods) {
       if (methodNode.name.equals("disconnectAddon") && methodNode.visibleAnnotations != null) {
         for (AnnotationNode visibleAnnotation : methodNode.visibleAnnotations) {

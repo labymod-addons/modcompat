@@ -1,8 +1,7 @@
 package net.labymod.addons.modcompat.portinglib.transformer;
 
+import net.labymod.addons.modcompat.transformer.MixinClassTransformer;
 import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
-import net.labymod.api.volt.asm.util.ASMHelper;
-import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -11,22 +10,17 @@ import org.objectweb.asm.tree.MethodNode;
  * Fixes a local variable modification by specifying the ordinal. The first float should be used.
  */
 @EarlyAddonTransformer
-public class LivingEntityMixinTransformer implements IClassTransformer {
+public class LivingEntityMixinTransformer extends MixinClassTransformer {
 
   private static final String MIXIN_NAME = "io.github.fabricators_of_create.porting_lib.mixin.common.LivingEntityMixin";
   private static final String MIXIN_METHOD_NAME = "port_lib$setSlipperiness";
 
-  private static final String MODIFY_VARIABLE_DESC = "Lorg/spongepowered/asm/mixin/injection/ModifyVariable;";
-
-  @Override
-  public byte[] transform(String name, String transformedName, byte... classData) {
-    if (!MIXIN_NAME.equals(name)) {
-      return classData;
-    }
-    return ASMHelper.transformClassData(classData, this::patch);
+  public LivingEntityMixinTransformer() {
+    super(MIXIN_NAME);
   }
 
-  private void patch(ClassNode classNode) {
+  @Override
+  protected void transform(ClassNode classNode) {
     for (MethodNode method : classNode.methods) {
       if (MIXIN_METHOD_NAME.equals(method.name) && method.visibleAnnotations != null) {
         for (AnnotationNode visibleAnnotation : method.visibleAnnotations) {

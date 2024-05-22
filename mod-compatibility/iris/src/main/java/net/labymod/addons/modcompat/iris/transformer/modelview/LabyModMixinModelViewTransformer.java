@@ -1,16 +1,15 @@
 package net.labymod.addons.modcompat.iris.transformer.modelview;
 
+import net.labymod.addons.modcompat.transformer.MixinClassTransformer;
 import net.labymod.api.loader.MinecraftVersions;
 import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
-import net.labymod.api.util.CollectionHelper;
-import net.labymod.api.volt.asm.util.ASMHelper;
-import net.minecraft.launchwrapper.IClassTransformer;
+import org.objectweb.asm.tree.ClassNode;
 
 /**
  * Removes the redirects that conflict with Iris. They are merged in a new Mixin.
  */
 @EarlyAddonTransformer
-public class LabyModMixinModelViewTransformer implements IClassTransformer {
+public class LabyModMixinModelViewTransformer extends MixinClassTransformer {
 
   private static final String[] LABYMOD_MIXIN_NAMES = new String[]{
       "net.labymod.v1_20_5.mixins.client.renderer.MixinGameRenderer",
@@ -20,19 +19,21 @@ public class LabyModMixinModelViewTransformer implements IClassTransformer {
   private static final String NO_BOBBING_NAME = "labyMod$noViewBobbing";
   private static final String SET_VIEW_MATRIX_NAME = "labyMod$setViewMatrix";
 
-  @Override
-  public byte[] transform(String name, String transformedName, byte... classData) {
-    if (MinecraftVersions.V1_20_4.orOlder()
-        || !CollectionHelper.contains(LABYMOD_MIXIN_NAMES, name)) {
-      return classData;
-    }
+  public LabyModMixinModelViewTransformer() {
+    super(LABYMOD_MIXIN_NAMES);
+  }
 
-    return ASMHelper.transformClassData(
-        classData,
-        classNode -> classNode.methods.removeIf(
-            methodNode ->
-                NO_BOBBING_NAME.equals(methodNode.name)
-                    || SET_VIEW_MATRIX_NAME.equals(methodNode.name)
-        ));
+  @Override
+  protected boolean shouldTransform(String name, String transformedName, byte... bytes) {
+    return MinecraftVersions.V1_20_5.orNewer();
+  }
+
+  @Override
+  protected void transform(ClassNode classNode) {
+    classNode.methods.removeIf(
+        methodNode ->
+            NO_BOBBING_NAME.equals(methodNode.name)
+                || SET_VIEW_MATRIX_NAME.equals(methodNode.name)
+    );
   }
 }

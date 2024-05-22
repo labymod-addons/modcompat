@@ -1,33 +1,36 @@
 package net.labymod.addons.modcompat.iris.transformer.modelview;
 
+import net.labymod.addons.modcompat.transformer.MixinClassTransformer;
 import net.labymod.api.loader.MinecraftVersions;
 import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
-import net.labymod.api.volt.asm.util.ASMHelper;
-import net.minecraft.launchwrapper.IClassTransformer;
+import org.objectweb.asm.tree.ClassNode;
 
 /**
  * Removes the redirects that conflict with LabyMod. They are merged in a new Mixin.
  */
 @EarlyAddonTransformer
-public class IrisMixinModelViewTransformer implements IClassTransformer {
+public class IrisMixinModelViewTransformer extends MixinClassTransformer {
 
   private static final String IRIS_MIXIN_NAME = "net.irisshaders.iris.mixin.MixinModelViewBobbing";
 
   private static final String STOP_BOBBING_NAME = "iris$stopBobbing";
   private static final String APPLY_BOBBING_NAME = "iris$applyBobbingToModelView";
 
-  @Override
-  public byte[] transform(String name, String transformedName, byte... classData) {
-    if (MinecraftVersions.V1_20_4.orOlder() || !IRIS_MIXIN_NAME.equals(name)) {
-      return classData;
-    }
+  public IrisMixinModelViewTransformer() {
+    super(IRIS_MIXIN_NAME);
+  }
 
-    return ASMHelper.transformClassData(
-        classData,
-        classNode -> classNode.methods.removeIf(
-            methodNode ->
-                STOP_BOBBING_NAME.equals(methodNode.name)
-                    || APPLY_BOBBING_NAME.equals(methodNode.name)
-        ));
+  @Override
+  protected boolean shouldTransform(String name, String transformedName, byte... bytes) {
+    return MinecraftVersions.V1_20_5.orNewer();
+  }
+
+  @Override
+  protected void transform(ClassNode classNode) {
+    classNode.methods.removeIf(
+        methodNode ->
+            STOP_BOBBING_NAME.equals(methodNode.name)
+                || APPLY_BOBBING_NAME.equals(methodNode.name)
+    );
   }
 }

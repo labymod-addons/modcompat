@@ -5,15 +5,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import net.labymod.addons.modcompat.transformer.MixinClassTransformer;
 import net.labymod.api.loader.MinecraftVersions;
-import net.labymod.api.mapping.MappingService;
-import net.labymod.api.mapping.provider.MappingProvider;
 import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
 import net.labymod.api.volt.asm.tree.InsnListBuilder;
-import net.labymod.api.volt.asm.util.ASMContext;
-import net.labymod.api.volt.asm.util.ASMHelper;
-import net.minecraft.launchwrapper.IClassTransformer;
-import net.minecraft.launchwrapper.Launch;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -25,14 +20,12 @@ import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 @EarlyAddonTransformer
-public class FabricApiGameRendererMixinTransformer implements IClassTransformer {
+public class FabricApiGameRendererMixinTransformer extends MixinClassTransformer {
 
   private static final String GAME_RENDERER_MXIN_NAME = "net.fabricmc.fabric.mixin.screen.GameRendererMixin";
 
   private static final boolean IS_NO_JOML = MinecraftVersions.V1_19_2.orOlder();
   private static final boolean IS_NO_MATRIX = MinecraftVersions.V1_16_5.orOlder();
-
-  private static final MappingProvider MAPPINGS = MappingService.instance().currentMappings();
 
   private static final Type CALLBACK_INFO_TYPE = Type.getType(
       "Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;"
@@ -46,29 +39,12 @@ public class FabricApiGameRendererMixinTransformer implements IClassTransformer 
       ? Collections.singletonList(WINDOW_TYPE)
       : Arrays.asList(WINDOW_TYPE, MATRIX_TYPE);
 
-  static {
-    ASMContext.setPlatformClassLoader(Launch.classLoader);
-    ASMContext.setResourceFinder(Launch.classLoader::loadResource);
-  }
-
-  private static Type getType(String className) {
-    return Type.getType("L" + MAPPINGS.mapClass(className) + ";");
+  public FabricApiGameRendererMixinTransformer() {
+    super(GAME_RENDERER_MXIN_NAME);
   }
 
   @Override
-  public int getPriority() {
-    return 999;
-  }
-
-  @Override
-  public byte[] transform(String name, String transformedName, byte... classData) {
-    if (!GAME_RENDERER_MXIN_NAME.equals(name)) {
-      return classData;
-    }
-    return ASMHelper.transformClassData(classData, this::patch);
-  }
-
-  private void patch(ClassNode classNode) {
+  protected void transform(ClassNode classNode) {
     for (MethodNode methodNode : classNode.methods) {
       if (
           methodNode.name.equals("onBeforeRenderScreen")
