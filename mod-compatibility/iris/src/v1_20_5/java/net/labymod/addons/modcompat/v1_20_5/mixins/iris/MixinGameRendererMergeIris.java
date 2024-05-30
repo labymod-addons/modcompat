@@ -1,11 +1,14 @@
 package net.labymod.addons.modcompat.v1_20_5.mixins.iris;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.labymod.addons.modcompat.iris.IrisCompat;
 import net.labymod.core.main.LabyMod;
 import net.labymod.v1_20_5.client.util.MinecraftUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
+import org.joml.AxisAngle4f;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,20 +46,24 @@ public abstract class MixinGameRendererMergeIris {
     }
   }
 
-  @Redirect(
+  @WrapOperation(
       method = "renderLevel",
       at = @At(value = "INVOKE", target = "Lorg/joml/Matrix4f;rotationXYZ(FFF)Lorg/joml/Matrix4f;")
   )
   private Matrix4f modcompat$applyBobbingSetViewMatrix(
-      Matrix4f instance, float angleX, float angleY, float angleZ, float tickDelta
+      Matrix4f self,
+      float angleX,
+      float angleY,
+      float angleZ,
+      Operation<Matrix4f> original,
+      float tickDelta
   ) {
     if (!IrisCompat.api().isShaderActive()) {
-      // Merge: Set the LabyMod view matrix
-      return MinecraftUtil.setViewMatrix(instance.rotationXYZ(angleX, angleY, angleZ));
+      return original.call(self, angleX, angleY, angleZ);
     }
 
     PoseStack stack = new PoseStack();
-    stack.last().pose().set(instance);
+    stack.last().pose().set(self);
 
     this.bobHurt(stack, tickDelta);
     if (this.minecraft.options.bobView().get()
@@ -65,8 +72,20 @@ public abstract class MixinGameRendererMergeIris {
       this.bobView(stack, tickDelta);
     }
 
-    instance.set(stack.last().pose());
-    // Merge: Set the LabyMod view matrix
-    return MinecraftUtil.setViewMatrix(instance.rotateXYZ(angleX, angleY, angleZ));
+    self.set(stack.last().pose());
+
+    // Store rotation from bobbing
+    AxisAngle4f rotation = new AxisAngle4f();
+    self.getRotation(rotation);
+
+    // Apply LabyMod's eye height transform, which overrides the rotation from bobbing
+    original.call(self, angleX, angleY, angleZ);
+
+    // Restore rotation from bobbing and add actual rotation
+    self.rotation(rotation);
+    self.rotateXYZ(angleX, angleY, angleZ);
+
+    // Update LabyMod's view matrix
+    return MinecraftUtil.setViewMatrix(self);
   }
 }

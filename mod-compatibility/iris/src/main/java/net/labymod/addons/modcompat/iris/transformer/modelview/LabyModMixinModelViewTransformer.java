@@ -17,7 +17,6 @@ public class LabyModMixinModelViewTransformer extends MixinClassTransformer {
   };
 
   private static final String NO_BOBBING_NAME = "labyMod$noViewBobbing";
-  private static final String SET_VIEW_MATRIX_NAME = "labyMod$setViewMatrix";
 
   public LabyModMixinModelViewTransformer() {
     super(LABYMOD_MIXIN_NAMES);
@@ -30,10 +29,6 @@ public class LabyModMixinModelViewTransformer extends MixinClassTransformer {
 
   @Override
   protected void transform(ClassNode classNode) {
-    classNode.methods.removeIf(
-        methodNode ->
-            NO_BOBBING_NAME.equals(methodNode.name)
-                || SET_VIEW_MATRIX_NAME.equals(methodNode.name)
-    );
+    classNode.methods.removeIf(methodNode -> NO_BOBBING_NAME.equals(methodNode.name));
   }
 }
