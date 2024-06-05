@@ -9,6 +9,7 @@ import net.labymod.addons.modcompat.transformer.MixinClassTransformer;
 import net.labymod.api.loader.MinecraftVersions;
 import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
 import net.labymod.api.volt.asm.tree.InsnListBuilder;
+import net.labymod.core.main.BuildData;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -41,6 +42,11 @@ public class FabricApiGameRendererMixinTransformer extends MixinClassTransformer
 
   public FabricApiGameRendererMixinTransformer() {
     super(GAME_RENDERER_MXIN_NAME);
+  }
+
+  @Override
+  protected boolean shouldTransform(String name, String transformedName, byte... bytes) {
+    return !BuildData.version().isGreaterThan(BROKEN_FRAMES_VERSION);
   }
 
   @Override

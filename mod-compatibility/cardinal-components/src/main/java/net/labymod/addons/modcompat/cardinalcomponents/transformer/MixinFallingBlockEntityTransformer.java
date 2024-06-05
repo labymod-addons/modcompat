@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import net.labymod.addons.modcompat.transformer.MixinClassTransformer;
 import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
+import net.labymod.core.main.BuildData;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
@@ -39,6 +40,11 @@ public class MixinFallingBlockEntityTransformer extends MixinClassTransformer {
 
   public MixinFallingBlockEntityTransformer() {
     super(MIXIN_NAME);
+  }
+
+  @Override
+  protected boolean shouldTransform(String name, String transformedName, byte... bytes) {
+    return !BuildData.version().isGreaterThan(BROKEN_FRAMES_VERSION);
   }
 
   @Override

@@ -3,6 +3,7 @@ package net.labymod.addons.modcompat.fabricapi.transformer;
 import net.labymod.addons.modcompat.transformer.MixinClassTransformer;
 import net.labymod.api.loader.MinecraftVersions;
 import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
+import net.labymod.core.main.BuildData;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -18,7 +19,8 @@ public class FabricApiConnectionMixinTransformer extends MixinClassTransformer {
 
   @Override
   protected boolean shouldTransform(String name, String transformedName, byte... bytes) {
-    return MinecraftVersions.V1_20_2.orNewer();
+    return MinecraftVersions.V1_20_2.orNewer()
+        && !BuildData.version().isGreaterThan(BROKEN_FRAMES_VERSION);
   }
 
   @Override

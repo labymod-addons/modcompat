@@ -8,7 +8,7 @@
     {
       "name": "lvt-mixin",
       "description": "Uses a Mixin with LVT, Minecrafts LVT differs from the Fabric one",
-      "affectedVersions": "*",
+      "affectedVersions": "1.19.3<*",
       "impact": "HIGH",
       "playable": false,
       "fixed": false
