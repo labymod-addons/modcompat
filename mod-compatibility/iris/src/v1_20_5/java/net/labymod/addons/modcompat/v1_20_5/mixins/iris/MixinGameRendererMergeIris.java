@@ -1,5 +1,6 @@
 package net.labymod.addons.modcompat.v1_20_5.mixins.iris;
 
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -32,18 +33,14 @@ public abstract class MixinGameRendererMergeIris {
   @Shadow
   protected abstract void bobHurt(PoseStack poseStack, float tickDelta);
 
-  @Redirect(
+  @WrapWithCondition(
       method = "renderLevel",
       at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;bobView(Lcom/mojang/blaze3d/vertex/PoseStack;F)V")
   )
-  private void modcompat$stopBobbing(
-      GameRenderer instance, PoseStack poseStack, float tickDelta
+  private boolean modcompat$stopBobbing(
+      GameRenderer instance, PoseStack poseStack, float partialTicks
   ) {
-    if (!IrisCompat.api().isShaderActive()
-        && !LabyMod.getInstance().config().ingame().noViewBobbing().get()) {
-      // Merge: Stop bobbing if either shaders are on or if LabyMods view bobbing is disabled
-      this.bobView(poseStack, tickDelta);
-    }
+    return !IrisCompat.api().isShaderActive();
   }
 
   @WrapOperation(
@@ -56,7 +53,7 @@ public abstract class MixinGameRendererMergeIris {
       float angleY,
       float angleZ,
       Operation<Matrix4f> original,
-      float tickDelta
+      float partialTicks
   ) {
     if (!IrisCompat.api().isShaderActive()) {
       return original.call(self, angleX, angleY, angleZ);
@@ -65,11 +62,11 @@ public abstract class MixinGameRendererMergeIris {
     PoseStack stack = new PoseStack();
     stack.last().pose().set(self);
 
-    this.bobHurt(stack, tickDelta);
+    this.bobHurt(stack, partialTicks);
     if (this.minecraft.options.bobView().get()
         && !LabyMod.getInstance().config().ingame().noViewBobbing().get()) {
       // Merge: Do not apply view bobbing to model view matrix if LabyMods view bobbing is disabled
-      this.bobView(stack, tickDelta);
+      this.bobView(stack, partialTicks);
     }
 
     self.set(stack.last().pose());

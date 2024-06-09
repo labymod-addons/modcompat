@@ -2,9 +2,7 @@ package net.labymod.addons.modcompat.transformer;
 
 import net.labymod.api.mapping.MappingService;
 import net.labymod.api.mapping.provider.MappingProvider;
-import net.labymod.api.models.version.Version;
 import net.labymod.api.util.CollectionHelper;
-import net.labymod.api.util.version.SemanticVersion;
 import net.labymod.api.volt.asm.util.ASMContext;
 import net.labymod.api.volt.asm.util.ASMHelper;
 import net.minecraft.launchwrapper.IClassTransformer;
@@ -23,10 +21,6 @@ public abstract class MixinClassTransformer implements IClassTransformer {
   protected static final String LOCAL_DESC = "Lcom/llamalad7/mixinextras/sugar/Local;";
 
   protected static final MappingProvider MAPPINGS = MappingService.instance().currentMappings();
-
-  // TODO: Remove with next production release
-  @Deprecated(forRemoval = true)
-  protected static final Version BROKEN_FRAMES_VERSION = new SemanticVersion("4.2.15");
 
   static {
     ASMContext.setPlatformClassLoader(Launch.classLoader);

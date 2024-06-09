@@ -1,4 +1,4 @@
-package net.labymod.addons.modcompat.iris.transformer.modelview;
+package net.labymod.addons.modcompat.iris.transformer;
 
 import net.labymod.addons.modcompat.transformer.MixinClassTransformer;
 import net.labymod.api.loader.MinecraftVersions;
@@ -9,14 +9,14 @@ import org.objectweb.asm.tree.ClassNode;
  * Removes the redirects that conflict with LabyMod. They are merged in a new Mixin.
  */
 @EarlyAddonTransformer
-public class IrisMixinModelViewTransformer extends MixinClassTransformer {
+public class MixinModelViewBobbingTransformer extends MixinClassTransformer {
 
   private static final String IRIS_MIXIN_NAME = "net.irisshaders.iris.mixin.MixinModelViewBobbing";
 
   private static final String STOP_BOBBING_NAME = "iris$stopBobbing";
   private static final String APPLY_BOBBING_NAME = "iris$applyBobbingToModelView";
 
-  public IrisMixinModelViewTransformer() {
+  public MixinModelViewBobbingTransformer() {
     super(IRIS_MIXIN_NAME);
   }
 
