@@ -22,6 +22,7 @@ dependencies {
     v1_20_4CompileOnly(files("./libs/modmenu-1.20.4.jar"))
     v1_20_5CompileOnly(files("./libs/modmenu-1.20.6.jar"))
     v1_20_6CompileOnly(files("./libs/modmenu-1.20.6.jar"))
+    v1_21CompileOnly(files("./libs/modmenu-1.21.jar"))
 }
 
 labyModProcessor {
