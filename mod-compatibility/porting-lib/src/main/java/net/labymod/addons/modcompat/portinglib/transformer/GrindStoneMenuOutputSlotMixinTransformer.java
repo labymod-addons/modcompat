@@ -36,10 +36,11 @@ public class GrindStoneMenuOutputSlotMixinTransformer extends MixinClassTransfor
           //noinspection rawtypes
           if (SHADOW_DESC.equals(visibleAnnotation.desc)
               && visibleAnnotation.values != null
-              && visibleAnnotation.values.size() == 2
+              && visibleAnnotation.values.size() >= 2
               && visibleAnnotation.values.get(1) instanceof List list) {
             //noinspection unchecked
             list.add(ACTUAL_SHADOW_FIELD_NAME);
+            break;
           }
         }
         break;

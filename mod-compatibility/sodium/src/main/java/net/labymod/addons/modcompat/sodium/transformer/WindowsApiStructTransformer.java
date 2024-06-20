@@ -6,6 +6,7 @@ import net.labymod.api.volt.asm.util.ASMHelper;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.MethodNode;
 
 /**
  * Sodium 1.20.1 expects LWJGL 3.3.1, but LabyMod always uses LWJGL 3.3.3. In between these
@@ -22,7 +23,8 @@ public class WindowsApiStructTransformer implements IClassTransformer {
   private static final String CONSTRUCTOR_DESC = "(JLjava/nio/ByteBuffer;)V";
 
   private static final String CREATE_METHOD_NAME = "create";
-  private static final String CREATE_METHOD_DESC = "(JLjava/nio/ByteBuffer;)L%s;";
+  private static final String CREATE_METHOD_DESC = "(JLjava/nio/ByteBuffer;)Lorg/lwjgl/system/Struct;";
+  private static final String CREATE_METHOD_DESC_GENERIC = "(JLjava/nio/ByteBuffer;)L%s;";
 
   @Override
   public byte[] transform(String name, String transformedName, byte... classBytes) {
@@ -39,10 +41,10 @@ public class WindowsApiStructTransformer implements IClassTransformer {
 
     String className = classNode.name;
 
-    classNode.methods.add(ASMHelper.createMethod(
+    MethodNode genericMethod = ASMHelper.createMethod(
         Opcodes.ACC_PROTECTED,
         CREATE_METHOD_NAME,
-        String.format(CREATE_METHOD_DESC, className),
+        String.format(CREATE_METHOD_DESC_GENERIC, className),
         null,
         null,
         methodNode -> {
@@ -62,6 +64,32 @@ public class WindowsApiStructTransformer implements IClassTransformer {
           );
 
           // Return the new instance
+          methodNode.visitInsn(Opcodes.ARETURN);
+        }
+    );
+    classNode.methods.add(genericMethod);
+
+    // Bridge method with supertype of generic as return type
+    classNode.methods.add(ASMHelper.createMethod(
+        Opcodes.ACC_PROTECTED | Opcodes.ACC_BRIDGE | Opcodes.ACC_SYNTHETIC,
+        CREATE_METHOD_NAME,
+        CREATE_METHOD_DESC,
+        null,
+        null,
+        methodNode -> {
+          // Call generic method
+          methodNode.visitVarInsn(Opcodes.ALOAD, 0);
+          methodNode.visitVarInsn(Opcodes.LLOAD, 1);
+          methodNode.visitVarInsn(Opcodes.ALOAD, 3);
+          methodNode.visitMethodInsn(
+              Opcodes.INVOKEVIRTUAL,
+              className,
+              genericMethod.name,
+              genericMethod.desc,
+              false
+          );
+
+          // Return the result of the generic method
           methodNode.visitInsn(Opcodes.ARETURN);
         }
     ));
