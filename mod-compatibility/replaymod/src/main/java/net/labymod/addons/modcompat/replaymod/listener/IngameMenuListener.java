@@ -5,7 +5,7 @@ import net.labymod.addons.modcompat.ModCompatAddon;
 import net.labymod.addons.modcompat.replaymod.accessor.GuiRecordingControlsAccessor;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.screen.activity.Activity;
-import net.labymod.api.client.gui.screen.widget.AbstractWidget;
+import net.labymod.api.client.gui.screen.widget.widgets.DivWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.activity.Document;
 import net.labymod.api.client.gui.screen.widget.widgets.input.ButtonWidget;
 import net.labymod.api.event.Subscribe;
@@ -32,11 +32,15 @@ public class IngameMenuListener {
     activity.addStyle(ModCompatAddon.NAMESPACE, "replaymod/ingame-menu.lss");
     Document document = activity.document();
 
-    AbstractWidget<ButtonWidget> widget
-        = (AbstractWidget<ButtonWidget>) document.getChild("container").getChildren().get(0);
+    if (!(document.getChild("container") instanceof DivWidget widget)) {
+      return;
+    }
+
+    DivWidget buttonContainer = new DivWidget().addId("button-container");
 
     // Button to pause or resume recording
-    ButtonWidget buttonTogglePause = ButtonWidget.text(accessor.getPauseResumeButton().getLabel());
+    ButtonWidget buttonTogglePause = ButtonWidget.text(accessor.getPauseResumeButton().getLabel())
+        .addId("toggle-pause-button");
     buttonTogglePause.setEnabled(accessor.isRecording());
     buttonTogglePause.setPressable(() -> {
       // Delegate to on click of ReplayMod
@@ -46,9 +50,10 @@ public class IngameMenuListener {
           Component.text(accessor.getPauseResumeButton().getLabel())
       );
     });
-    buttonTogglePause.addId("toggle-pause-button");
+    buttonContainer.addChild(buttonTogglePause);
 
-    ButtonWidget buttonToggleStop = ButtonWidget.text(accessor.getStartStopButton().getLabel());
+    ButtonWidget buttonToggleStop = ButtonWidget.text(accessor.getStartStopButton().getLabel())
+        .addId("toggle-stop-button");
     buttonToggleStop.setPressable(() -> {
       // Delegate to on click of ReplayMod
       accessor.getStartStopButton().getOnClick().run();
@@ -59,9 +64,8 @@ public class IngameMenuListener {
       // Disable pause button if recording is stopped
       buttonTogglePause.setEnabled(accessor.isRecording());
     });
-    buttonToggleStop.addId("toggle-stop-button");
+    buttonContainer.addChild(buttonToggleStop);
 
-    widget.addChildInitialized(buttonToggleStop);
-    widget.addChildInitialized(buttonTogglePause);
+    widget.addChildInitialized(buttonContainer);
   }
 }

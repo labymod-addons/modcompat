@@ -1,15 +1,30 @@
-.toggle-pause-button {
-  left: 23;
-  top: 130;
-  width: 98;
-  height: 20;
-  padding: 0;
-}
+.container {
+  .button-container {
+    left: 50%;
+    alignment-x: center;
 
-.toggle-stop-button {
-  right: 23;
-  top: 130;
-  width: 98;
-  height: 20;
-  padding: 0;
+    // The buttons are always positioned starting from 25% of the whole activity (excluding navbar)
+    top: 25vh;
+
+    width: 250;
+    height: 175;
+
+    use-floating-point-position: false;
+
+    .toggle-pause-button {
+      left: 23;
+      top: 130;
+      width: 98;
+      height: 20;
+      padding: 0;
+    }
+
+    .toggle-stop-button {
+      right: 23;
+      top: 130;
+      width: 98;
+      height: 20;
+      padding: 0;
+    }
+  }
 }

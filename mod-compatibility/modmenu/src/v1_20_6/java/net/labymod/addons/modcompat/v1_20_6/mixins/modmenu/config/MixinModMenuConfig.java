@@ -11,7 +11,6 @@ import java.lang.reflect.Field;
 
 @Pseudo
 @Mixin(value = ModMenuConfig.class, remap = false)
-
 public class MixinModMenuConfig {
 
   @Dynamic("Support old version of Mod Menu")
