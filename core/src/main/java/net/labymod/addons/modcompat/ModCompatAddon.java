@@ -13,6 +13,8 @@ public class ModCompatAddon extends LabyAddon<ModCompatConfiguration> {
 
   @Override
   protected void load() {
+    ModCompat.setReferences(super.referenceStorageAccessor());
+
     if (super.labyAPI().labyModLoader().isAddonDevelopmentEnvironment()) {
       // Register the setting category for debug purposes, so that the mod addons are not required
       super.registerSettingCategory();

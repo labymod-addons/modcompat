@@ -41,7 +41,7 @@ public class ModCompatEntrypoint implements Entrypoint {
 
   @Override
   public void initialize(Version version) {
-    ModCompat.init(new DefaultIncompatibleModRegistry());
+    ModCompat.setModRegistry(new DefaultIncompatibleModRegistry());
 
     try (InputStream inputStream = this.getClass().getClassLoader()
         .getResourceAsStream(INDEX_PATH)) {

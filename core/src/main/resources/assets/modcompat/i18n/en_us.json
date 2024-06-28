@@ -7,6 +7,14 @@
       }
     }
   },
+  "labyfabric": {
+    "settings": {
+      "openModMenu": {
+        "name": "Mod Menu",
+        "text": "Open"
+      }
+    }
+  },
   "replaymod_loader": {
     "settings": {
       "openReplayViewer": {
