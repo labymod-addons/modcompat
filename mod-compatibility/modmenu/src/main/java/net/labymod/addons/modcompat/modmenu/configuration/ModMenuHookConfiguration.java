@@ -18,7 +18,7 @@ import net.labymod.api.util.MethodOrder;
 public class ModMenuHookConfiguration extends Config {
 
   @Exclude
-  private final ModMenuAccessor accessor;
+  private transient final ModMenuAccessor accessor;
 
   public ModMenuHookConfiguration() {
     ModLoader fabricLoader = ModLoaderRegistry.instance().getById(ModLoaderId.FABRIC);
