@@ -1,11 +1,4 @@
-version = "0.1.0"
-
-plugins {
-    id("java-library")
-}
-
-repositories {
-}
+import net.labymod.labygradle.common.extension.LabyModAnnotationProcessorExtension.ReferenceType
 
 dependencies {
     api(project(":core"))
@@ -13,11 +6,6 @@ dependencies {
     v1_8_9CompileOnly(files("./libs/skyblockaddons-1.8.9.jar"))
 }
 
-labyModProcessor {
-    referenceType = net.labymod.gradle.core.processor.ReferenceType.DEFAULT
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+labyModAnnotationProcessor {
+    referenceType = ReferenceType.DEFAULT
 }
