@@ -6,7 +6,7 @@ import net.labymod.api.client.render.matrix.VanillaStackAccessor;
 import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.api.volt.annotation.Insert;
 import net.labymod.api.volt.callback.InsertInfo;
-import net.labymod.v1_21.mixins.client.gui.components.MixinImageButton;
+import net.labymod.v1_21_1.mixins.client.gui.components.MixinImageButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import org.spongepowered.asm.mixin.Final;

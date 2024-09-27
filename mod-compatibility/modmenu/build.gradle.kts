@@ -17,6 +17,7 @@ dependencies {
     v1_20_5CompileOnly(files("./libs/modmenu-1.20.6.jar"))
     v1_20_6CompileOnly(files("./libs/modmenu-1.20.6.jar"))
     v1_21CompileOnly(files("./libs/modmenu-1.21.jar"))
+    v1_21_1CompileOnly(files("./libs/modmenu-1.21.1.jar"))
 
     /*
     extensions.findByType(ModrinthDependencyHandler::class)?.apply {

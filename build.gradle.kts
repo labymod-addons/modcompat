@@ -17,6 +17,14 @@ labyMod {
 
     minecraft {
         registerVersion(versions.toTypedArray()) {
+            runs {
+                getByName("client") {
+                    jvmArgs("-Dmixin.debug=false")
+                    jvmArgs("-Dmixin.debug.export=true")
+                    jvmArgs("-Dmixin.debug.verbose=true")
+                    jvmArgs("-Dmixin.env.disableRefMap=false")
+                }
+            }
         }
     }
 
