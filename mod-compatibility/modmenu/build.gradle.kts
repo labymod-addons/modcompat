@@ -1,4 +1,5 @@
 import net.labymod.labygradle.common.extension.LabyModAnnotationProcessorExtension.ReferenceType
+//import net.labymod.labygradle.common.internal.fabric.dependency.ModrinthDependencyHandler
 
 dependencies {
     api(project(":core"))
@@ -16,6 +17,12 @@ dependencies {
     v1_20_5CompileOnly(files("./libs/modmenu-1.20.6.jar"))
     v1_20_6CompileOnly(files("./libs/modmenu-1.20.6.jar"))
     v1_21CompileOnly(files("./libs/modmenu-1.21.jar"))
+
+    /*
+    extensions.findByType(ModrinthDependencyHandler::class)?.apply {
+        println(this)
+        v1_21_1CompileOnly(this.modrinth("modmenu", "11.0.2"))
+    }*/
 }
 
 labyModAnnotationProcessor {

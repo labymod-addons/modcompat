@@ -26,7 +26,7 @@ labyMod {
         author = "LabyMod"
         description = "LabyMod mod compatibility for external mods"
         minecraftVersion = "*"
-        version = System.getenv().getOrDefault("VERSION", project.version.toString())
+        version = providers.environmentVariable("VERSION").getOrElse(project.version.toString())
         meta(AddonMeta.HIDDEN)
     }
 }
@@ -37,6 +37,7 @@ subprojects {
 
     plugins.apply("net.labymod.labygradle")
     plugins.apply("net.labymod.labygradle.addon")
+    //plugins.apply("net.labymod.labygradle.fabric")
 
     repositories {
         maven("https://api.modrinth.com/maven")
