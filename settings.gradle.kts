@@ -1,7 +1,7 @@
 rootProject.name = "modcompat"
 
 pluginManagement {
-    val labyGradlePluginVersion = "0.5.5-SNAPSHOT"
+    val labyGradlePluginVersion = "0.5.5"
     plugins {
         id("net.labymod.gradle") version (labyGradlePluginVersion)
     }
