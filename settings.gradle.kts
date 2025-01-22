@@ -1,20 +1,18 @@
 rootProject.name = "modcompat"
 
 pluginManagement {
-    val labyGradlePluginVersion = "0.5.5"
+    val labyGradlePluginVersion = "0.5.8-SNAPSHOT"
     plugins {
         id("net.labymod.gradle") version (labyGradlePluginVersion)
     }
 
     buildscript {
         repositories {
-            mavenLocal()
             maven("https://dist.labymod.net/api/v1/maven/release/")
             maven("https://maven.neoforged.net/releases/")
             maven("https://maven.fabricmc.net/")
             gradlePluginPortal()
             mavenCentral()
-            mavenLocal()
         }
 
         dependencies {
