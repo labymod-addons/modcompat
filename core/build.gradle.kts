@@ -5,28 +5,18 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
-
-version = "0.1.0"
-
-plugins {
-    id("java-library")
-}
+import net.labymod.labygradle.common.extension.LabyModAnnotationProcessorExtension.ReferenceType
 
 dependencies {
+    labyProcessor()
     api(project(":api"))
     labyApi("core")
     labyApi("loader-vanilla-launchwrapper")
 }
 
-labyModProcessor {
-    referenceType = net.labymod.gradle.core.processor.ReferenceType.DEFAULT
+labyModAnnotationProcessor {
+    referenceType = ReferenceType.DEFAULT
 }
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
-}
-
 
 tasks.register("buildIndex") {
     doLast {
@@ -41,7 +31,7 @@ tasks.register("buildIndex") {
             }
         }
 
-        val resourcesDir = project.buildDir.resolve("resources/main/")
+        val resourcesDir = project.layout.buildDirectory.dir("resources/main/").get().asFile
         Files.createDirectories(resourcesDir.toPath())
         FileWriter(resourcesDir.resolve("index.json")).use { gson.toJson(index, it) }
     }
