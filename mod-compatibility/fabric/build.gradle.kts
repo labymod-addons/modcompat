@@ -5,9 +5,8 @@ import net.neoforged.srgutils.IMappingBuilder
 import net.neoforged.srgutils.IMappingFile
 import java.io.FileNotFoundException
 import java.nio.file.Files
-import java.nio.file.Paths
 
-val accessWidenerWatchers = arrayOf(
+val accessWatchers = arrayOf(
         "net/minecraft/world/entity/Display\$TextDisplay",
         "net/minecraft/world/entity/Display\$ItemDisplay",
         "net/minecraft/world/entity/Display\$BlockDisplay"
@@ -24,10 +23,10 @@ dependencies {
 }
 
 tasks.findByName("build")?.apply {
-    dependsOn("generateMappings")
+    dependsOn("generateAccessWatcher")
 }
 
-tasks.create("generateMappings") {
+tasks.create("generateAccessWatcher") {
     doLast {
         val mappingsDirectory = plugins.getPlugin(LabyModPlugin::class).files.mappingsDirectory
         for (sourceSet in sourceSets) {
@@ -48,16 +47,12 @@ tasks.create("generateMappings") {
 
             val builder = IMappingBuilder.create("left", "right")
 
-            accessWidenerWatchers.forEach { watcher ->
+            accessWatchers.forEach { watcher ->
                 val selectedClass = reversedMappings.getClass(watcher) ?: return@forEach
-                val clazz = mappings.getClass(selectedClass.mapped)
-                if (clazz == null) {
-                    println("Not found")
-                } else {
-
-                    val newClass = builder.addClass(clazz.original, clazz.mapped)
-                    clazz.methods.forEach {
-                        newClass.method(it.descriptor, it.original, it.mapped)
+                mappings.getClass(selectedClass.mapped)?.apply {
+                    val newClass = builder.addClass(original, mapped)
+                    methods.forEach { method ->
+                        newClass.method(method.descriptor, method.original, method.mapped)
                     }
                 }
             }
@@ -69,9 +64,9 @@ tasks.create("generateMappings") {
                 val destination = project.layout.buildDirectory.get().asFile.toPath()
                         .resolve("resources")
                         .resolve(version.sourceSetName)
+                        .resolve("access_watchers")
                         .resolve("${project.name}-${version.versionId}.tsrg2")
                 newMappings.write(destination, IMappingFile.Format.TSRG2, false)
-                println(destination.toAbsolutePath())
             }
         }
     }

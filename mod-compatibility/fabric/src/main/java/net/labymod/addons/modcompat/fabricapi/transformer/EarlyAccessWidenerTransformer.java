@@ -1,6 +1,6 @@
 package net.labymod.addons.modcompat.fabricapi.transformer;
 
-import net.labymod.addons.modcompat.fabricapi.accesswidener.AccessWidenerWatcher;
+import net.labymod.addons.modcompat.fabricapi.accesswidener.AccessWatcherService;
 import net.labymod.api.models.addon.annotation.EarlyAddonTransformer;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.Launch;
@@ -23,8 +23,7 @@ public class EarlyAccessWidenerTransformer implements IClassTransformer {
       return null;
     }
 
-    AccessWidenerWatcher.load();
-    Collection<String> values = AccessWidenerWatcher.getValues(name);
+    Collection<String> values = AccessWatcherService.getValues(name);
     if (values != null && !values.isEmpty()) {
       ClassNode node = new ClassNode();
       ClassReader reader = new ClassReader(classData);
@@ -33,7 +32,7 @@ public class EarlyAccessWidenerTransformer implements IClassTransformer {
       for (MethodNode method : node.methods) {
         String key = method.name + method.desc;
         if (values.contains(key)) {
-          AccessWidenerWatcher.setAccess(key, method.access);
+          AccessWatcherService.setAccess(key, method.access);
         }
       }
     }
