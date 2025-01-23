@@ -45,7 +45,7 @@ subprojects {
 
     plugins.apply("net.labymod.labygradle")
     plugins.apply("net.labymod.labygradle.addon")
-    //plugins.apply("net.labymod.labygradle.fabric")
+    plugins.apply("net.labymod.labygradle.fabric")
 
     repositories {
         maven("https://api.modrinth.com/maven")

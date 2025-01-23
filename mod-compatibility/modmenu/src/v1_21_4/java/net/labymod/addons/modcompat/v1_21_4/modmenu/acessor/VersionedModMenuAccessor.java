@@ -1,12 +1,11 @@
-package net.labymod.addons.modcompat.v1_20_2.modmenu.accessor;
+package net.labymod.addons.modcompat.v1_21_4.modmenu.acessor;
 
 import com.terraformersmc.modmenu.gui.ModsScreen;
+import javax.inject.Singleton;
 import net.labymod.addons.modcompat.acessor.ModMenuAccessor;
 import net.labymod.api.client.gui.screen.ScreenInstance;
 import net.labymod.api.models.Implements;
-import net.labymod.v1_20_2.client.gui.screen.VersionedScreenWrapper;
 import net.minecraft.client.Minecraft;
-import javax.inject.Singleton;
 
 @Singleton
 @Implements(ModMenuAccessor.class)
