@@ -1,0 +1,47 @@
+tsrg2 left right
+bfg$b net/minecraft/world/entity/Display$BlockDisplay
+	<clinit> ()V <clinit>
+	<init> (Lbfl;Lcmi;)V <init>
+	a (Lre;)V readAdditionalSaveData
+	a_ ()V defineSynchedData
+	b (Ldbq;)V setBlockState
+	b (Lre;)V addAdditionalSaveData
+	o ()Ldbq; getBlockState
+bfg$j net/minecraft/world/entity/Display$ItemDisplay
+	<clinit> ()V <clinit>
+	<init> (Lbfl;Lcmi;)V <init>
+	a (Lre;)V readAdditionalSaveData
+	a (Lcfv;)V setItemStack
+	a (Lcfs;)V setItemTransform
+	a (Lcom/mojang/datafixers/util/Pair;)V lambda$readAdditionalSaveData$0
+	a (Lre;Lrx;)V lambda$addAdditionalSaveData$1
+	a_ (I)Lbgq; getSlot
+	a_ ()V defineSynchedData
+	b (Lre;)V addAdditionalSaveData
+	o ()Lcfv; getItemStack
+	p ()Lcfs; getItemTransform
+bfg$k net/minecraft/world/entity/Display$TextDisplay
+	<clinit> ()V <clinit>
+	<init> (Lbfl;Lcmi;)V <init>
+	a (Lre;)V readAdditionalSaveData
+	a (Lacl;)V onSyncedDataUpdated
+	a (BLre;Ljava/lang/String;B)B loadFlag
+	a (FLaco;)V lambda$new$0
+	a (B)Lbfg$k$a; getAlign
+	a (Lre;Lrx;)V lambda$addAdditionalSaveData$1
+	a (Lbfg$k$d;)Lbfg$k$b; cacheDisplay
+	a_ ()V defineSynchedData
+	b (I)V setLineWidth
+	b (BLre;Ljava/lang/String;B)V storeFlag
+	b (Lre;)V addAdditionalSaveData
+	c (B)V setTextOpacity
+	c (I)V setBackgroundColor
+	c (Ltj;)V setText
+	d (B)V setFlags
+	g (F)B getTextOpacity
+	h (F)I getBackgroundColor
+	o ()Ltj; getText
+	p ()I getLineWidth
+	q ()B getFlags
+	r ()B getTextOpacity
+	s ()I getBackgroundColor

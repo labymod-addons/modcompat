@@ -22,10 +22,6 @@ dependencies {
     compileOnly("net.fabricmc:fabric-loader:0.16.10")
 }
 
-tasks.findByName("build")?.apply {
-    dependsOn("generateAccessWatcher")
-}
-
 tasks.create("generateAccessWatcher") {
     doLast {
         val mappingsDirectory = plugins.getPlugin(LabyModPlugin::class).files.mappingsDirectory
@@ -61,9 +57,10 @@ tasks.create("generateAccessWatcher") {
             val newMappings = build.getMap("left", "right")
 
             if (!newMappings.classes.isEmpty()) {
-                val destination = project.layout.buildDirectory.get().asFile.toPath()
-                        .resolve("resources")
+                val destination = project.layout.projectDirectory.asFile.toPath()
+                        .resolve("src")
                         .resolve(version.sourceSetName)
+                        .resolve("resources")
                         .resolve("access_watchers")
                         .resolve("${project.name}-${version.versionId}.tsrg2")
                 newMappings.write(destination, IMappingFile.Format.TSRG2, false)
