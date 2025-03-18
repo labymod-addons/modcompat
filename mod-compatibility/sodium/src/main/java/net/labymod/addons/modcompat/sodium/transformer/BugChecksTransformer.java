@@ -16,7 +16,8 @@ import org.objectweb.asm.tree.MethodNode;
 @EarlyAddonTransformer
 public class BugChecksTransformer implements IClassTransformer {
 
-  private static final String CLASS_NAME = "me.jellysquid.mods.sodium.client.compatibility.checks.BugChecks";
+  private static final String OLD_BUG_CHECKS_CLASS_NAME = "me.jellysquid.mods.sodium.client.compatibility.checks.BugChecks";
+  private static final String NEW_BUG_CHECKS_CLASS_NAME = "me.caffeinemc.mods.sodium.client.compatibility.checks.BugChecks";
 
   private static final String STATIC_INITIALIZER_NAME = "<clinit>";
   private static final String STATIC_INITIALIZER_DESC = "()V";
@@ -25,7 +26,7 @@ public class BugChecksTransformer implements IClassTransformer {
 
   @Override
   public byte[] transform(String name, String transformedName, byte... classBytes) {
-    if (CLASS_NAME.equals(name)) {
+    if (OLD_BUG_CHECKS_CLASS_NAME.equals(name) || NEW_BUG_CHECKS_CLASS_NAME.equals(name)) {
       return ASMHelper.transformClassData(classBytes, this::transform);
     }
     return classBytes;

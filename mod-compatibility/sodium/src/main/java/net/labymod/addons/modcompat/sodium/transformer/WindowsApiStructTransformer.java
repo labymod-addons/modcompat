@@ -16,7 +16,8 @@ import org.objectweb.asm.tree.MethodNode;
 @EarlyAddonTransformer
 public class WindowsApiStructTransformer implements IClassTransformer {
 
-  private static final String PACKAGE_NAME = "me.jellysquid.mods.sodium.client.platform.windows.api.";
+  private static final String OLD_PACKAGE_NAME = "me.jellysquid.mods.sodium.client.platform.windows.api.";
+  private static final String NEW_PACKAGE_NAME = "me.caffinemc.mods.sodium.client.platform.windows.api.";
   private static final String LWJGL_STRUCT = "org/lwjgl/system/Struct";
 
   private static final String CONSTRUCTOR_NAME = "<init>";
@@ -28,7 +29,9 @@ public class WindowsApiStructTransformer implements IClassTransformer {
 
   @Override
   public byte[] transform(String name, String transformedName, byte... classBytes) {
-    if (name != null && name.startsWith(PACKAGE_NAME) && MinecraftVersions.V1_20_1.isCurrent()) {
+    if (name != null &&
+        (name.startsWith(OLD_PACKAGE_NAME) || name.startsWith(NEW_PACKAGE_NAME)) &&
+        MinecraftVersions.V1_20_1.isCurrent()) {
       return ASMHelper.transformClassData(classBytes, this::transform);
     }
     return classBytes;
