@@ -34,8 +34,6 @@ public abstract class MixinGameRendererMergeIris {
   @Shadow
   @Final
   private Camera mainCamera;
-  @Shadow
-  private int confusionAnimationTick;
 
   @Shadow
   protected abstract void bobView(PoseStack poseStack, float tickDelta);
