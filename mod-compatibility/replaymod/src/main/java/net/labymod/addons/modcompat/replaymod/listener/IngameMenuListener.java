@@ -36,7 +36,7 @@ public class IngameMenuListener {
       return;
     }
 
-    DivWidget buttonContainer = new DivWidget().addId("button-container");
+    DivWidget buttonContainer = new DivWidget().addId("replaymod-button-container");
 
     // Button to pause or resume recording
     ButtonWidget buttonTogglePause = ButtonWidget.text(accessor.getPauseResumeButton().getLabel())
