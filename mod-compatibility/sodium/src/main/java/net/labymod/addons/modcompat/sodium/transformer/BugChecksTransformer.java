@@ -17,7 +17,7 @@ import org.objectweb.asm.tree.MethodNode;
 public class BugChecksTransformer implements IClassTransformer {
 
   private static final String OLD_BUG_CHECKS_CLASS_NAME = "me.jellysquid.mods.sodium.client.compatibility.checks.BugChecks";
-  private static final String NEW_BUG_CHECKS_CLASS_NAME = "me.caffeinemc.mods.sodium.client.compatibility.checks.BugChecks";
+  private static final String NEW_BUG_CHECKS_CLASS_NAME = "net.caffeinemc.mods.sodium.client.compatibility.checks.BugChecks";
 
   private static final String STATIC_INITIALIZER_NAME = "<clinit>";
   private static final String STATIC_INITIALIZER_DESC = "()V";
