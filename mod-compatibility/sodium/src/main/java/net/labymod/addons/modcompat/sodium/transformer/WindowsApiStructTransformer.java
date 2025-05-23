@@ -17,7 +17,7 @@ import org.objectweb.asm.tree.MethodNode;
 public class WindowsApiStructTransformer implements IClassTransformer {
 
   private static final String OLD_PACKAGE_NAME = "me.jellysquid.mods.sodium.client.platform.windows.api.";
-  private static final String NEW_PACKAGE_NAME = "me.caffinemc.mods.sodium.client.platform.windows.api.";
+  private static final String NEW_PACKAGE_NAME = "net.caffinemc.mods.sodium.client.platform.windows.api.";
   private static final String LWJGL_STRUCT = "org/lwjgl/system/Struct";
 
   private static final String CONSTRUCTOR_NAME = "<init>";
