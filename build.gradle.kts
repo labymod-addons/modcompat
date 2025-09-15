@@ -1,4 +1,5 @@
 import net.labymod.labygradle.common.extension.LabyModAnnotationProcessorExtension.ReferenceType
+import net.labymod.labygradle.common.extension.model.labymod.ReleaseChannels
 import net.labymod.labygradle.common.internal.gradle.ProjectUtil
 import net.labymod.labygradle.common.internal.labymod.addon.model.AddonMeta
 
@@ -36,6 +37,7 @@ labyMod {
         minecraftVersion = "*"
         version = providers.environmentVariable("VERSION").getOrElse(project.version.toString())
         meta(AddonMeta.HIDDEN)
+        releaseChannel = ReleaseChannels.SNAPSHOT
     }
 }
 
