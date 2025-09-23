@@ -17,10 +17,9 @@ import net.labymod.api.client.gui.hud.hudwidget.HudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.SimpleHudWidget;
 import net.labymod.api.client.gui.hud.position.HudSize;
 import net.labymod.api.client.gui.icon.Icon;
-import net.labymod.api.client.gui.mouse.MutableMouse;
+import net.labymod.api.client.gui.screen.ScreenContext;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.color.ColorPickerWidget.ColorPickerSetting;
-import net.labymod.api.client.render.matrix.Stack;
 import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 import net.labymod.api.configuration.settings.annotation.CustomTranslation;
@@ -160,17 +159,11 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWi
   }
 
   @Override
-  public void render(
-      Stack stack,
-      MutableMouse mouse,
-      float partialTicks,
-      boolean isEditorContext,
-      HudSize size
-  ) {
+  public void render(RenderPhase phase, ScreenContext context, boolean isEditorContext, HudSize size) {
     FeatureDrawContext featureDrawContext = FeatureDrawContext.get();
     featureDrawContext.setDrawnFeature(this.feature);
-    featureDrawContext.setStack(stack);
-    featureDrawContext.setNoRender(stack == null);
+    featureDrawContext.setScreenContext(context);
+    featureDrawContext.setNoRender(phase == RenderPhase.UPDATE_SIZE);
 
     Minecraft minecraft = Minecraft.getMinecraft();
     ButtonLocation buttonLocation = isEditorContext ? new ButtonLocation(this.feature) : null;

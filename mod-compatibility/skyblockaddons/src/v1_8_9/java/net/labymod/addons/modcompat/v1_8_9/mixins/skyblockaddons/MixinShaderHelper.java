@@ -2,21 +2,16 @@ package net.labymod.addons.modcompat.v1_8_9.mixins.skyblockaddons;
 
 import codes.biscuit.skyblockaddons.shader.ShaderHelper;
 import java.nio.ByteBuffer;
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.GL20;
-import org.spongepowered.asm.mixin.Final;
+import net.labymod.api.Laby;
+import net.labymod.laby3d.api.RenderDevice;
+import net.labymod.laby3d.api.opengl.GlRenderDevice;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.Shadow;
 
 @Pseudo
 @Mixin(value = ShaderHelper.class, remap = false)
 public class MixinShaderHelper {
-
-  @Shadow
-  @Final
-  private static boolean USING_ARB_SHADERS;
 
   /**
    * @author LabyMedia GmbH
@@ -28,10 +23,9 @@ public class MixinShaderHelper {
     string.get(bytes);
     String source = new String(bytes);
 
-    if (USING_ARB_SHADERS) {
-      ARBShaderObjects.glShaderSourceARB(shaderIn, source);
-    } else {
-      GL20.glShaderSource(shaderIn, source);
+    RenderDevice renderDevice = Laby.references().laby3D().renderDevice();
+    if (renderDevice instanceof GlRenderDevice glRenderDevice) {
+      glRenderDevice.functions().shaderSource(shaderIn, source);
     }
   }
 }
