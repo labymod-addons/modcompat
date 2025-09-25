@@ -2,10 +2,10 @@ package net.labymod.addons.modcompat.v1_21_8.mixins.modmenu.widget;
 
 import com.terraformersmc.modmenu.gui.widget.LegacyTexturedButtonWidget;
 import net.labymod.api.Laby;
-import net.labymod.api.client.render.matrix.VanillaStackAccessor;
 import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.api.volt.annotation.Insert;
 import net.labymod.api.volt.callback.InsertInfo;
+import net.labymod.v1_21_8.client.util.MinecraftUtil;
 import net.labymod.v1_21_8.mixins.client.gui.components.MixinImageButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -61,7 +61,7 @@ public abstract class MixinLegacyTexturedButtonWidget extends MixinImageButton {
 
     Laby.labyAPI().minecraft().updateMouse(mouseX, mouseY, mouse -> {
       boolean rendered = this.getWatcher().render(
-          ((VanillaStackAccessor) graphics.pose()).stack(),
+          MinecraftUtil.obtainStackFromGraphics(graphics),
           mouse,
           partialTicks
       );
