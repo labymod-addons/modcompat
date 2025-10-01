@@ -1,0 +1,62 @@
+{
+    "modcompat": {
+        "settings": {
+            "name": "",
+            "enabled": {
+                "name": ""
+            }
+        }
+    },
+    "labyfabric": {
+        "settings": {
+            "openModMenu": {
+                "name": "",
+                "text": ""
+            }
+        }
+    },
+    "replaymod_loader": {
+        "settings": {
+            "openReplayViewer": {
+                "name": "",
+                "text": ""
+            }
+        }
+    },
+    "labymod": {
+        "hudWidgetCategory": {
+            "skyblockaddons": {
+                "name": "",
+                "description": ""
+            }
+        }
+    },
+    "skyblockaddons": {
+        "hudWidget": {
+            "color": {
+                "name": "",
+                "description": ""
+            },
+            "chroma": {
+                "name": "",
+                "description": ""
+            }
+        }
+    },
+    "skyblockaddons_loader": {
+        "settings": {
+            "header": {
+                "integration": {
+                    "name": ""
+                },
+                "general": {
+                    "name": ""
+                }
+            },
+            "featureIntegration": {
+                "name": "",
+                "description": ""
+            }
+        }
+    }
+}
