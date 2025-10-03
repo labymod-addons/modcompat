@@ -1,1 +1,9 @@
-{}
+{
+    "labyfabric": {
+        "settings": {
+            "openModMenu": {
+                "name": "Menu de Mods"
+            }
+        }
+    }
+}
