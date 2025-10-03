@@ -1,1 +1,7 @@
-{}
+{
+    "modcompat": {
+        "settings": {
+            "name": "Mod Kompat"
+        }
+    }
+}
