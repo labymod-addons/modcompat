@@ -10,7 +10,8 @@
     "replaymod_loader": {
         "settings": {
             "openReplayViewer": {
-                "text": "Abrir"
+                "text": "Abrir",
+                "name": "Visualizador de Replay"
             }
         }
     },
@@ -27,6 +28,13 @@
                 "general": {
                     "name": "Configurações Gerais"
                 }
+            }
+        }
+    },
+    "modcompat": {
+        "settings": {
+            "enabled": {
+                "name": "Ativado"
             }
         }
     }
