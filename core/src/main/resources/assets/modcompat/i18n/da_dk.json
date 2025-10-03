@@ -1,1 +1,31 @@
-{}
+{
+    "modcompat": {
+        "settings": {
+            "enabled": {
+                "name": "Aktiveret"
+            },
+            "name": "Mod Kompat"
+        }
+    },
+    "labyfabric": {
+        "settings": {
+            "openModMenu": {
+                "text": "Åben"
+            }
+        }
+    },
+    "replaymod_loader": {
+        "settings": {
+            "openReplayViewer": {
+                "text": "Åben"
+            }
+        }
+    },
+    "skyblockaddons": {
+        "hudWidget": {
+            "color": {
+                "name": "Farve"
+            }
+        }
+    }
+}
