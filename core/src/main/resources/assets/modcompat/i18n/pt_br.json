@@ -2,7 +2,15 @@
     "labyfabric": {
         "settings": {
             "openModMenu": {
-                "name": "Menu de Mods"
+                "name": "Menu de Mods",
+                "text": "Abrir"
+            }
+        }
+    },
+    "replaymod_loader": {
+        "settings": {
+            "openReplayViewer": {
+                "text": "Abrir"
             }
         }
     }
