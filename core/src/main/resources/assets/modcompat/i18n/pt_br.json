@@ -13,5 +13,12 @@
                 "text": "Abrir"
             }
         }
+    },
+    "skyblockaddons": {
+        "hudWidget": {
+            "color": {
+                "name": "Cor"
+            }
+        }
     }
 }
