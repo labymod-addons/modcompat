@@ -34,5 +34,20 @@
                 "description": "Rengin kroma olup olmaması"
             }
         }
+    },
+    "replaymod_loader": {
+        "settings": {
+            "openReplayViewer": {
+                "name": "Tekrar İzleyici",
+                "text": "Aç"
+            }
+        }
+    },
+    "labymod": {
+        "hudWidgetCategory": {
+            "skyblockaddons": {
+                "name": "Skyblock Eklentileri"
+            }
+        }
     }
 }
