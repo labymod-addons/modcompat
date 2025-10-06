@@ -10,7 +10,8 @@
     "labyfabric": {
         "settings": {
             "openModMenu": {
-                "text": "Åben"
+                "text": "Åben",
+                "name": "Mod Menu"
             }
         }
     },
