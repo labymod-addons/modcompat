@@ -1,1 +1,33 @@
-{}
+{
+    "modcompat": {
+        "settings": {
+            "name": "Mod-compatibiliteit",
+            "enabled": {
+                "name": "Ingeschakeld"
+            }
+        }
+    },
+    "labyfabric": {
+        "settings": {
+            "openModMenu": {
+                "name": "Modmenu",
+                "text": "Openen"
+            }
+        }
+    },
+    "replaymod_loader": {
+        "settings": {
+            "openReplayViewer": {
+                "name": "Replayviewer",
+                "text": "Openen"
+            }
+        }
+    },
+    "labymod": {
+        "hudWidgetCategory": {
+            "skyblockaddons": {
+                "name": "SkyblockAddons"
+            }
+        }
+    }
+}
