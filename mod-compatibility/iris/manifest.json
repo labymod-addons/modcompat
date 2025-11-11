@@ -10,7 +10,7 @@
     {
       "name": "iris_texture_binding",
       "description": "Iris binds the textures questionably and this results in bugs, with all modifications",
-      "affectedVersions": "1.21.5<*",
+      "affectedVersions": ">=1.21.5",
       "impact": "HIGH",
       "playable": false,
       "fixed": false
