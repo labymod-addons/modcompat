@@ -18,7 +18,8 @@
     "replaymod_loader": {
         "settings": {
             "openReplayViewer": {
-                "text": "Åben"
+                "text": "Åben",
+                "name": "Genafspilningsvisning"
             }
         }
     },
@@ -26,6 +27,15 @@
         "hudWidget": {
             "color": {
                 "name": "Farve"
+            }
+        }
+    },
+    "skyblockaddons_loader": {
+        "settings": {
+            "header": {
+                "general": {
+                    "name": "Generelle indstillinger"
+                }
             }
         }
     }
