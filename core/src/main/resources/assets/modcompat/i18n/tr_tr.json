@@ -1,1 +1,18 @@
-{}
+{
+    "modcompat": {
+        "settings": {
+            "name": "Mod Uyumu",
+            "enabled": {
+                "name": "Aktif"
+            }
+        }
+    },
+    "labyfabric": {
+        "settings": {
+            "openModMenu": {
+                "name": "Mod Menüsü",
+                "text": "Aç"
+            }
+        }
+    }
+}
