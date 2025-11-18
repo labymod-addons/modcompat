@@ -14,5 +14,17 @@
                 "text": "Aç"
             }
         }
+    },
+    "skyblockaddons_loader": {
+        "settings": {
+            "header": {
+                "integration": {
+                    "name": "LabyMod Entegrasyonu"
+                }
+            },
+            "featureIntegration": {
+                "name": "SkyblockAddons Widget Entegrasyonu"
+            }
+        }
     }
 }
