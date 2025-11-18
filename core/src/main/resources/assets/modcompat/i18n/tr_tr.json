@@ -20,10 +20,14 @@
             "header": {
                 "integration": {
                     "name": "LabyMod Entegrasyonu"
+                },
+                "general": {
+                    "name": "Genel Ayarlar"
                 }
             },
             "featureIntegration": {
-                "name": "SkyblockAddons Widget Entegrasyonu"
+                "name": "SkyblockAddons Widget Entegrasyonu",
+                "description": "SkyblockAddons arayüz özelliklerini LabyMod HUD widget’larına entegre et"
             }
         }
     },
@@ -32,6 +36,10 @@
             "chroma": {
                 "name": "Kroma",
                 "description": "Rengin kroma olup olmaması"
+            },
+            "color": {
+                "name": "Renk",
+                "description": "Özelliğin rengi"
             }
         }
     },
@@ -46,7 +54,8 @@
     "labymod": {
         "hudWidgetCategory": {
             "skyblockaddons": {
-                "name": "Skyblock Eklentileri"
+                "name": "Skyblock Eklentileri",
+                "description": "SkyblockAddons’tan Arayüz özellikleri"
             }
         }
     }
