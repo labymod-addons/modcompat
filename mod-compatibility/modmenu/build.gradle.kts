@@ -22,6 +22,7 @@ dependencies {
         this.modrinth("1.21.4", "modmenu", "13.0.1")
         this.modrinth("1.21.5", "modmenu", "14.0.0-rc.2")
         this.modrinth("1.21.8", "modmenu", "15.0.0")
+        this.modrinth("1.21.10", "modmenu", "16.0.0-rc.1")
     }
 }
 
