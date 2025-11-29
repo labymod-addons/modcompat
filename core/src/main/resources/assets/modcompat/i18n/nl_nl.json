@@ -26,7 +26,29 @@
     "labymod": {
         "hudWidgetCategory": {
             "skyblockaddons": {
-                "name": "SkyblockAddons"
+                "name": "SkyblockAddons",
+                "description": "GUI-functies van SkyblockAddons"
+            }
+        }
+    },
+    "skyblockaddons": {
+        "hudWidget": {
+            "color": {
+                "name": "Kleur",
+                "description": "De kleur van de functie"
+            },
+            "chroma": {
+                "name": "Chroma",
+                "description": "Of de kleur Chroma moet zijn"
+            }
+        }
+    },
+    "skyblockaddons_loader": {
+        "settings": {
+            "header": {
+                "integration": {
+                    "name": "LabyMod-integratie"
+                }
             }
         }
     }
