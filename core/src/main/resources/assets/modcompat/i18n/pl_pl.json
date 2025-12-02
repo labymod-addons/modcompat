@@ -1,1 +1,18 @@
-{}
+{
+    "modcompat": {
+        "settings": {
+            "name": "Mod Compat",
+            "enabled": {
+                "name": "Włączone"
+            }
+        }
+    },
+    "labyfabric": {
+        "settings": {
+            "openModMenu": {
+                "name": "Menu Modów",
+                "text": "Otwórz"
+            }
+        }
+    }
+}
