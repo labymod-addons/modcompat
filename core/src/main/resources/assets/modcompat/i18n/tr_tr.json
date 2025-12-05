@@ -26,5 +26,12 @@
                 "name": "SkyblockAddons Widget Entegrasyonu"
             }
         }
+    },
+    "skyblockaddons": {
+        "hudWidget": {
+            "chroma": {
+                "name": "Kroma"
+            }
+        }
     }
 }
