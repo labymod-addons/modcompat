@@ -35,7 +35,17 @@
             "header": {
                 "general": {
                     "name": "Generelle indstillinger"
+                },
+                "integration": {
+                    "name": "LabyMod Integration"
                 }
+            }
+        }
+    },
+    "labymod": {
+        "hudWidgetCategory": {
+            "skyblockaddons": {
+                "name": "SkyblockAddons"
             }
         }
     }
