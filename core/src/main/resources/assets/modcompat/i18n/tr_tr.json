@@ -30,7 +30,8 @@
     "skyblockaddons": {
         "hudWidget": {
             "chroma": {
-                "name": "Kroma"
+                "name": "Kroma",
+                "description": "Rengin kroma olup olmaması"
             }
         }
     }
