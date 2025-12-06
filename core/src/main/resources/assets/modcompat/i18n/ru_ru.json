@@ -1,1 +1,62 @@
-{}
+{
+    "modcompat": {
+        "settings": {
+            "name": "Mod Compat",
+            "enabled": {
+                "name": "Включено"
+            }
+        }
+    },
+    "labyfabric": {
+        "settings": {
+            "openModMenu": {
+                "name": "Список модов",
+                "text": "Открыть"
+            }
+        }
+    },
+    "replaymod_loader": {
+        "settings": {
+            "openReplayViewer": {
+                "name": "Просмотрщик повторов",
+                "text": "Открыть"
+            }
+        }
+    },
+    "labymod": {
+        "hudWidgetCategory": {
+            "skyblockaddons": {
+                "name": "SkyblockAddons",
+                "description": "GUI-элементы SkyblockAddons"
+            }
+        }
+    },
+    "skyblockaddons": {
+        "hudWidget": {
+            "color": {
+                "name": "Цвет",
+                "description": "Цвет элемента"
+            },
+            "chroma": {
+                "name": "Режим Chroma",
+                "description": "Если включено, для цвета будет использоваться режим Chroma."
+            }
+        }
+    },
+    "skyblockaddons_loader": {
+        "settings": {
+            "header": {
+                "integration": {
+                    "name": "Интеграция LabyMod"
+                },
+                "general": {
+                    "name": "Основные настройки"
+                }
+            },
+            "featureIntegration": {
+                "name": "Интеграция виджета SkyblockAddons",
+                "description": "Позволяет добавлять GUI-элементы SkyblockAddons на экран в качестве виджетов LabyMod."
+            }
+        }
+    }
+}
