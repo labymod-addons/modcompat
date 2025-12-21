@@ -48,6 +48,9 @@
             "header": {
                 "integration": {
                     "name": "LabyMod-integratie"
+                },
+                "general": {
+                    "name": "Algemene Instellingen"
                 }
             }
         }
