@@ -45,7 +45,8 @@
     "labymod": {
         "hudWidgetCategory": {
             "skyblockaddons": {
-                "name": "SkyblockAddons"
+                "name": "SkyblockAddons",
+                "description": "GUI-funktioner fra SkyblockAddons"
             }
         }
     }
