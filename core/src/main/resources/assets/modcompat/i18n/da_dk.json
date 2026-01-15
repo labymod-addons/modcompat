@@ -26,7 +26,8 @@
     "skyblockaddons": {
         "hudWidget": {
             "color": {
-                "name": "Farve"
+                "name": "Farve",
+                "description": "Farven på funktionen"
             }
         }
     },
