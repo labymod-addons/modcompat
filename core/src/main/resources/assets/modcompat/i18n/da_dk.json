@@ -28,6 +28,10 @@
             "color": {
                 "name": "Farve",
                 "description": "Farven på funktionen"
+            },
+            "chroma": {
+                "name": "Regnbue",
+                "description": "Om farven skulle være krom"
             }
         }
     },
