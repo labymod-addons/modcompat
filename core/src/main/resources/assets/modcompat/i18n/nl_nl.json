@@ -52,6 +52,10 @@
                 "general": {
                     "name": "Algemene Instellingen"
                 }
+            },
+            "featureIntegration": {
+                "name": "SkyblockAddons-widgetintegratie",
+                "description": "Integreer de SkyblockAddons-GUI-functies in de LabyMod-HUD-widgets"
             }
         }
     }
