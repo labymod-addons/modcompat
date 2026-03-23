@@ -44,6 +44,9 @@
                 "integration": {
                     "name": "LabyMod Integration"
                 }
+            },
+            "featureIntegration": {
+                "name": "SkyblockAddons Widget Integration"
             }
         }
     },
