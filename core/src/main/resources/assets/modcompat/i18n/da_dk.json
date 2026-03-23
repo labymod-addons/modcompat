@@ -46,7 +46,8 @@
                 }
             },
             "featureIntegration": {
-                "name": "SkyblockAddons Widget Integration"
+                "name": "SkyblockAddons Widget Integration",
+                "description": "Integrer SkyblockAddons GUI-funktioner i LabyMod HUD-widgets"
             }
         }
     },
