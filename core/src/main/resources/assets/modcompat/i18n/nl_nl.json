@@ -1,7 +1,7 @@
 {
     "modcompat": {
         "settings": {
-            "name": "Mod-compatibiliteit",
+            "name": "Mod compatibiliteit",
             "enabled": {
                 "name": "Ingeschakeld"
             }
@@ -11,7 +11,7 @@
         "settings": {
             "openModMenu": {
                 "name": "Modmenu",
-                "text": "Openen"
+                "text": "Open"
             }
         }
     },
@@ -19,7 +19,7 @@
         "settings": {
             "openReplayViewer": {
                 "name": "Replayviewer",
-                "text": "Openen"
+                "text": "Open"
             }
         }
     },
