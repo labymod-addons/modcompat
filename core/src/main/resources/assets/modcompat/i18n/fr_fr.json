@@ -1,1 +1,10 @@
-{}
+{
+    "modcompat": {
+        "settings": {
+            "name": "Compatibilité des mods",
+            "enabled": {
+                "name": "Activé"
+            }
+        }
+    }
+}
