@@ -14,5 +14,49 @@
                 "text": "Ouvrir"
             }
         }
+    },
+    "replaymod_loader": {
+        "settings": {
+            "openReplayViewer": {
+                "name": "Visionneuse de Replay",
+                "text": "Ouvrir"
+            }
+        }
+    },
+    "labymod": {
+        "hudWidgetCategory": {
+            "skyblockaddons": {
+                "name": "SkyblockAddons",
+                "description": "Fonctionnalités GUI de SkyblockAddons"
+            }
+        }
+    },
+    "skyblockaddons": {
+        "hudWidget": {
+            "color": {
+                "name": "Couleur",
+                "description": "La couleur de la fonctionnalité"
+            },
+            "chroma": {
+                "name": "Chroma",
+                "description": "Si la couleur doit être chroma"
+            }
+        }
+    },
+    "skyblockaddons_loader": {
+        "settings": {
+            "header": {
+                "integration": {
+                    "name": "Intégration LabyMod"
+                },
+                "general": {
+                    "name": "Paramètres généraux"
+                }
+            },
+            "featureIntegration": {
+                "name": "Intégration des widgets SkyblockAddons",
+                "description": "Intégrer les fonctionnalités GUI de SkyblockAddons dans les widgets HUD de LabyMod"
+            }
+        }
     }
 }
