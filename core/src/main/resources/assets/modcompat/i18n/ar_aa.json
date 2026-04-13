@@ -1,7 +1,17 @@
 {
     "modcompat": {
         "settings": {
-            "name": "توافق الإضافات"
+            "name": "توافق الإضافات",
+            "enabled": {
+                "name": "مفعّل"
+            }
+        }
+    },
+    "labyfabric": {
+        "settings": {
+            "openModMenu": {
+                "name": "قائمة الإضافات"
+            }
         }
     }
 }
