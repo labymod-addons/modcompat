@@ -1,10 +1,13 @@
 import net.labymod.labygradle.common.extension.model.GameVersion
+import net.labymod.labygradle.common.internal.fabric.dependency.ModrinthDependencyHandler
 import net.labymod.labygradle.common.internal.gradle.ProjectUtil
 import net.labymod.labygradle.common.internal.labymod.LabyModPlugin
 import net.neoforged.srgutils.IMappingBuilder
 import net.neoforged.srgutils.IMappingFile
+import org.gradle.kotlin.dsl.findByType
 import java.io.FileNotFoundException
 import java.nio.file.Files
+import kotlin.apply
 
 val accessWatchers = arrayOf(
         "net/minecraft/world/entity/Display\$TextDisplay",
@@ -20,6 +23,23 @@ repositories {
 
 dependencies {
     compileOnly("net.fabricmc:fabric-loader:0.16.10")
+
+    extensions.findByType(ModrinthDependencyHandler::class)?.apply {
+        this.modrinth("1.16.5", "fabric-api", "0.42.0+1.16")
+        this.modrinth("1.17.1", "fabric-api", "0.46.1+1.17")
+        this.modrinth("1.18.2", "fabric-api", "0.77.0+1.18.2")
+        this.modrinth("1.19.4", "fabric-api", "0.87.2+1.19.4")
+        this.modrinth("1.20.1", "fabric-api", "0.92.9+1.20.1")
+        this.modrinth("1.20.6", "fabric-api", "0.100.8+1.20.6")
+        this.modrinth("1.21", "fabric-api", "0.102.0+1.21")
+        this.modrinth("1.21.1", "fabric-api", "0.116.12+1.21.1")
+        this.modrinth("1.21.3", "fabric-api", "0.114.1+1.21.3")
+        this.modrinth("1.21.4", "fabric-api", "0.119.4+1.21.4")
+        this.modrinth("1.21.5", "fabric-api", "0.128.2+1.21.5")
+        this.modrinth("1.21.8", "fabric-api", "0.136.1+1.21.8")
+        this.modrinth("1.21.10", "fabric-api", "0.138.4+1.21.10")
+        this.modrinth("1.21.11", "fabric-api", "0.141.4+1.21.11")
+    }
 }
 
 tasks.create("generateAccessWatcher") {

@@ -3,6 +3,8 @@ import net.labymod.labygradle.common.extension.model.labymod.ReleaseChannel
 import net.labymod.labygradle.common.extension.model.labymod.ReleaseChannels
 import net.labymod.labygradle.common.internal.gradle.ProjectUtil
 import net.labymod.labygradle.common.internal.labymod.addon.model.AddonMeta
+import java.net.HttpURLConnection
+import java.net.URI
 
 group = "net.labymod.addons"
 version = "0.0.1"
@@ -65,6 +67,42 @@ subprojects {
         if (name != "game-runner") {
             labyModAnnotationProcessor {
                 referenceType = ReferenceType.DEFAULT
+            }
+        }
+    }
+}
+
+tasks.register("latestModVersions") {
+    description = "Prints this.modrinth(\"mc\", \"slug\", \"ver\") lines with the latest version per MC version. Usage: ./gradlew latestModVersions -Pslug=sodium [-Ploader=fabric] -q"
+    group = "verification"
+
+    val slugProp = providers.gradleProperty("slug")
+    val loaderProp = providers.gradleProperty("loader").orElse("fabric")
+    val mcVersionsProp = providers.gradleProperty("net.labymod.minecraft-versions")
+
+    doLast {
+        val slug = slugProp.orNull ?: error("Missing -Pslug=<modrinth-slug> (e.g. -Pslug=sodium)")
+        val loader = loaderProp.get()
+        val mcVersions = mcVersionsProp.get().split(";")
+
+        val url = URI(
+            "https://api.modrinth.com/v2/project/$slug/version?loaders=%5B%22$loader%22%5D"
+        ).toURL()
+        val conn = url.openConnection() as HttpURLConnection
+        conn.setRequestProperty("User-Agent", "labymod/modcompat (gradle:latestModVersions)")
+
+        @Suppress("UNCHECKED_CAST")
+        val versions = conn.inputStream.use {
+            groovy.json.JsonSlurper().parse(it.reader())
+        } as List<Map<String, Any>>
+
+        for (mc in mcVersions) {
+            @Suppress("UNCHECKED_CAST")
+            val latest = versions.firstOrNull { (it["game_versions"] as List<String>).contains(mc) }
+            if (latest == null) {
+                println("// no $loader version of $slug for $mc")
+            } else {
+                println("this.modrinth(\"$mc\", \"$slug\", \"${latest["version_number"]}\")")
             }
         }
     }
