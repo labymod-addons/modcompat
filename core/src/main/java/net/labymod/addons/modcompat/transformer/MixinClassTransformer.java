@@ -24,7 +24,7 @@ public abstract class MixinClassTransformer implements IClassTransformer {
 
   static {
     ASMContext.setPlatformClassLoader(Launch.classLoader);
-    ASMContext.setResourceFinder(Launch.classLoader::loadResource);
+    ASMContext.setResourceFinder(Launch.classLoader::findResource);
   }
 
   private final String[] mixinNames;

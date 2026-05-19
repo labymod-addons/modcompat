@@ -1,7 +1,7 @@
 rootProject.name = "modcompat"
 
 pluginManagement {
-    val labyGradlePluginVersion = "0.6.0-SNAPSHOT"
+    val labyGradlePluginVersion = "0.7.0-SNAPSHOT"
     plugins {
         id("net.labymod.gradle") version (labyGradlePluginVersion)
     }
@@ -13,6 +13,11 @@ pluginManagement {
             maven("https://maven.fabricmc.net/")
             gradlePluginPortal()
             mavenCentral()
+        }
+
+
+        configurations.all {
+            resolutionStrategy.cacheChangingModulesFor(0, "seconds")
         }
 
         dependencies {

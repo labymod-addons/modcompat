@@ -1,4 +1,5 @@
 import net.labymod.labygradle.common.extension.LabyModAnnotationProcessorExtension.ReferenceType
+import net.labymod.labygradle.common.extension.model.labymod.ReleaseChannel
 import net.labymod.labygradle.common.extension.model.labymod.ReleaseChannels
 import net.labymod.labygradle.common.internal.gradle.ProjectUtil
 import net.labymod.labygradle.common.internal.labymod.addon.model.AddonMeta
@@ -37,8 +38,8 @@ labyMod {
         description = "LabyMod mod compatibility for external mods"
         minecraftVersion = "*"
         version = providers.environmentVariable("VERSION").getOrElse(project.version.toString())
-        meta(AddonMeta.HIDDEN)
-        releaseChannel = ReleaseChannels.SNAPSHOT
+        //meta(AddonMeta.HIDDEN)
+        releaseChannel = ReleaseChannel.create("internal_next")
     }
 }
 
