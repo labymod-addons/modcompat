@@ -13,6 +13,14 @@
       "impact": "HIGH",
       "playable": false,
       "fixed": false
+    },
+    {
+      "name": "essential-forge",
+      "description": "Essential Forge is not compatible with LabyMod",
+      "affectedVersions": "1.8.9<1.12.2",
+      "impact": "HIGH",
+      "playable": false,
+      "fixed": false
     }
   ]
 }
