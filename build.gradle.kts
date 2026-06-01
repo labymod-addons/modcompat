@@ -40,8 +40,8 @@ labyMod {
         description = "LabyMod mod compatibility for external mods"
         minecraftVersion = "*"
         version = providers.environmentVariable("VERSION").getOrElse(project.version.toString())
-        //meta(AddonMeta.HIDDEN)
-        releaseChannel = ReleaseChannel.create("internal_next")
+        meta(AddonMeta.HIDDEN)
+        releaseChannel = ReleaseChannels.SNAPSHOT
     }
 }
 
