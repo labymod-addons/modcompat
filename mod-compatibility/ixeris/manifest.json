@@ -1,0 +1,11 @@
+{
+  "ids": ["ixeris"],
+  "name": "Ixeris",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "incompatible"
+  }
+}
