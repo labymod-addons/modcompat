@@ -4,7 +4,16 @@
   "modLoaders": [
     "fabricloader"
   ],
-  "issues": [],
+  "issues": [
+    {
+      "name": "glfw-mixin-loaded-too-early",
+      "description": "GLFWMixin fails to apply because org.lwjgl.glfw.GLFW is loaded too early under the LabyMod class loader, crashing during mixin prepare (MixinTargetAlreadyLoadedException)",
+      "affectedVersions": "*",
+      "impact": "HIGH",
+      "playable": false,
+      "fixed": false
+    }
+  ],
   "compatibility": {
     "category": "incompatible"
   }
