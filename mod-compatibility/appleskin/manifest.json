@@ -1,0 +1,11 @@
+{
+  "ids": ["appleskin"],
+  "name": "AppleSkin",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "incompatible"
+  }
+}

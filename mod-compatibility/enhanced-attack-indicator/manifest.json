@@ -1,0 +1,11 @@
+{
+  "ids": ["enhanced-attack-indicator"],
+  "name": "Enhanced Attack Indicator",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "incompatible"
+  }
+}

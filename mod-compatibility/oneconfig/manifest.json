@@ -1,0 +1,11 @@
+{
+  "ids": ["oneconfig"],
+  "name": "OneConfig",
+  "modLoaders": [
+    "forge"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "incompatible"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "ids": ["skyblockaddons"],
+  "name": "SkyblockAddons",
+  "modLoaders": [
+    "forge"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "replacement",
+    "namespace": "skyblockaddons_loader"
+  }
+}

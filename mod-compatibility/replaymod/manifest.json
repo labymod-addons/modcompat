@@ -16,5 +16,10 @@
       "playable": true,
       "fixed": true
     }
-  ]
+  ],
+  "compatibility": {
+    "category": "replacement",
+    "namespace": "replaymod_loader",
+    "loaders": ["fabric"]
+  }
 }

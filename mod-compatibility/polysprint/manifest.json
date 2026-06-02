@@ -1,0 +1,12 @@
+{
+  "ids": ["polysprint"],
+  "name": "PolySprint",
+  "modLoaders": [
+    "forge"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "replacement",
+    "namespace": "togglesneak"
+  }
+}

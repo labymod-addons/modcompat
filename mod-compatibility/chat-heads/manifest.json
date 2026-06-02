@@ -1,0 +1,11 @@
+{
+  "ids": ["chat-heads"],
+  "name": "Chat Heads",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "incompatible"
+  }
+}

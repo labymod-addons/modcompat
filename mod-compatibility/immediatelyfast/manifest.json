@@ -1,0 +1,11 @@
+{
+  "ids": ["immediatelyfast"],
+  "name": "ImmediatelyFast",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "incompatible"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "ids": ["hippo-keystrokes"],
+  "name": "Hippo Keystrokes",
+  "modLoaders": [
+    "forge"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "replacement",
+    "namespace": "keystrokes"
+  }
+}

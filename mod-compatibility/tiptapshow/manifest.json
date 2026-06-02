@@ -1,0 +1,12 @@
+{
+  "ids": ["tiptapshow"],
+  "name": "TipTapShow",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "replacement",
+    "namespace": "keystrokes"
+  }
+}

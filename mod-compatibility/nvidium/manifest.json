@@ -1,0 +1,11 @@
+{
+  "ids": ["nvidium"],
+  "name": "Nvidium",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "incompatible"
+  }
+}

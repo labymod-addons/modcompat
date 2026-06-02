@@ -1,0 +1,12 @@
+{
+  "ids": ["lunar-keystrokes"],
+  "name": "Lunar Keystrokes",
+  "modLoaders": [
+    "forge"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "replacement",
+    "namespace": "keystrokes"
+  }
+}

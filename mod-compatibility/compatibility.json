@@ -1,0 +1,56 @@
+{
+  "recommended": {
+    "fabric": [],
+    "forge": []
+  },
+  "incompatible": {
+    "fabric": [
+      "appleskin",
+      "chat-heads",
+      "enhanced-attack-indicator",
+      "essential",
+      "immediatelyfast",
+      "nvidium",
+      "optifabric",
+      "vulkanmod"
+    ],
+    "forge": [
+      "essential",
+      "oneconfig"
+    ]
+  },
+  "replacements": {
+    "fabric": [
+      {
+        "identifier": "replaymod",
+        "namespace": "replaymod_loader"
+      },
+      {
+        "identifier": "tiptapshow",
+        "namespace": "keystrokes"
+      }
+    ],
+    "forge": [
+      {
+        "identifier": "hippo-keystrokes",
+        "namespace": "keystrokes"
+      },
+      {
+        "identifier": "keystrokes",
+        "namespace": "keystrokes"
+      },
+      {
+        "identifier": "lunar-keystrokes",
+        "namespace": "keystrokes"
+      },
+      {
+        "identifier": "polysprint",
+        "namespace": "togglesneak"
+      },
+      {
+        "identifier": "skyblockaddons",
+        "namespace": "skyblockaddons_loader"
+      }
+    ]
+  }
+}
