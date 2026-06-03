@@ -6,7 +6,7 @@ dependencies {
     api(project(":core"))
     compileOnly("maven.modrinth:iris:1.4.5+1.16.5")
 
-    extensions.findByType(ModrinthDependencyHandler::class)?.apply {
+    modrinth {
         this.modrinth("1.16.5", "iris", "1.4.5+1.16.5")
         this.modrinth("1.17.1", "iris", "1.17.x-v1.2.7")
         this.modrinth("1.18.2", "iris", "1.6.11+1.18.2")

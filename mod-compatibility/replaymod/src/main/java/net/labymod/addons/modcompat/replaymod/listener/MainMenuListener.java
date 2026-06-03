@@ -3,6 +3,7 @@ package net.labymod.addons.modcompat.replaymod.listener;
 import java.util.ArrayList;
 import java.util.List;
 import net.labymod.addons.modcompat.ModCompatAddon;
+import net.labymod.addons.modcompat.replaymod.ReplayModUtil;
 import net.labymod.addons.modcompat.replaymod.accessor.GuiReplayViewerAccessor;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.icon.Icon;
@@ -45,7 +46,7 @@ public class MainMenuListener {
 
       ButtonWidget buttonWidget = ButtonWidget.icon(Icon.texture(REPLAY_VIEWER_ICON));
       buttonWidget.setHoverComponent(Component.translatable("replaymod.gui.replayviewer"));
-      buttonWidget.setPressable(() -> GuiReplayViewerAccessor.create().display());
+      buttonWidget.setPressable(ReplayModUtil::displayViewer);
       buttonWidget.addId("icon-button", "replay-viewer-button");
 
       widget.addChildInitialized(buttonWidget);
