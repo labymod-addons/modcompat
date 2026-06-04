@@ -21,7 +21,6 @@ labyMod {
 
     minecraft {
         registerVersion(versions.toTypedArray()) {
-            javaVersion = JavaVersion.VERSION_21
             runs {
                 getByName("client") {
                     jvmArgs("-Dmixin.debug=false")

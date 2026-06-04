@@ -3,11 +3,11 @@ package net.labymod.addons.modcompat.replaymod.launch;
 import net.labymod.addons.modcompat.hook.AddonHooks;
 import net.labymod.addons.modcompat.mod.fix.ModFixEntrypoint;
 import net.labymod.addons.modcompat.replaymod.ReplayMultiplayerNavigationElement;
+import net.labymod.addons.modcompat.replaymod.configuration.settings.ReplayModSettingsMapper;
 import net.labymod.addons.modcompat.replaymod.listener.IngameMenuListener;
 import net.labymod.addons.modcompat.replaymod.listener.MainMenuListener;
 import net.labymod.addons.modcompat.replaymod.listener.ReplayModScreenListener;
 import net.labymod.addons.modcompat.replaymod.listener.ReplayViewListener;
-import net.labymod.addons.modcompat.replaymod.configuration.settings.ReplayModSettingsConverter;
 import net.labymod.addons.modcompat.replaymod.configuration.ReplayModHookConfiguration;
 import net.labymod.api.Laby;
 import net.labymod.api.LabyAPI;
@@ -18,6 +18,8 @@ import net.labymod.api.event.EventBus;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint;
 import net.labymod.api.models.addon.annotation.AddonEntryPoint.Point;
 import net.labymod.api.models.version.Version;
+import net.labymod.api.service.CustomServiceLoader;
+import net.labymod.api.service.CustomServiceLoader.ServiceType;
 
 @AddonEntryPoint(Point.ENABLE)
 public class ReplayModEntrypoint extends ModFixEntrypoint {
@@ -55,17 +57,24 @@ public class ReplayModEntrypoint extends ModFixEntrypoint {
     // Hook into addon settings, if present
     RootSettingRegistry addonSettings = AddonHooks.instance().getAddonSettings(ADDON_ID);
     if (addonSettings != null) {
-      ReplayModSettingsConverter converter = new ReplayModSettingsConverter();
+      for (ReplayModSettingsMapper mapper : CustomServiceLoader.load(
+          ReplayModSettingsMapper.class,
+          this.getClass().getClassLoader(),
+          ServiceType.ADVANCED
+      )) {
+        Config config = AddonHooks.instance().registerSubSettings(
+            ADDON_ID,
+            ReplayModHookConfiguration.class
+        );
+        addonSettings.addSettings(mapper.map(config));
 
-      Config config = AddonHooks.instance()
-          .registerSubSettings(ADDON_ID, ReplayModHookConfiguration.class);
-      addonSettings.addSettings(converter.convertCoreSettings(config));
-
-      // Replay viewer should only be opened when not ingame to prevent issues
-      addonSettings.findSetting((CharSequence) "openReplayViewer")
-          .ifPresent(setting -> setting.asElement().setVisibleSupplier(
-              () -> !Laby.labyAPI().minecraft().isIngame())
-          );
+        // Replay viewer should only be opened when not ingame to prevent issues
+        addonSettings.findSetting((CharSequence) "openReplayViewer")
+            .ifPresent(setting -> setting.asElement().setVisibleSupplier(
+                () -> !Laby.labyAPI().minecraft().isIngame())
+            );
+        break;
+      }
     }
   }
 }

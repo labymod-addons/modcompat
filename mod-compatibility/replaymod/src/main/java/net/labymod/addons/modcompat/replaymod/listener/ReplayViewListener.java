@@ -1,7 +1,6 @@
 package net.labymod.addons.modcompat.replaymod.listener;
 
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.ReplayModReplay;
+import net.labymod.addons.modcompat.replaymod.ReplayModUtil;
 import net.labymod.addons.modcompat.replaymod.accessor.MinecraftTimerAccessor;
 import net.labymod.api.Laby;
 import net.labymod.api.client.Minecraft;
@@ -25,8 +24,7 @@ public class ReplayViewListener {
 
   @Subscribe(Priority.LATEST)
   public void onPreIngameOverlayRender(IngameOverlayRenderEvent event) {
-    ReplayHandler replayHandler = ReplayModReplay.instance.getReplayHandler();
-    if (replayHandler == null || !replayHandler.getOverlay().isVisible()) {
+    if (!ReplayModUtil.isRelayOverlayVisible()) {
       return;
     }
 
@@ -49,7 +47,7 @@ public class ReplayViewListener {
 
   @Subscribe
   public void onGameRender(GameRenderEvent event) {
-    if (ReplayModReplay.instance.getReplayHandler() == null) {
+    if (!ReplayModUtil.hasReplayHandler()) {
       return;
     }
 
@@ -79,7 +77,7 @@ public class ReplayViewListener {
 
   @Subscribe
   public void onChatDropdownInitialize(LabyConnectChatDropdownInitializeEvent event) {
-    if (ReplayModReplay.instance.getReplayHandler() == null) {
+    if (!ReplayModUtil.hasReplayHandler()) {
       return;
     }
 

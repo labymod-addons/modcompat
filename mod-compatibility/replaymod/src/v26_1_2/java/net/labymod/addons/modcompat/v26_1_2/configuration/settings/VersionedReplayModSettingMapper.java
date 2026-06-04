@@ -1,34 +1,34 @@
-package net.labymod.addons.modcompat.replaymod.configuration.settings;
+package net.labymod.addons.modcompat.v26_1_2.configuration.settings;
 
 import com.replaymod.core.ReplayMod;
+import com.replaymod.core.SettingsRegistry;
 import com.replaymod.core.SettingsRegistry.MultipleChoiceSettingKey;
 import com.replaymod.core.SettingsRegistry.SettingKey;
-import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.List;
 import net.labymod.addons.modcompat.configuration.settings.CustomNameSettingElement;
 import net.labymod.addons.modcompat.configuration.settings.SettingAnnotationCreator;
-import net.labymod.addons.modcompat.replaymod.configuration.settings.widget.ReplayModEntryRenderer;
+import net.labymod.addons.modcompat.replaymod.configuration.settings.ReplayModSettingsMapper;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.screen.widget.Widget;
 import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownWidget;
-import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.renderer.EntryRenderer;
 import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.configuration.settings.Setting;
 import net.labymod.api.configuration.settings.SettingInfo;
 import net.labymod.api.configuration.settings.accessor.SettingAccessor;
 import net.labymod.api.configuration.settings.type.SettingElement;
+import net.labymod.api.service.annotation.AutoService;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ReplayModSettingsConverter {
+@AutoService(value = ReplayModSettingsMapper.class, versionSpecific = true)
+public class VersionedReplayModSettingMapper implements ReplayModSettingsMapper {
 
-  private final EntryRenderer<Object> REPLAY_MOD_ENTRY_RENDERER = new ReplayModEntryRenderer<>();
-
-  @SuppressWarnings("unchecked")
-  public List<Setting> convertCoreSettings(Config config) {
+  @Override
+  public List<Setting> map(Config config) {
     List<Setting> settings = new ArrayList<>();
 
-    var settingsRegistry = ReplayMod.instance.getSettingsRegistry();
+    SettingsRegistry settingsRegistry = ReplayMod.instance.getSettingsRegistry();
     for (SettingKey<?> key : settingsRegistry.getSettings()) {
       if (key.getDisplayString() == null) {
         continue;

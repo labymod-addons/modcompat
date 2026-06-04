@@ -9,4 +9,24 @@ public interface ReplayMod {
 
   void displayViewer();
 
+  boolean isRelayOverlayVisible();
+
+  boolean hasReplayHandler();
+
+  RecordingControls recordingControls();
+
+  interface RecordingControls {
+
+    String getPauseResumeLabel();
+
+    void clickPauseResume();
+
+    String getStartStopLabel();
+
+    void clickStartStop();
+
+    boolean isRecording();
+
+  }
+
 }

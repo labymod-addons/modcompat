@@ -16,4 +16,16 @@ public final class ReplayModUtil {
       replayMod.displayViewer();
     }
   }
+
+  public static boolean isRelayOverlayVisible() {
+    var references = (DefaultReferenceStorage) ModCompat.instance().references();
+    ReplayMod replayMod = references.getReplayMod();
+    return replayMod != null && replayMod.isRelayOverlayVisible();
+  }
+
+  public static boolean hasReplayHandler() {
+    var references = (DefaultReferenceStorage) ModCompat.instance().references();
+    ReplayMod replayMod = references.getReplayMod();
+    return replayMod != null && replayMod.hasReplayHandler();
+  }
 }

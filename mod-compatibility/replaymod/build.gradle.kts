@@ -12,15 +12,6 @@ dependencies {
             "v1_12_2" -> {
                 add(sourceSet.compileOnlyConfigurationName, "maven.modrinth:replaymod:1.12.2-2.6.20")
             }
-            "v26_1" -> {
-                add(sourceSet.compileOnlyConfigurationName, "maven.modrinth:replaymod:26.1-2.6.26")
-            }
-            "v26_1_1" -> {
-                add(sourceSet.compileOnlyConfigurationName, "maven.modrinth:replaymod:26.1.1-2.6.26")
-            }
-            "v26_1_2" -> {
-                add(sourceSet.compileOnlyConfigurationName, "maven.modrinth:replaymod:26.1.2-2.6.26")
-            }
         }
     }
 
@@ -39,6 +30,9 @@ dependencies {
         this.modrinth("1.21.8", "replaymod", "1.21.7-2.6.23")
         this.modrinth("1.21.10", "replaymod", "1.21.10-2.6.25")
         this.modrinth("1.21.11", "replaymod", "1.21.11-2.6.26")
+        this.modrinth("26.1", "replaymod", "26.1-2.6.26")
+        this.modrinth("26.1.1", "replaymod", "26.1-2.6.26")
+        this.modrinth("26.1.2", "replaymod", "26.1-2.6.26")
     }
 }
 
