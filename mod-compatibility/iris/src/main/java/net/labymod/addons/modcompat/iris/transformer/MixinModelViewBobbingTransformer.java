@@ -22,7 +22,7 @@ public class MixinModelViewBobbingTransformer extends MixinClassTransformer {
 
   @Override
   protected boolean shouldTransform(String name, String transformedName, byte... bytes) {
-    return MinecraftVersions.V1_20_5.orNewer();
+    return MinecraftVersions.V1_20_5.orNewer() && MinecraftVersions.V1_21_11.orOlder();
   }
 
   @Override
