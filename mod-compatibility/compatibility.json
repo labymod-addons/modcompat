@@ -10,13 +10,15 @@
       "enhanced-attack-indicator",
       "essential",
       "immediatelyfast",
+      "ixeris",
       "nvidium",
       "optifabric",
       "vulkanmod"
     ],
     "forge": [
       "essential",
-      "oneconfig"
+      "oneconfig",
+      "rodcolor"
     ]
   },
   "replacements": {

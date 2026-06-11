@@ -1,0 +1,20 @@
+{
+  "ids": ["rodcolor"],
+  "name": "RodColor",
+  "modLoaders": [
+    "forge"
+  ],
+  "issues": [
+    {
+      "name": "renderfish-overwrite",
+      "description": "MixinRenderFish overwrites RenderFish#doRender, removing the NEW Vec3 target of LabyMod's fishing hook injection and crashing during mixin apply (InvalidInjectionException)",
+      "affectedVersions": "*",
+      "impact": "HIGH",
+      "playable": false,
+      "fixed": false
+    }
+  ],
+  "compatibility": {
+    "category": "incompatible"
+  }
+}
