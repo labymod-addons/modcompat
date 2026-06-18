@@ -1,0 +1,20 @@
+{
+  "ids": ["gpu_booster"],
+  "name": "GPUBooster",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [
+    {
+      "name": "glconst-matchexception",
+      "description": "GlConstMixin breaks GlConst.<clinit>, throwing MatchException during RenderSystem.initRenderer (DirectStateAccess$Emulated.bufferData -> GlDevice.createBuffer), crashing Minecraft on startup",
+      "affectedVersions": "*",
+      "impact": "HIGH",
+      "playable": false,
+      "fixed": false
+    }
+  ],
+  "compatibility": {
+    "category": "incompatible"
+  }
+}
