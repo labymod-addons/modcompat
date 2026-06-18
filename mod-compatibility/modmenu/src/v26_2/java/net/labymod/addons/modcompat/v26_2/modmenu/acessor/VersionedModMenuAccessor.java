@@ -13,6 +13,6 @@ public class VersionedModMenuAccessor implements ModMenuAccessor {
 
   @Override
   public ScreenInstance createScreen() {
-    return FACTORY.create(new ModsScreen(Minecraft.getInstance().screen));
+    return FACTORY.create(new ModsScreen(Minecraft.getInstance().gui.screen()));
   }
 }
