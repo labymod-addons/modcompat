@@ -18,6 +18,6 @@ public class ModMenuTextures {
   );
 
   public static ResourceLocation getTexture(ResourceLocation location) {
-    return TEXTURE_MAP.getOrDefault(location, location);
+    return TEXTURE_MAP.get(location);
   }
 }
