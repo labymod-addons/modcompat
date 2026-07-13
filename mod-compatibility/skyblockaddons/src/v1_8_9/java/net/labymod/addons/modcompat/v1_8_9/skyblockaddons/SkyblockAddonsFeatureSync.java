@@ -112,7 +112,7 @@ public class SkyblockAddonsFeatureSync {
         continue;
       }
 
-      Feature feature = skyblockAddonsHudWidget.feature();
+      Feature feature = skyblockAddonsHudWidget.featureDetails();
 
       // Sync SkyblockAddons feature enabled state with the hud widget
       config.setEnabled(feature.isEnabled());

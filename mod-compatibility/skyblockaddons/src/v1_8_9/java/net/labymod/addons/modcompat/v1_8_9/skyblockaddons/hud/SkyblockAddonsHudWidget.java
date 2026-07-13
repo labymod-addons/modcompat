@@ -67,7 +67,7 @@ public class SkyblockAddonsHudWidget extends SimpleHudWidget<SkyblockAddonsHudWi
     return Component.text(this.feature.getMessage());
   }
 
-  public Feature feature() {
+  public Feature featureDetails() {
     return this.feature;
   }
 
