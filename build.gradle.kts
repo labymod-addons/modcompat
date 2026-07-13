@@ -41,7 +41,6 @@ labyMod {
         minecraftVersion = "*"
         version = providers.environmentVariable("VERSION").getOrElse(project.version.toString())
         meta(AddonMeta.HIDDEN)
-        releaseChannel = ReleaseChannels.SNAPSHOT
     }
 }
 
