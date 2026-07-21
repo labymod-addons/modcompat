@@ -1,0 +1,10 @@
+{
+  "ids": ["flashback"],
+  "name": "Flashback",
+  "description": "Record your Minecraft gameplay, play it back and create stunning cinematic shots",
+  "website": "https://modrinth.com/mod/flashback",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": []
+}
