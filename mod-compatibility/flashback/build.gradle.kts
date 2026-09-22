@@ -17,6 +17,7 @@ dependencies {
         this.modrinth("26.1.1", "flashback", "0.40.0")
         this.modrinth("26.1.2", "flashback", "0.40.0")
         this.modrinth("26.2", "flashback", "0.41.1")
+        this.modrinth("26.3", "flashback", "0.43.6")
     }
 }
 

@@ -3,6 +3,7 @@ package net.labymod.addons.modcompat.configuration.settings;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SliderWidget.SliderSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.color.ColorPickerWidget.ColorPickerSetting;
+import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownEntries;
 import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownWidget.DropdownSetting;
 
 public class SettingAnnotationCreator {
@@ -23,6 +24,11 @@ public class SettingAnnotationCreator {
 
   public static DropdownSetting createDropdown() {
     return new DropdownSetting() {
+      @Override
+      public Class<? extends DropdownEntries> entries() {
+        return DropdownEntries.class;
+      }
+
       @Override
       public Class<? extends DropdownSetting> annotationType() {
         return DropdownSetting.class;

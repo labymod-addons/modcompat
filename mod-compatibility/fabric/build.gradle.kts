@@ -40,6 +40,7 @@ dependencies {
         this.modrinth("1.21.10", "fabric-api", "0.138.4+1.21.10")
         this.modrinth("1.21.11", "fabric-api", "0.141.4+1.21.11")
         this.modrinth("26.2", "fabric-api", "0.152.1+26.2")
+        this.modrinth("26.3", "fabric-api", "0.161.0+26.3")
     }
 }
 
