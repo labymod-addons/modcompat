@@ -34,6 +34,7 @@ dependencies {
         this.modrinth("26.1.1", "replaymod", "26.1-2.6.26")
         this.modrinth("26.1.2", "replaymod", "26.1-2.6.26")
         // no fabric version of replaymod for 26.2
+        // no fabric version of replaymod for 26.3
     }
 }
 

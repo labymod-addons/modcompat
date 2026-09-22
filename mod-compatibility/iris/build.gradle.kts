@@ -25,5 +25,6 @@ dependencies {
         this.modrinth("26.1.1", "iris", "1.10.9+26.1-fabric")
         this.modrinth("26.1.2", "iris", "1.10.9+26.1-fabric")
         this.modrinth("26.2", "iris", "1.11.1+26.2-fabric")
+        this.modrinth("26.3", "iris", "1.11.6+26.3-fabric")
     }
 }
