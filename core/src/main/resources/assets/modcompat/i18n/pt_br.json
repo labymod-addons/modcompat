@@ -27,6 +27,9 @@
             "header": {
                 "general": {
                     "name": "Configurações Gerais"
+                },
+                "integration": {
+                    "name": "Integração LabyMod"
                 }
             }
         }
@@ -35,6 +38,13 @@
         "settings": {
             "enabled": {
                 "name": "Ativado"
+            }
+        }
+    },
+    "labymod": {
+        "hudWidgetCategory": {
+            "skyblockaddons": {
+                "name": "SkyblockComplementos"
             }
         }
     }
