@@ -6,6 +6,8 @@
   ],
   "issues": [],
   "compatibility": {
-    "category": "incompatible"
+    "category": "replacement",
+    "namespace": "betterfoodhud",
+    "incompatible": true
   }
 }

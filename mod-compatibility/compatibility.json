@@ -25,12 +25,45 @@
   "replacements": {
     "fabric": [
       {
+        "identifier": "appleskin",
+        "namespace": "betterfoodhud"
+      },
+      {
+        "identifier": "chat-heads",
+        "settings": {
+          "ingame.advancedChat.showPlayerHeads": true
+        }
+      },
+      {
         "identifier": "replaymod",
         "namespace": "replaymod_loader"
       },
       {
+        "identifier": "shulkerboxtooltip",
+        "settings": {
+          "ingame.inventory.containerPreview.enabled": true
+        }
+      },
+      {
+        "identifier": "simple-voice-chat",
+        "namespace": "voicechat",
+        "match": "alternative",
+        "reason": "server-plugin"
+      },
+      {
+        "identifier": "sodium",
+        "namespace": "flux",
+        "match": "equivalent"
+      },
+      {
         "identifier": "tiptapshow",
         "namespace": "keystrokes"
+      },
+      {
+        "identifier": "waveycapes",
+        "settings": {
+          "ingame.cosmetics.cloakAnimator": true
+        }
       }
     ],
     "forge": [

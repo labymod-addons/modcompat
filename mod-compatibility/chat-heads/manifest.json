@@ -6,6 +6,10 @@
   ],
   "issues": [],
   "compatibility": {
-    "category": "incompatible"
+    "category": "replacement",
+    "settings": {
+      "ingame.advancedChat.showPlayerHeads": true
+    },
+    "incompatible": true
   }
 }

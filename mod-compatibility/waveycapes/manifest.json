@@ -1,0 +1,14 @@
+{
+  "ids": ["waveycapes"],
+  "name": "WaveyCapes",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "replacement",
+    "settings": {
+      "ingame.cosmetics.cloakAnimator": true
+    }
+  }
+}
