@@ -1,0 +1,14 @@
+{
+  "ids": ["shulkerboxtooltip"],
+  "name": "ShulkerBoxTooltip",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "replacement",
+    "settings": {
+      "ingame.inventory.containerPreview.enabled": true
+    }
+  }
+}

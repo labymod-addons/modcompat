@@ -1,0 +1,14 @@
+{
+  "ids": ["simple-voice-chat"],
+  "name": "Simple Voice Chat",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "replacement",
+    "namespace": "voicechat",
+    "match": "alternative",
+    "reason": "server-plugin"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "ids": ["sodium"],
+  "name": "Sodium",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [],
+  "compatibility": {
+    "category": "replacement",
+    "namespace": "flux",
+    "match": "equivalent"
+  }
+}

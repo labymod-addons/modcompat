@@ -61,6 +61,8 @@ tasks.register("buildCompatibility") {
     doLast {
         val loaders = listOf("fabric", "forge")
         val bucketKeys = listOf("recommended", "incompatible", "replacements")
+        val replacementMatches = setOf("equivalent", "alternative")
+        val replacementReasons = setOf("server-plugin")
 
         fun mapLoader(raw: String): String = when (raw.lowercase()) {
             "fabricloader", "fabric" -> "fabric"
@@ -115,27 +117,60 @@ tasks.register("buildCompatibility") {
 
             val namespace = compatibility?.get("namespace")?.asString
             val versions = compatibility?.get("versions")?.asString
+            val settings = compatibility?.getAsJsonObject("settings")
+            val widgets = compatibility?.getAsJsonArray("widgets")
+            val match = compatibility?.get("match")?.asString
+            val reason = compatibility?.get("reason")?.asString
+            // Replacement of an incompatible mod: listed in both buckets, so the mod itself can't be picked
+            val forced = compatibility?.get("incompatible")?.asBoolean ?: false
 
-            val entry: JsonElement = when {
-                bucketKey == "replacements" -> JsonObject().apply {
-                    addProperty("identifier", identifier)
-                    addProperty(
-                        "namespace",
-                        namespace ?: error("Replacement '$mod' requires compatibility.namespace")
-                    )
-                    if (versions != null) addProperty("versions", versions)
-                }
+            if (bucketKey != "replacements" && (forced || listOf(settings, widgets, match, reason).any { it != null })) {
+                error("'$mod' uses settings, widgets, match, reason or incompatible outside the replacement category")
+            }
 
-                versions != null -> JsonObject().apply {
+            val plainEntry: JsonElement = if (versions != null) {
+                JsonObject().apply {
                     addProperty("identifier", identifier)
                     addProperty("versions", versions)
                 }
+            } else {
+                JsonPrimitive(identifier)
+            }
 
-                else -> JsonPrimitive(identifier)
+            val entry: JsonElement = if (bucketKey == "replacements") {
+                JsonObject().apply {
+                    if (namespace == null && settings == null && widgets == null) {
+                        error("Replacement '$mod' requires compatibility.namespace, settings or widgets")
+                    }
+                    settings?.entrySet()?.forEach { (path, value) ->
+                        if (path.isBlank() || !value.isJsonPrimitive) {
+                            error("Replacement '$mod' has invalid setting '$path', expected a path mapped to a primitive")
+                        }
+                    }
+                    if (match != null && match !in replacementMatches) {
+                        error("Unknown match '$match' for '$mod', expected one of $replacementMatches")
+                    }
+                    if (reason != null && reason !in replacementReasons) {
+                        error("Unknown reason '$reason' for '$mod', expected one of $replacementReasons")
+                    }
+
+                    addProperty("identifier", identifier)
+                    if (namespace != null) addProperty("namespace", namespace)
+                    if (versions != null) addProperty("versions", versions)
+                    if (settings != null) add("settings", settings)
+                    if (widgets != null) add("widgets", widgets)
+                    if (match != null) addProperty("match", match)
+                    if (reason != null) addProperty("reason", reason)
+                }
+            } else {
+                plainEntry
             }
 
             entryLoaders.forEach { loader ->
                 buckets.getValue(bucketKey).getValue(loader)[identifier] = entry
+                if (forced) {
+                    buckets.getValue("incompatible").getValue(loader)[identifier] = plainEntry
+                }
             }
         }
 
