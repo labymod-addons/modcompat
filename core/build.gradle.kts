@@ -61,6 +61,8 @@ tasks.register("buildCompatibility") {
     doLast {
         val loaders = listOf("fabric", "forge")
         val bucketKeys = listOf("recommended", "incompatible", "replacements")
+        val replacementMatches = setOf("equivalent", "alternative")
+        val replacementReasons = setOf("server-plugin")
 
         fun mapLoader(raw: String): String = when (raw.lowercase()) {
             "fabricloader", "fabric" -> "fabric"
@@ -115,15 +117,39 @@ tasks.register("buildCompatibility") {
 
             val namespace = compatibility?.get("namespace")?.asString
             val versions = compatibility?.get("versions")?.asString
+            val settings = compatibility?.getAsJsonObject("settings")
+            val widgets = compatibility?.getAsJsonArray("widgets")
+            val match = compatibility?.get("match")?.asString
+            val reason = compatibility?.get("reason")?.asString
+
+            if (bucketKey != "replacements" && listOf(settings, widgets, match, reason).any { it != null }) {
+                error("'$mod' uses settings, widgets, match or reason outside the replacement category")
+            }
 
             val entry: JsonElement = when {
                 bucketKey == "replacements" -> JsonObject().apply {
+                    if (namespace == null && settings == null && widgets == null) {
+                        error("Replacement '$mod' requires compatibility.namespace, settings or widgets")
+                    }
+                    settings?.entrySet()?.forEach { (path, value) ->
+                        if (path.isBlank() || !value.isJsonPrimitive) {
+                            error("Replacement '$mod' has invalid setting '$path', expected a path mapped to a primitive")
+                        }
+                    }
+                    if (match != null && match !in replacementMatches) {
+                        error("Unknown match '$match' for '$mod', expected one of $replacementMatches")
+                    }
+                    if (reason != null && reason !in replacementReasons) {
+                        error("Unknown reason '$reason' for '$mod', expected one of $replacementReasons")
+                    }
+
                     addProperty("identifier", identifier)
-                    addProperty(
-                        "namespace",
-                        namespace ?: error("Replacement '$mod' requires compatibility.namespace")
-                    )
+                    if (namespace != null) addProperty("namespace", namespace)
                     if (versions != null) addProperty("versions", versions)
+                    if (settings != null) add("settings", settings)
+                    if (widgets != null) add("widgets", widgets)
+                    if (match != null) addProperty("match", match)
+                    if (reason != null) addProperty("reason", reason)
                 }
 
                 versions != null -> JsonObject().apply {
