@@ -121,13 +121,24 @@ tasks.register("buildCompatibility") {
             val widgets = compatibility?.getAsJsonArray("widgets")
             val match = compatibility?.get("match")?.asString
             val reason = compatibility?.get("reason")?.asString
+            // Replacement of an incompatible mod: listed in both buckets, so the mod itself can't be picked
+            val forced = compatibility?.get("incompatible")?.asBoolean ?: false
 
-            if (bucketKey != "replacements" && listOf(settings, widgets, match, reason).any { it != null }) {
-                error("'$mod' uses settings, widgets, match or reason outside the replacement category")
+            if (bucketKey != "replacements" && (forced || listOf(settings, widgets, match, reason).any { it != null })) {
+                error("'$mod' uses settings, widgets, match, reason or incompatible outside the replacement category")
             }
 
-            val entry: JsonElement = when {
-                bucketKey == "replacements" -> JsonObject().apply {
+            val plainEntry: JsonElement = if (versions != null) {
+                JsonObject().apply {
+                    addProperty("identifier", identifier)
+                    addProperty("versions", versions)
+                }
+            } else {
+                JsonPrimitive(identifier)
+            }
+
+            val entry: JsonElement = if (bucketKey == "replacements") {
+                JsonObject().apply {
                     if (namespace == null && settings == null && widgets == null) {
                         error("Replacement '$mod' requires compatibility.namespace, settings or widgets")
                     }
@@ -151,17 +162,15 @@ tasks.register("buildCompatibility") {
                     if (match != null) addProperty("match", match)
                     if (reason != null) addProperty("reason", reason)
                 }
-
-                versions != null -> JsonObject().apply {
-                    addProperty("identifier", identifier)
-                    addProperty("versions", versions)
-                }
-
-                else -> JsonPrimitive(identifier)
+            } else {
+                plainEntry
             }
 
             entryLoaders.forEach { loader ->
                 buckets.getValue(bucketKey).getValue(loader)[identifier] = entry
+                if (forced) {
+                    buckets.getValue("incompatible").getValue(loader)[identifier] = plainEntry
+                }
             }
         }
 
