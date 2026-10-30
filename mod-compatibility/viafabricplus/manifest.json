@@ -1,0 +1,10 @@
+{
+  "ids": ["viafabricplus"],
+  "name": "ViaFabricPlus",
+  "description": "Connect to every Minecraft server version, from Classic to the latest release",
+  "website": "https://modrinth.com/mod/viafabricplus",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": []
+}
