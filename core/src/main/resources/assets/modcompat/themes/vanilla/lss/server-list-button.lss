@@ -1,0 +1,5 @@
+// Buttons fit their content, so without this an icon-only button is not square in every theme
+.modcompat-server-list-button {
+  width: height;
+  padding: 0;
+}

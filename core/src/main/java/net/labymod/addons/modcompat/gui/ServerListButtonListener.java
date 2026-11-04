@@ -1,54 +1,71 @@
-package net.labymod.addons.modcompat.viafabricplus.listener;
+package net.labymod.addons.modcompat.gui;
 
 import java.util.List;
-import net.labymod.addons.modcompat.viafabricplus.ViaFabricPlusAccessor;
+import java.util.function.BooleanSupplier;
+import net.labymod.addons.modcompat.ModCompatAddon;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.icon.Icon;
+import net.labymod.api.client.gui.screen.activity.Activity;
 import net.labymod.api.client.gui.screen.widget.Widget;
 import net.labymod.api.client.gui.screen.widget.util.WidgetUtil;
 import net.labymod.api.client.gui.screen.widget.widgets.input.ButtonWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.layout.FlexibleContentWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.layout.entry.FlexibleContentEntry;
+import net.labymod.api.client.gui.tooltip.Tooltip;
 import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.gui.screen.ActivityInitializeEvent;
 
-public class ServerListListener {
+/**
+ * Adds a mod's icon button to the first button row of the private server list, the place where
+ * the mod adds its button on the vanilla multiplayer screen.
+ */
+public class ServerListButtonListener {
 
   private static final String PRIVATE_SERVER_LIST_ID = "labymod:private_server_list";
   private static final String BUTTON_CONTAINER_ID = "button-container";
-  private static final ResourceLocation ICON = ResourceLocation.create(
-      "viafabricplus",
-      "icon.png"
-  );
+  private static final String BUTTON_ID = "modcompat-server-list-button";
+  private static final String STYLE = "server-list-button.lss";
 
-  private final ViaFabricPlusAccessor accessor;
+  private final String name;
+  private final ResourceLocation icon;
+  private final BooleanSupplier visible;
+  private final Runnable action;
 
-  public ServerListListener(ViaFabricPlusAccessor accessor) {
-    this.accessor = accessor;
+  public ServerListButtonListener(
+      String name,
+      ResourceLocation icon,
+      BooleanSupplier visible,
+      Runnable action
+  ) {
+    this.name = name;
+    this.icon = icon;
+    this.visible = visible;
+    this.action = action;
   }
 
   @Subscribe
   public void onActivityInitialize(ActivityInitializeEvent event) {
-    if (!PRIVATE_SERVER_LIST_ID.equals(event.getIdentifier())) {
+    if (!PRIVATE_SERVER_LIST_ID.equals(event.getIdentifier()) || !this.visible.getAsBoolean()) {
       return;
     }
 
-    FlexibleContentWidget buttonContainer = findButtonContainer(event.activity().document());
+    Activity activity = event.activity();
+    FlexibleContentWidget buttonContainer = findButtonContainer(activity.document());
     if (buttonContainer == null) {
       return;
     }
 
     List<FlexibleContentEntry> rows = buttonContainer.getChildren();
-    if (rows.isEmpty() || !(rows.get(0).childWidget() instanceof FlexibleContentWidget firstRow)) {
+    if (rows.isEmpty() || !(rows.getFirst().childWidget() instanceof FlexibleContentWidget firstRow)) {
       return;
     }
 
-    ButtonWidget button = ButtonWidget.icon(
-        Icon.texture(ICON),
-        this.accessor::openProtocolSelectionScreen
-    );
-    button.setHoverComponent(Component.text("ViaFabricPlus"));
+    activity.addStyle(ModCompatAddon.NAMESPACE, STYLE);
+
+    ButtonWidget button = ButtonWidget.icon(Icon.texture(this.icon), this.action::run);
+    button.addId(BUTTON_ID);
+    button.tooltip(Tooltip.text(Component.text(this.name)));
     firstRow.addContentInitialized(button);
   }
 
