@@ -1,0 +1,10 @@
+{
+  "ids": ["viafabric"],
+  "name": "ViaFabric",
+  "description": "Client-side and server-side ViaVersion implementation for Fabric",
+  "website": "https://modrinth.com/mod/viafabric",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": []
+}
