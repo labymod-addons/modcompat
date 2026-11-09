@@ -22,19 +22,19 @@ dependencies {
         this.modrinth("1.19.4", "replaymod", "1.19.4-2.6.20")
         this.modrinth("1.20.1", "replaymod", "1.20.1-2.6.23")
         this.modrinth("1.20.6", "replaymod", "1.20.6-2.6.23")
-        this.modrinth("1.21", "replaymod", "1.21-2.6.23")
-        this.modrinth("1.21.1", "replaymod", "1.21-2.6.23")
+        this.modrinth("1.21", "replaymod", "1.21-2.6.28")
+        this.modrinth("1.21.1", "replaymod", "1.21-2.6.28")
         this.modrinth("1.21.3", "replaymod", "1.21.2-2.6.23")
         this.modrinth("1.21.4", "replaymod", "1.21.4-2.6.23")
-        this.modrinth("1.21.5", "replaymod", "1.21.5-2.6.23")
-        this.modrinth("1.21.8", "replaymod", "1.21.7-2.6.23")
-        this.modrinth("1.21.10", "replaymod", "1.21.10-2.6.25")
-        this.modrinth("1.21.11", "replaymod", "1.21.11-2.6.26")
-        this.modrinth("26.1", "replaymod", "26.1-2.6.26")
-        this.modrinth("26.1.1", "replaymod", "26.1-2.6.26")
-        this.modrinth("26.1.2", "replaymod", "26.1-2.6.26")
-        // no fabric version of replaymod for 26.2
-        // no fabric version of replaymod for 26.3
+        this.modrinth("1.21.5", "replaymod", "1.21.5-2.6.28")
+        this.modrinth("1.21.8", "replaymod", "1.21.7-2.6.28")
+        this.modrinth("1.21.10", "replaymod", "1.21.10-2.6.28")
+        this.modrinth("1.21.11", "replaymod", "1.21.11-2.6.28")
+        this.modrinth("26.1", "replaymod", "26.1-2.6.28")
+        this.modrinth("26.1.1", "replaymod", "26.1-2.6.28")
+        this.modrinth("26.1.2", "replaymod", "26.1-2.6.28")
+        this.modrinth("26.2", "replaymod", "26.2-2.6.28")
+        this.modrinth("26.3", "replaymod", "26.3-2.6.28")
     }
 }
 

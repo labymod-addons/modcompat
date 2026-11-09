@@ -1,6 +1,7 @@
 package net.labymod.addons.modcompat.v1_21_1.accessor;
 
 import com.replaymod.lib.de.johni0702.minecraft.gui.element.GuiButton;
+import com.replaymod.lib.de.johni0702.minecraft.gui.function.Click;
 import com.replaymod.recording.ReplayModRecording;
 import com.replaymod.recording.gui.GuiRecordingControls;
 import com.replaymod.recording.handler.ConnectionEventHandler;
@@ -11,6 +12,7 @@ import net.labymod.addons.modcompat.acessor.ReplayMod;
 import net.labymod.addons.modcompat.hook.AddonHooks;
 import net.labymod.addons.modcompat.replaymod.launch.ReplayModEntrypoint;
 import net.labymod.api.Laby;
+import net.labymod.api.client.gui.mouse.MutableMouse;
 import net.labymod.api.client.gui.screen.ScreenWrapper;
 import net.labymod.api.client.gui.window.Window;
 import net.labymod.api.configuration.settings.Setting;
@@ -100,7 +102,7 @@ public class VersionedReplayMod implements ReplayMod {
 
     @Override
     public void clickPauseResume() {
-      this.pauseResumeButton.getOnClick().run();
+      this.pauseResumeButton.onClick(this.toClick());
     }
 
     @Override
@@ -110,12 +112,17 @@ public class VersionedReplayMod implements ReplayMod {
 
     @Override
     public void clickStartStop() {
-      this.startStopButton.getOnClick().run();
+      this.startStopButton.onClick(this.toClick());
     }
 
     @Override
     public boolean isRecording() {
       return !this.controls.isStopped();
+    }
+
+    private Click toClick() {
+      MutableMouse mouse = Laby.labyAPI().minecraft().mouse();
+      return new Click(mouse.getX(), mouse.getY(), 0, 0);
     }
 
     private GuiButton getPauseResumeButton() {
