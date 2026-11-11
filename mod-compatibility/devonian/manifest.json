@@ -1,0 +1,17 @@
+{
+  "ids": ["devonian"],
+  "name": "Devonian",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [
+    {
+      "name": "glfw-mixin-loaded-too-early",
+      "description": "GLFWMixin fails to apply because its target (org.lwjgl.glfw.GLFW, or org.lwjgl.sdl.SDLEvents on 26.3+) is loaded too early under the LabyMod class loader, crashing during mixin prepare (MixinTargetAlreadyLoadedException). Fixed by retargeting the mixin to the poll call in Minecraft's pollEvents",
+      "affectedVersions": "*",
+      "impact": "HIGH",
+      "playable": true,
+      "fixed": true
+    }
+  ]
+}
