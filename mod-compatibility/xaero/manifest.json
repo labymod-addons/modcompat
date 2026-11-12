@@ -1,0 +1,17 @@
+{
+  "ids": ["xaerominimap", "xaerominimapfair", "xaeroworldmap"],
+  "name": "Xaero's Minimap and World Map",
+  "modLoaders": [
+    "fabricloader"
+  ],
+  "issues": [
+    {
+      "name": "retained-gui-flicker",
+      "description": "The minimap, in-world waypoints and the world map flicker with Faster Menus & HUD on. Xaero draws them while the gui is built, outside the gui render state, so frames that draw the kept gui again miss them. Fixed by building the gui on every frame while Xaero draws",
+      "affectedVersions": "1.21.8<*",
+      "impact": "MEDIUM",
+      "playable": true,
+      "fixed": true
+    }
+  ]
+}
